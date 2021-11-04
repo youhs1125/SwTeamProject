@@ -6,7 +6,11 @@ int main() {
 	printf("%d", a);
 
 	int b;
-	scanf("%d", b);
+	scanf("%d", &b);
 	printf("%d", b);
+
+	int c;
+	scanf("%d", &c);
+	printf("%d", a + b + c);
 	return 0;
 }
