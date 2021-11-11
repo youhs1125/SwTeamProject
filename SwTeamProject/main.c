@@ -152,5 +152,7 @@ int main()
 	UpdateRecord(&p);
 
 	getchar();
+
+	/*test*/
 	return 0;
 }
