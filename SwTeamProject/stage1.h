@@ -1,10 +1,10 @@
 #pragma once
 
-//���� â ������
+
 #define stage1Y 40
 #define stage1X 60
 
-//���� â ���� �ġ
+
 #define OriginX 3
 #define OriginY 1
 
