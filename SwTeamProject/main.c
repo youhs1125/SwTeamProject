@@ -78,6 +78,7 @@ void printStage()
 
 }
 
+
 void printCloud(int stage[40][60])
 {
 	int i, j;
