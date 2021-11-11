@@ -1,10 +1,10 @@
 #pragma once
 
-//╟тюс ц╒ ╩ГюлаН
+//О©╫О©╫О©╫О©╫ ц╒ О©╫О©╫О©╫О©╫О©╫О©╫
 #define stage1Y 40
 #define stage1X 60
 
-//╟тюс ц╒ ╫цюш ю╖д║
+//О©╫О©╫О©╫О©╫ ц╒ О©╫О©╫О©╫О©╫ О©╫д║
 #define OriginX 3
 #define OriginY 1
 
