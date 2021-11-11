@@ -13,10 +13,12 @@
 #define RIGHT 77
 #define JUMPHEIGHT -7
 
+
+//ì´ˆê¸° í™”ë©´ ì„¤ì •
 void initCmd()
 {
 	RemoveCursor();
-	system("mode con cols=150 lines=50");
+	system("mode con cols=200 lines=50");
 }
 
 
@@ -43,39 +45,40 @@ void printStage()
 {
 	int i;
 
+	//ìœ—,ì•„ë˜ - 58
 	for (i = 1; i < stage1X - 1; i++)
 	{
 		SetCurrentCursorPos(OriginX + (i * 2), OriginY);
-		printf("¦¡");
+		printf("â”€");
 		SetCurrentCursorPos(OriginX + (i * 2), stage1Y + OriginY - 1);
-		printf("¦¡");
+		printf("â”€");
 	}
 
+	//ì˜†
 	for (i = 0; i < stage1Y; i++)
 	{
 		if (i == 0)
 		{
 			SetCurrentCursorPos(OriginX, i + OriginY);
-			printf("¦£");
-			SetCurrentCursorPos(OriginY + (stage1X - 1) * 2, i + OriginY);
-			printf("¦¤");
+			printf("â”Œ");
+			SetCurrentCursorPos(OriginX + (stage1X - 1) * 2, i + OriginY);
+			printf("â”");
 		}
 		else if (i == stage1Y - 1)
 		{
 			SetCurrentCursorPos(OriginX, i + OriginY);
-			printf("¦¦");
-			SetCurrentCursorPos(OriginY + (stage1X - 1) * 2, i + OriginY);
-			printf("¦¥");
+			printf("â””");
+			SetCurrentCursorPos(OriginX + (stage1X - 1) * 2, i + OriginY);
+			printf("â”˜");
 		}
 		else
 		{
 			SetCurrentCursorPos(OriginX, i + OriginY);
-			printf("¦¢");
-			SetCurrentCursorPos(OriginY + (stage1X - 1) * 2, i + OriginY);
-			printf("¦¢");
+			printf("â”‚");
+			SetCurrentCursorPos(OriginX + (stage1X - 1) * 2, i + OriginY);
+			printf("â”‚");
 		}
 	}
-
 }
 
 
@@ -91,7 +94,7 @@ void printCloud(int stage[40][60])
 			curY = i + OriginY;
 			SetCurrentCursorPos(curX, curY);
 			if (stage[i][j] == 2)
-				printf("¡İ");
+				printf("â—");
 		}
 	}
 }
@@ -101,11 +104,11 @@ void drawPlayer(player* p)
 	int posX = OriginX + (p->x * 2);
 	int posY = OriginY + p->y;
 	SetCurrentCursorPos(posX, posY++);
-	printf("¡Ü");
+	printf("â—");
 	SetCurrentCursorPos(posX, posY++);
-	printf("¡á");
+	printf("â– ");
 	SetCurrentCursorPos(posX, posY);
-	printf("¡â");
+	printf("â–³");
 }
 
 void deletePlayer(player* p)
@@ -125,11 +128,11 @@ void drawNPC(NPC* npc)
 	int posX = OriginX + (npc->x * 2);
 	int posY = OriginY + npc->y - 1;
 	SetCurrentCursorPos(posX, posY++);
-	printf("¡Û");
+	printf("â—‹");
 	SetCurrentCursorPos(posX, posY++);
-	printf("¡Ş");
+	printf("â—‡");
 	SetCurrentCursorPos(posX, posY);
-	printf("¡ã");
+	printf("â–²");
 }
 
 void UpdateRecord(player* p)
@@ -138,19 +141,19 @@ void UpdateRecord(player* p)
 	int curY = 20;
 	int i;
 	SetCurrentCursorPos(curX, curY++);
-	printf("ÇöÀç ½ºÅ×ÀÌÁö: %d", p->stageNum);
+	printf("í˜„ì¬ ìŠ¤í…Œì´ì§€: %d", p->stageNum);
 	SetCurrentCursorPos(curX, curY++);
-	printf("³²Àº ¸ñ¼û: ");
+	printf("ë‚¨ì€ ëª©ìˆ¨: ");
 	for (i = 0; i < p->life; i++)
-		printf("¢¾");
+		printf("â™¥");
 	for (i = 0; i < 3 - p->life; i++)
 		printf("  ");
 	SetCurrentCursorPos(curX, curY++);
-	printf("¸ğÀº µå·¡°ï º¼ ÃÑ °³¼ö: %d", p->totalBalls);
+	printf("ëª¨ì€ ë“œë˜ê³¤ ë³¼ ì´ ê°œìˆ˜: %d", p->totalBalls);
 	SetCurrentCursorPos(curX, curY++);
-	printf("ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ ¸ğÀº º¼ °³¼ö: %d", p->balls);
+	printf("ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ ëª¨ì€ ë³¼ ê°œìˆ˜: %d", p->balls);
 	SetCurrentCursorPos(curX, curY++);
-	printf("ÁÂ¿ì ÀÌµ¿ <- -> ¹æÇâÅ°");
+	printf("ì¢Œìš° ì´ë™ <- -> ë°©í–¥í‚¤");
 
 }
 
@@ -171,7 +174,7 @@ void recoverCloud(player* p, int stage[][60])
 			curY = i + OriginY;
 			SetCurrentCursorPos(curX, curY);
 			if (stage[i][j] == 2)
-				printf("¡İ");
+				printf("â—");
 		}
 	}
 }
@@ -224,7 +227,7 @@ int playerJump(player* p, int* jump, int stage[][60])
 		coll = detectColl(p->x, p->y - moveY, stage);
 	}
 
-	if (moveY < 0 && coll == 1 && flag <= 0)		// ¹Ù´Ú¿¡ ºØ ¶ß°Ô µÇ¾úÀ» ¶§
+	if (moveY < 0 && coll == 1 && flag <= 0)		// ë°”ë‹¥ì— ë¶• ëœ¨ê²Œ ë˜ì—ˆì„ ë•Œ
 	{
 		moveY = -1;
 		int temp = detectColl(p->x, p->y - moveY, stage);
@@ -237,7 +240,7 @@ int playerJump(player* p, int* jump, int stage[][60])
 			drawPlayer(p);
 		}
 	}
-	else if (coll == 0 || (coll != 2 && moveY >= 0) || flag > 0)	//ÀÏ¹İÀûÀÎ Á¡ÇÁ
+	else if (coll == 0 || (coll != 2 && moveY >= 0) || flag > 0)	//ì¼ë°˜ì ì¸ ì í”„
 	{
 		Sleep(50);
 		deletePlayer(p);
