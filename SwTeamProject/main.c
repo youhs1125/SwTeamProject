@@ -13,10 +13,11 @@
 #define RIGHT 77
 #define JUMPHEIGHT -7
 
+//√ ±‚ »≠∏È º≥¡§
 void initCmd()
 {
 	RemoveCursor();
-	system("mode con cols=150 lines=50");
+	system("mode con cols=200 lines=50");
 }
 
 
@@ -43,6 +44,7 @@ void printStage()
 {
 	int i;
 
+	//¿≠,æ∆∑° - 58
 	for (i = 1; i < stage1X - 1; i++)
 	{
 		SetCurrentCursorPos(OriginX + (i * 2), OriginY);
@@ -51,31 +53,31 @@ void printStage()
 		printf("¶°");
 	}
 
+	//ø∑
 	for (i = 0; i < stage1Y; i++)
 	{
 		if (i == 0)
 		{
 			SetCurrentCursorPos(OriginX, i + OriginY);
 			printf("¶£");
-			SetCurrentCursorPos(OriginY + (stage1X - 1) * 2, i + OriginY);
+			SetCurrentCursorPos(OriginX + (stage1X - 1) * 2, i + OriginY);
 			printf("¶§");
 		}
 		else if (i == stage1Y - 1)
 		{
 			SetCurrentCursorPos(OriginX, i + OriginY);
 			printf("¶¶");
-			SetCurrentCursorPos(OriginY + (stage1X - 1) * 2, i + OriginY);
+			SetCurrentCursorPos(OriginX + (stage1X - 1) * 2, i + OriginY);
 			printf("¶•");
 		}
 		else
 		{
 			SetCurrentCursorPos(OriginX, i + OriginY);
 			printf("¶¢");
-			SetCurrentCursorPos(OriginY + (stage1X - 1) * 2, i + OriginY);
+			SetCurrentCursorPos(OriginX + (stage1X - 1) * 2, i + OriginY);
 			printf("¶¢");
 		}
 	}
-
 }
 
 

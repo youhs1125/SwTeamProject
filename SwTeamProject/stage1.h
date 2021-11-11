@@ -1,9 +1,14 @@
 #pragma once
 
+//게임 창 사이즈
 #define stage1Y 40
 #define stage1X 60
-#define OriginX 5
-#define OriginY 5
+
+//게임 창 시작 위치
+#define OriginX 3
+#define OriginY 1
+
+//
 #define GameX 7
 #define GameY 7
 
