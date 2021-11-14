@@ -1,14 +1,7 @@
-#pragma once
-
-
 #define stage1Y 40
 #define stage1X 60
-
-
-#define OriginX 3
-#define OriginY 1
-
-//
+#define OriginX 5
+#define OriginY 5
 #define GameX 7
 #define GameY 7
 
