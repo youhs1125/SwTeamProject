@@ -140,12 +140,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cursor.c" />
+    <ClCompile Include="DragonBall.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="Track.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="characters.h" />
     <ClInclude Include="cursor.h" />
-    <ClInclude Include="stage1.h" />
+    <ClInclude Include="DragonBall.h" />
+    <ClInclude Include="stage.h" />
+    <ClInclude Include="Track.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
