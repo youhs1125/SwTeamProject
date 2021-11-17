@@ -21,15 +21,27 @@
     <ClCompile Include="cursor.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="DragonBall.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Track.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cursor.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="stage1.h">
+    <ClInclude Include="stage.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="characters.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DragonBall.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Track.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

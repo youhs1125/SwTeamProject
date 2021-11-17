@@ -1,0 +1,42 @@
+메인에 있는 함수 목록
+
+
+initCmd() : 화면 사이즈 설정
+
+initPlayer(player *p) : player 정보 설정
+
+initNPC(NPC* npc, int posX, int posY) : 
+
+printStage() : 스테이지 정보 출력
+
+printCloud(int stage[40][60]) : 구름 출력
+
+drawPlayer(player *p)
+
+deletePlayer(player *p)
+
+drawNPC(NPC *npc)
+
+UpdateRecord(player *p)
+
+recoverCloud(player *p, int stage[][])
+
+detectColl(int x,int y, int stage[][])
+
+jumpColl(int x, int y, int stage[][])
+
+JumpVector(int y)
+
+playerJump()
+
+moveLeft
+
+moveRight
+
+processKeyInput
+
+respawnPlayer
+
+isGameOver(player *p)
+
+distance(int x, int y)
