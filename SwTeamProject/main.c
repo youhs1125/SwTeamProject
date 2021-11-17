@@ -208,7 +208,7 @@ int JumpVector(int y)
 int playerJump(player* p, int* jump, int stage[][60])
 {
 	static int flag = 0;
-	static int cloudFlag = 0;
+//	static int cloudFlag = 0;
 	int moveY = JumpVector(*jump);
 	(*jump)++;
 	if (moveY > 2)
