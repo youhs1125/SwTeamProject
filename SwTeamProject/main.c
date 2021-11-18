@@ -148,35 +148,19 @@ void drawPlayer(player* p)
 	printf("△");
 }
 
-void deletePlayer(player* p, int stage[][60])
+void deletePlayer(player* p)
 {
 	int posX = OriginX + (p->x * 2);
 	int posY = OriginY + p->y;
-
 	SetCurrentCursorPos(posX, posY++);								//해당 부분 다시 맵과 비교해서 복구
 	if (stageArr[p->stageNum][p->y][p->x] == 0)
 		printf("  "); 
-	else if (stageArr[p->stageNum][p->y][p->x] % 2 == 0) //구름 복구
+	else if (stageArr[p->stageNum][p->y][p->x] % 2 == 0)
 		printf("◎");
-	else if (stageArr[p->stageNum][p->y][p->x] % 3 == 0) //스테이지 포탈 복구
-		printf("★");
-
 	SetCurrentCursorPos(posX, posY++);
-	if (stageArr[p->stageNum][p->y + 1][p->x] == 0)
-		printf("  ");
-	else if (stageArr[p->stageNum][p->y + 1][p->x] % 2 == 0)
-		printf("◎");
-	else if (stageArr[p->stageNum][p->y + 1][p->x] % 3 == 0)
-		printf("★");
-
+	printf("  ");
 	SetCurrentCursorPos(posX, posY);
-	if (stageArr[p->stageNum][p->y + 2][p->x] == 0)
-		printf("  ");
-	else if (stageArr[p->stageNum][p->y + 2][p->x] % 2 == 0)
-		printf("◎");
-	else if (stageArr[p->stageNum][p->y + 2][p->x] % 3 == 0)
-		printf("★");
-	
+	printf("  ");
 }
 
 void UpdateRecord(player* p)
@@ -203,6 +187,32 @@ void UpdateRecord(player* p)
 	printf("이번 스테이지에서 모은 볼 개수: %d", p->balls);
 	SetCurrentCursorPos(curX, curY++);
 	printf("좌우 이동 <- -> 방향키");
+}
+
+void recoverCloud(player* p, int stage[][60])
+{
+	int i, j;
+	int curX, curY;
+	int startX = p->x - 8 < 0 ? 0 : p->x - 8;
+	int startY = p->y - 8 < 0 ? 0 : p->y - 8;
+	int limitY = p->y + 2 >= stage1Y ? stage1Y - 1 : p->y + 2;
+	int limitX = p->x + 8 >= stage1X ? stage1X - 1 : p->x + 8;
+
+	for (i = startY; i < limitY; i++)
+	{
+		for (j = startX; j < limitX; j++)
+		{
+			curX = j * 2 + OriginX;
+			curY = i + OriginY;
+			SetCurrentCursorPos(curX, curY);
+			if (stage[i][j] == 2)
+				printf("◎");
+		}
+	}
+}
+
+void redraw() {
+	
 }
 
 int detectColl(int x, int y, int stage[][60])
@@ -266,7 +276,7 @@ int playerJump(player* p, int* jump, int stage[][60])
 		if (temp == 0) //구름 위에 서 있는 상태라면
 		{
 			//캐릭터 올려주기
-			deletePlayer(p, stage);
+			deletePlayer(p);
 			p->y -= moveY;
 			drawPlayer(p);
 		}
@@ -274,7 +284,7 @@ int playerJump(player* p, int* jump, int stage[][60])
 	}
 	else if (coll == 0 || (coll != 2 && moveY >= 0) || flag > 0)	//일반적인 점프 or 구름에 껴 있는 경우
 	{
-		deletePlayer(p, stage);
+		deletePlayer(p);
 		p->y -= moveY;
 		drawPlayer(p);
 
@@ -295,7 +305,7 @@ void moveLeft(player* p, int stage[][60])
 {
 	if (detectColl(p->x - 1, p->y, stage) != 2)
 	{
-		deletePlayer(p,stage);
+		deletePlayer(p);
 		p->x -= 1;
 		drawPlayer(p);
 	}
@@ -305,7 +315,7 @@ void moveRight(player* p, int stage[][60])
 {
 	if (detectColl(p->x + 1, p->y, stage) != 2)
 	{
-		deletePlayer(p,stage);
+		deletePlayer(p);
 		p->x += 1;
 		drawPlayer(p);
 	}
@@ -334,9 +344,9 @@ void processKeyInput(player* p, int stage[][60])
 	}
 }
 
-void respawnPlayer(player* p, int stage[][60])
+void respawnPlayer(player* p)
 {
-	deletePlayer(p, stage);
+	deletePlayer(p);
 	p->x = 56;
 	p->y = 32;
 	p->life--;
@@ -395,7 +405,7 @@ void gotoNextStage(player* p, DragonBall dgball[][3], StageDoor *std) {
 	printCloud(stageArr[p->stageNum], dgball[p->stageNum]);
 	
 	p->life++; //respawnPlayer에서 life를 한칸 깍으므로 미리 추가해두기
-	respawnPlayer(p, stageArr[p->stageNum]); //deletePlayer 함수 에서 문을 삭제시키므로 가장 마지막에 printStageDoor 출력해야함
+	respawnPlayer(p); //deletePlayer 함수 에서 문을 삭제시키므로 가장 마지막에 printStageDoor 출력해야함
 	printStageDoor(std, stageArr[p->stageNum], p->stageNum);
 
 	p->balls = 0;
@@ -449,6 +459,7 @@ int main()
 		jumpFlag = playerJump(&p, &jump, stageArr[p.stageNum]);
 		count++;
 
+		recoverCloud(&p, stageArr[p.stageNum]);
 
 		if (jumpFlag == 1) //
 			jump = JUMPHEIGHT;
@@ -459,7 +470,7 @@ int main()
 			npc.x = 1; npc.y = 1;
 
 			//플레이어 삭제 and 위치 재설정 and 기록변경
-			respawnPlayer(&p, stageArr[p.stageNum]);
+			respawnPlayer(&p);
 			UpdateRecord(&p);
 		}
 
