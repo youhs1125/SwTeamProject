@@ -1,11 +1,10 @@
 #pragma once
 #include <Windows.h>
 #include <stdio.h>
+
+#include "Common.h"
 #include "characters.h"
-#include "cursor.h"
-#define OriginX 5
-#define OriginY 10
-#define JUMPHEIGHT -7
+
 
 typedef struct SPECIALCLOUD
 {

@@ -139,20 +139,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cloud.c" />
-    <ClCompile Include="cursor.c" />
+    <ClCompile Include="Cloud.c" />
+    <ClCompile Include="Common.c" />
     <ClCompile Include="DragonBall.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="Track.c" />
+    <ClCompile Include="NextStage.c" />
+    <ClCompile Include="NpcTrack.c" />
+    <ClCompile Include="StartScreen.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="characters.h" />
-    <ClInclude Include="cloud.h" />
-    <ClInclude Include="cursor.h" />
+    <ClInclude Include="Characters.h" />
+    <ClInclude Include="Cloud.h" />
+    <ClInclude Include="Common.h" />
     <ClInclude Include="DragonBall.h" />
-    <ClInclude Include="stage.h" />
-    <ClInclude Include="stage1.h" />
-    <ClInclude Include="Track.h" />
+    <ClInclude Include="NextStage.h" />
+    <ClInclude Include="StageArr.h" />
+    <ClInclude Include="NpcTrack.h" />
+    <ClInclude Include="StartScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

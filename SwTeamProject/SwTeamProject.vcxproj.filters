@@ -18,39 +18,48 @@
     <ClCompile Include="main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cursor.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="DragonBall.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Track.c">
+    <ClCompile Include="NpcTrack.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cloud.c">
+    <ClCompile Include="Cloud.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="NextStage.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScreen.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cursor.h">
+    <ClInclude Include="StageArr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="stage.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="characters.h">
+    <ClInclude Include="Characters.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="DragonBall.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Track.h">
+    <ClInclude Include="NpcTrack.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cloud.h">
+    <ClInclude Include="Cloud.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="stage1.h">
+    <ClInclude Include="NextStage.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScreen.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
