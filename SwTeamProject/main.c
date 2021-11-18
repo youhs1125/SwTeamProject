@@ -152,25 +152,16 @@ void deletePlayer(player* p)
 {
 	int posX = OriginX + (p->x * 2);
 	int posY = OriginY + p->y;
-	SetCurrentCursorPos(posX, posY++);
-	printf("  ");
+	SetCurrentCursorPos(posX, posY++);								//해당 부분 다시 맵과 비교해서 복구
+	if (stageArr[p->stageNum][p->y][p->x] == 0)
+		printf("  "); 
+	else if (stageArr[p->stageNum][p->y][p->x] % 2 == 0)
+		printf("◎");
 	SetCurrentCursorPos(posX, posY++);
 	printf("  ");
 	SetCurrentCursorPos(posX, posY);
 	printf("  ");
 }
-
-//void drawNPC(NPC* npc)
-//{
-//	int posX = OriginX + (npc->x * 2);
-//	int posY = OriginY + npc->y - 1;
-//	SetCurrentCursorPos(posX, posY++);
-//	printf("○");
-//	SetCurrentCursorPos(posX, posY++);
-//	printf("◇");
-//	SetCurrentCursorPos(posX, posY);
-//	printf("▲");
-//}
 
 void UpdateRecord(player* p)
 {
@@ -179,12 +170,17 @@ void UpdateRecord(player* p)
 	int i;
 	SetCurrentCursorPos(curX, curY++);
 	printf("현재 스테이지: %d", p->stageNum);
+
 	SetCurrentCursorPos(curX, curY++);
 	printf("남은 목숨: ");
-	for (i = 0; i < p->life; i++)
-		printf("♥");
-	for (i = 0; i < 3 - p->life; i++)
+	COORD pos = GetCurrentCursorPos(); //하트를 다시 그리기 위해 위치 기억
+	for (int i = 0; i < 10; i++) //기존 하트 지우기
 		printf("  ");
+	SetCurrentCursorPos(pos.X, pos.Y);
+	for (i = 0; i < p->life; i++) //새로 하트 그리기.
+		printf("♥");
+
+
 	SetCurrentCursorPos(curX, curY++);
 	printf("모은 드래곤 볼 총 개수: %d", p->totalBalls);
 	SetCurrentCursorPos(curX, curY++);
@@ -389,8 +385,13 @@ void drawNpc(NPC *npc) {
 //스테이지 이동 관련 함수들 - 출력을 해야 하기 때문에 따로 모듈로 만들기 x
 void setStageDoor(StageDoor* std) {
 	std[0].x = 46; std[0].y = 4;
+	stageArr[0][std[0].y][std[0].x] = 3;
+
 	std[1].x = 46; std[1].y = 4;
+	stageArr[1][std[1].y][std[1].x] = 3;
+
 	std[2].x = 46; std[2].y = 4;
+	stageArr[2][std[2].y][std[2].x] = 3;
 }
 void printStageDoor(StageDoor* std, int stage[][60], int stageNum) {
 	int posX = std[stageNum].x * 2 + OriginX;
@@ -435,19 +436,19 @@ int main()
 	int posX, posY;
 	int count = 0;
 
+	//settings
 	initCmd();
-	printStage();
+	initNPC(&npc, 1, 1);
 	initPlayer(&p);
 	setDragonBallPos(dgball);
+	setStageDoor(stageDoor);
 
-	initNPC(&npc, 1, 1);
+	//initial printing
+	printStage();
 	printCloud(stageArr[p.stageNum], dgball[p.stageNum]);
 	drawPlayer(&p);
-	UpdateRecord(&p);
-
-	//stageDoor
-	setStageDoor(stageDoor);
 	printStageDoor(stageDoor, stageArr[p.stageNum], p.stageNum);
+	UpdateRecord(&p);
 
 
 	//test
@@ -483,21 +484,6 @@ int main()
 		}
 
 		processKeyInput(&p, stageArr[p.stageNum]);
-		//플레이어 움직인 후 npc이동 시작
-		//추적 알고리즘 시작
-		//addNpcCnt(&npc);
-		//int dis =getDistance(p.x - npc.x, p.y - npc.y);   //캐릭터와 npc사이의 거리
-		//if (dis <= 1) {  //최소 거리 루트2 이하이면 끝내기.
-		//	deleteNpc(&npc, p.stageNum);
-		//	deletePlayer(&p);
-		//	respawnPlayer(&p);
-		//	npc.x = 1; npc.y = 1;
-		//}
-		//if (npc.cnt % npc.npcSpeed == 0){
-		//	deleteNpc(&npc, p.stageNum);
-		//	updateNpcPos(&p, &npc);
-		//	drawNpc(&npc);
-		//}
 	}
 
 	SetCurrentCursorPos(0, 0);
