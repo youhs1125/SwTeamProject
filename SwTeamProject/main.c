@@ -450,6 +450,8 @@ int main()
 	printStageDoor(stageDoor, stageArr[p.stageNum], p.stageNum);
 
 
+	//test
+
 	while (1)
 	{	
 		if (isGameOver(&p))
