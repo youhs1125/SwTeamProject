@@ -53,3 +53,14 @@ int dragonBallGet(player *p, DragonBall dgb[]) {
 	}
 	return 0;
 }
+
+
+//void checkDragonBall(void) {
+//	
+//};
+//void stageCheck(void) {
+//
+//};
+//void gotoNextStage(void) {
+//
+//};

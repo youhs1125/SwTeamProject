@@ -181,3 +181,56 @@ void moveCloud(cloud* cloudArr, int stage[][60])
 	}
 }
 
+int jumpHigh(int height)
+{
+	return (int)(height * 1.5);
+}
+
+void blink(int* cloudVis)
+{
+	if (*cloudVis == 0)
+		*cloudVis = 1;
+	else
+		*cloudVis = 0;
+}
+void vanishCloud(int* cloudVis)
+{
+	blink(cloudVis);
+}
+
+int cloudColl(int x, int y, int size, int stage[][60])
+{
+	if (x <= 1 || x + size >= 59 || y <= 1 || y >= 39)
+		return 1;
+	else
+		return 0;
+}
+
+void printJumpCloud()
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3); //3 옥색
+	printf("◎");
+}
+
+void printWeakCloud()
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);		//10 연한 초록
+	printf("◎");
+}
+
+void printBlinkCloud()
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);	//8 회색
+	printf("◎");
+}
+
+void printNormalCloud()
+{
+	printf("◎");
+}
+
+void printTrapCloud()
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 연한 빨강
+	printf("▲");
+}

@@ -1,4 +1,10 @@
 #pragma once
+#include <Windows.h>
+#include <stdio.h>
+#include "characters.h"
+#include "cursor.h"
+#define OriginX 5
+#define OriginY 10
 #define JUMPHEIGHT -7
 
 typedef struct SPECIALCLOUD
@@ -11,59 +17,23 @@ typedef struct SPECIALCLOUD
 }cloud;
 
 
-int jumpHigh(int height)
-{
-	return (int)(height * 1.5);
-}
+int jumpHigh(int height);
 
-void blink(int* cloudVis)
-{
-	if (*cloudVis == 0)
-		*cloudVis = 1;
-	else
-		*cloudVis = 0;
-}
-void vanishCloud(int* cloudVis)
-{
-	blink(cloudVis);
-}
+void blink(int* cloudVis);
 
-int cloudColl(int x, int y, int size, int stage[][60])
-{
-	if (x <= 1 || x + size >= 59 || y <= 1 || y >= 39)
-		return 1;
-	else
-		return 0;
-}
+void vanishCloud(int* cloudVis);
 
-void printJumpCloud()
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3); //3 옥색
-	printf("◎");
-}
+int cloudColl(int x, int y, int size, int stage[][60]);
 
-void printWeakCloud()
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);		//10 연한 초록
-	printf("◎");
-}
+void printJumpCloud();
 
-void printBlinkCloud()
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);	//8 회색
-	printf("◎");
-}
+void printWeakCloud();
 
-void printNormalCloud()
-{
-	printf("◎");
-}
+void printBlinkCloud();
 
-void printTrapCloud()
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 연한 빨강
-	printf("▲");
-}
+void printNormalCloud();
+
+void printTrapCloud();
 
 void recoverCloud(int x, int y, int stage[][60]);
 
