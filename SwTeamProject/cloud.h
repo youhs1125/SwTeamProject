@@ -1,6 +1,10 @@
 #pragma once
 #include <Windows.h>
-#define JUMPHEIGHT -7
+#include <stdio.h>
+
+#include "Common.h"
+#include "characters.h"
+
 
 typedef struct SPECIALCLOUD
 {
@@ -12,144 +16,25 @@ typedef struct SPECIALCLOUD
 }cloud;
 
 
-int jumpHigh(int height)
-{
-	return (int)(height * 1.5);
-}
+int jumpHigh(int height);
 
-void blink(int* cloudVis)
-{
-	if (*cloudVis == 0)
-		*cloudVis = 1;
-	else
-		*cloudVis = 0;
-}
-void vanishCloud(int* cloudVis)
-{
-	blink(cloudVis);
-}
+void blink(int* cloudVis);
 
-int cloudColl(int x, int y, int size, int stage[][60])
-{
-	if (x <= 1 || x + size >= 59 || y <= 1 || y >= 39)
-		return 1;
-	else
-		return 0;
-}
+void vanishCloud(int* cloudVis);
 
-void printJumpCloud()
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3); //3 옥색
-	printf("◎");
-}
+int cloudColl(int x, int y, int size, int stage[][60]);
 
-void printWeakCloud()
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);		//10 연한 초록
-	printf("◎");
-}
+void printJumpCloud();
 
-void printBlinkCloud()
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);	//8 회색
-	printf("◎");
-}
+void printWeakCloud();
 
-void printNormalCloud()
-{
-	printf("◎");
-}
+void printBlinkCloud();
 
-void printTrapCloud()
-{
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 연한 빨강
-	printf("▲");
-}
+void printNormalCloud();
 
-void recoverCloud(int x, int y, int stage[][60])
-{
-	if (stage[y][x] % 2 == 0)
-		printNormalCloud();
-	else if (stage[y][x] % 3 == 0)
-		printJumpCloud();
-	else if (stage[y][x] % 5 == 0)
-		printWeakCloud();
-	else if (stage[y][x] % 7 == 0)
-		printBlinkCloud();
-	else if (stage[y][x] % 11 == 0)
-		printTrapCloud();
-	else if (stage[y][x] == 1)
-		printf("  ");
+void printTrapCloud();
 
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		//7 흰색
-}
-
-
-void drawSpecialCloud(cloud* cloud, int stage[][60])
-{
-	int posX = OriginX + (cloud->x * 2);
-	int posY = OriginY + cloud->y;
-	int i;
-	SetCurrentCursorPos(posX, posY);
-
-	if (cloud->vis == 0)
-		return;
-	if (cloud->cloudType == 3)
-	{
-		for (i = 0; i < cloud->size; i++)
-		{
-			stage[cloud->y][cloud->x + i] *= cloud->cloudType;
-			printJumpCloud();
-		}
-	}
-	else if (cloud->cloudType == 5)
-	{
-		for (i = 0; i < cloud->size; i++)
-		{
-			stage[cloud->y][cloud->x + i] *= cloud->cloudType;
-			printWeakCloud();
-		}
-	}
-	else if (cloud->cloudType == 7)
-	{
-		for (i = 0; i < cloud->size; i++)
-		{
-			stage[cloud->y][cloud->x + i] *= cloud->cloudType;
-			printBlinkCloud();
-		}
-	}
-	else if (cloud->cloudType == 11)
-	{
-		for (i = 0; i < cloud->size; i++)
-		{
-			stage[cloud->y][cloud->x + i] *= cloud->cloudType;
-			printTrapCloud();
-		}
-	}
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		//7 흰색
-
-
-	return;
-}
-
-void deleteSpecialCloud(cloud* cloud, int stage[][60])
-{
-	int posX = OriginX + (cloud->x * 2);
-	int posY = OriginY + cloud->y;
-	int i;
-
-
-	if (stage[cloud->y][cloud->x] > 2)		//그려진 것을 지워야 함 => 1은 허공 => 없는 것을 지우면 X
-	{
-		for (i = 0; i < cloud->size; i++)
-			stage[cloud->y][cloud->x + i] /= cloud->cloudType;
-
-		SetCurrentCursorPos(posX, posY);
-
-		for (i = 0; i < cloud->size; i++)
-			recoverCloud(cloud->x + i, cloud->y, stage);
-	}
-}
+void recoverCloud(int x, int y, int stage[][60]);
 
 void initSpecialCloud(cloud* cloudArray, int size)
 {
@@ -167,22 +52,17 @@ void initSpecialCloud(cloud* cloudArray, int size)
 		else if (temp == 3)
 			cloudArray[i].cloudType = 11;		//함정 구름
 
+void drawSpecialCloud(cloud* cloud, int stage[][60]);
 
 		cloudArray[i].movement = rand() % 5 - 3;		//0 정지, 1 좌우 2 상하 (+- 방향)
 		cloudArray[i].size = rand() % 5 + 3;
 
-		cloudArray[i].x = rand() % (59 - cloudArray[i].size) + 1;
-		cloudArray[i].y = rand() % 37 + 2;
-		cloudArray[i].vis = 1;
-	}
+void deleteSpecialCloud(cloud* cloud, int stage[][60]);
 
 	return;
 }
 
-int collSpecialCloud(cloud* cloudArr, player* p, int stage[][60])
-{
-	int temp = stage[p->y + 3][p->x];
-	int i;
+void initSpecialCloud(cloud* cloudArray, int size);
 
 	for (i = 0; i < 5; i++)
 	{
@@ -203,9 +83,7 @@ int collSpecialCloud(cloud* cloudArr, player* p, int stage[][60])
 	return JUMPHEIGHT;
 }
 
-void moveCloud(cloud* cloudArr, int stage[][60])
-{
-	static int blinkCount = 0;
+int collSpecialCloud(cloud* cloudArr, player* p, int stage[][60]);
 
 	if (cloudArr->cloudType == 7)
 	{
@@ -214,35 +92,5 @@ void moveCloud(cloud* cloudArr, int stage[][60])
 	}
 	blinkCount++;
 
-	if (cloudArr->movement == 0)
-		return;
-	if (cloudArr->movement == 1)
-	{
-		if (cloudColl(cloudArr->x + 1, cloudArr->y, cloudArr->size, stage))
-			cloudArr->movement *= -1;
-		else
-			cloudArr->x++;
-	}
-	else if (cloudArr->movement == -1)
-	{
-		if (cloudColl(cloudArr->x - 1, cloudArr->y, cloudArr->size, stage))
-			cloudArr->movement *= -1;
-		else
-			cloudArr->x--;
-	}
-	else if (cloudArr->movement == 2)
-	{
-		if (cloudColl(cloudArr->x, cloudArr->y + 1, cloudArr->size, stage))
-			cloudArr->movement *= -1;
-		else
-			cloudArr->y++;
-	}
-	else if (cloudArr->movement == -2)
-	{
-		if (cloudColl(cloudArr->x, cloudArr->y - 1, cloudArr->size, stage))
-			cloudArr->movement *= -1;
-		else
-			cloudArr->y--;
-	}
-}
+void moveCloud(cloud* cloudArr, int stage[][60]);
 

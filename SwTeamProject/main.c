@@ -16,7 +16,7 @@ int main()
 	DragonBall dgball[3][3];
 	StageDoor stageDoor[3];
 	cloud sCloud[5];
-
+	
 	srand((unsigned int)time(NULL));
 
 	npc.x = 1, npc.y = 1;     //±âº» °ª
@@ -25,7 +25,7 @@ int main()
 	int jumpFlag = 0;
 	int count = 0;
 
-
+	
 	printStage();
 	initPlayer(&p);
 	setDragonBallPos(dgball);
