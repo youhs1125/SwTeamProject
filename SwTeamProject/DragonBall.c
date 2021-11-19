@@ -1,7 +1,7 @@
 #include "DragonBall.h"
 
 void setDragonBallPos(DragonBall dgb[][3]) {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	dgb[0][0].x = 30;
 	dgb[0][0].y = 15;
 	dgb[0][0].get = 0;
@@ -53,14 +53,3 @@ int dragonBallGet(player *p, DragonBall dgb[]) {
 	}
 	return 0;
 }
-
-
-//void checkDragonBall(void) {
-//	
-//};
-//void stageCheck(void) {
-//
-//};
-//void gotoNextStage(void) {
-//
-//};

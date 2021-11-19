@@ -1,4 +1,5 @@
 #pragma once
+#include <Windows.h>
 #define JUMPHEIGHT -7
 
 typedef struct SPECIALCLOUD

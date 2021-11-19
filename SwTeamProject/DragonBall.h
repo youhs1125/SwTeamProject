@@ -14,6 +14,3 @@ typedef struct DragonBall {
 
 void setDragonBallPos(DragonBall *dgb);
 int dragonBallGet(player* p, DragonBall* dgb);
-/*void checkDragonBall(void);
-void stageCheck(void);
-void gotoNextStage(void)*/;
