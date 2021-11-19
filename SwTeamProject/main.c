@@ -5,6 +5,7 @@
 #include "NpcTrack.h"
 #include "NextStage.h"
 #include "StartScreen.h"
+#include "cloud.h"
 
 int main()
 {
