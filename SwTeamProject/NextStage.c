@@ -21,7 +21,6 @@ int checkStageDoor(player* p, StageDoor* std, int stageNum) {
 }
 
 void gotoNextStage(player* p, DragonBall dgball[][3], StageDoor* std, int stage[][60]) {
-	p->stageNum++;
 	printStage();
 	printCloud(stage, dgball[p->stageNum]);
 

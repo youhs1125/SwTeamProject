@@ -86,6 +86,7 @@ int main()
 		if (dragonBallGet(&p, dgball[p.stageNum]) == 1) //드래곤볼 위치와 플레이어 위치 비교 후 정보 업데이트
 			UpdateRecord(&p);
 		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //드래곤볼 전부 모으고 and 문 앞에 서 있으면 다음 스테이지로 이동
+			p.stageNum++;
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5);
 		}
@@ -106,7 +107,6 @@ int main()
 		//	updateNpcPos(&p, &npc);
 		//	drawNpc(&npc);
 		//}
-
 	}
 
 	SetCurrentCursorPos(0, 0);
