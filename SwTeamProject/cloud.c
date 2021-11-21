@@ -13,6 +13,10 @@ void recoverCloud(int x, int y, int stage[][60])
 		printBlinkCloud();
 	else if (stage[y][x] % 11 == 0)
 		printTrapCloud();
+	else if (stage[y][x] % 97 == 0)
+		printf("¡Ú");
+	else if (stage[y][x] % 89 == 0)
+		printf("¡Ü");
 	else if (stage[y][x] == 1)
 		printf("  ");
 
