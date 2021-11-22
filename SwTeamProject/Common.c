@@ -107,7 +107,8 @@ void printCloud(int stage[40][60], DragonBall dgb[])
 	}
 
 	//드래곤볼 그려주기
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 3; i++) {				//드래곤볼 => 89
+		stage[dgb[i].y][dgb[i].x] *= 89;
 		curX = dgb[i].x * 2 + OriginX;
 		curY = dgb[i].y + OriginY;
 		SetCurrentCursorPos(curX, curY);
@@ -249,6 +250,8 @@ int detectColl(int x, int y, int stage[][60])
 		return 0;
 	//else if (stage[y][x] == 2 || stage[y + 1][x] == 2 || stage[y + 2][x] == 2) //구름과 겹쳐진 상태
 	//	return 1;
+	else if (stage[y][x] % 89 == 0 || stage[y + 1][x] % 89 == 0 || stage[y + 2][x] % 89 == 0) //드래곤볼 충돌 예외
+		return 0;
 	else
 		return 1;
 }

@@ -5,6 +5,7 @@
 #include "NpcTrack.h"
 #include "NextStage.h"
 #include "StartScreen.h"
+#include "cloud.h"
 
 int main()
 {
@@ -44,7 +45,7 @@ int main()
 		drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 
 	while (1)
-	{	
+	{
 		if (isGameOver(&p))
 			break;
 
@@ -83,9 +84,10 @@ int main()
 		}
 
 		//드래곤볼 and 스테이지 종료 확인
-		if (dragonBallGet(&p, dgball[p.stageNum]) == 1) //드래곤볼 위치와 플레이어 위치 비교 후 정보 업데이트
+		if (dragonBallGet(&p, dgball[p.stageNum],stageArr[p.stageNum]) == 1) //드래곤볼 위치와 플레이어 위치 비교 후 정보 업데이트
 			UpdateRecord(&p);
 		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //드래곤볼 전부 모으고 and 문 앞에 서 있으면 다음 스테이지로 이동
+			p.stageNum++;
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5);
 		}
@@ -110,7 +112,7 @@ int main()
 	}
 
 	SetCurrentCursorPos(0, 0);
-	
+
 	printf("GameOver");
 
 	return 0;

@@ -41,13 +41,14 @@ void setDragonBallPos(DragonBall dgb[][3]) {
 }
 
 
-int dragonBallGet(player *p, DragonBall dgb[]) {
+int dragonBallGet(player *p, DragonBall dgb[], int stage[][60]) {
 	for (int i = 0; i < 3; i++) {
 		//공과 플레이어의 위치가 일치하고 공을 갖고 있지 않은 상태일 경우에 
 		if (dgb[i].x == p->x && (dgb[i].y == p->y || dgb[i].y == p->y+1 || dgb[i].y == p->y+2) && dgb[i].get == 0) {
 			dgb[i].get = 1;
 			p->balls++;
 			p->totalBalls++;
+			stage[dgb[i].y][dgb[i].x] /= 89;
 			return 1;
 		}
 	}
