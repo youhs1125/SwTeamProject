@@ -142,6 +142,7 @@
     <ClCompile Include="Cloud.c" />
     <ClCompile Include="Common.c" />
     <ClCompile Include="DragonBall.c" />
+    <ClCompile Include="Item.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="NextStage.c" />
     <ClCompile Include="NpcTrack.c" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="DragonBall.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="NextStage.h" />
     <ClInclude Include="StageArr.h" />
     <ClInclude Include="NpcTrack.h" />

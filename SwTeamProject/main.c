@@ -5,7 +5,7 @@
 #include "NpcTrack.h"
 #include "NextStage.h"
 #include "StartScreen.h"
-
+#include "item.h"
 int main()
 {
 	initCmd();
@@ -42,6 +42,11 @@ int main()
 
 	for (int i = 0; i < 5; i++)			//구름 출력
 		drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
+
+	//아이템 관련
+	int speed1 = 10, speed2 = 30;
+	item item[50];
+	InititemBox(item);
 
 	while (1)
 	{	
@@ -86,7 +91,6 @@ int main()
 		if (dragonBallGet(&p, dgball[p.stageNum]) == 1) //드래곤볼 위치와 플레이어 위치 비교 후 정보 업데이트
 			UpdateRecord(&p);
 		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //드래곤볼 전부 모으고 and 문 앞에 서 있으면 다음 스테이지로 이동
-			p.stageNum++;
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5);
 		}
@@ -107,7 +111,19 @@ int main()
 		//	updateNpcPos(&p, &npc);
 		//	drawNpc(&npc);
 		//}
+		
+
+
+
+
+
+
+		//캐릭터, npc 이후 아이템
+		CreateItem(item, speed1, speed2);
+		Fallitem(item, &p);
 	}
+
+	
 
 	SetCurrentCursorPos(0, 0);
 	
