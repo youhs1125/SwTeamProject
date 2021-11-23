@@ -11,7 +11,7 @@ void printStageDoor(StageDoor* std, int stage[][60], int stageNum) {		//Ãâ±¸ = 9
 	int posY = std[stageNum].y + OriginY;
 	stage[std[stageNum].y][std[stageNum].x] *= 97;
 	SetCurrentCursorPos(posX, posY);
-	printf("¡Ú");
+	printPortal();
 }
 
 int checkStageDoor(player* p, StageDoor* std, int stageNum) {
@@ -31,4 +31,10 @@ void gotoNextStage(player* p, DragonBall dgball[][3], StageDoor* std, int stage[
 
 	p->balls = 0;
 	UpdateRecord(p);
+}
+
+void printPortal() {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);		//³ë¶û»ö
+	printf("¡Ú");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);		//Èò»ö
 }

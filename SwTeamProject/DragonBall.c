@@ -54,3 +54,10 @@ int dragonBallGet(player *p, DragonBall *dgb, int stage[][60]) {
 	}
 	return 0;
 }
+
+void printDragonBall() {
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);		//³ë¶û»ö
+	printf("¡Ü");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);		//Èò»ö
+}

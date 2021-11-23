@@ -1,8 +1,5 @@
 #pragma once
-#include "characters.h"
-#include <math.h>
-#include <stdlib.h>
-#include <time.h>
+#include "Common.h"
 
 //스테이지 상에서 넘버 5로 표시
 typedef struct DragonBall {
@@ -14,3 +11,4 @@ typedef struct DragonBall {
 
 void setDragonBallPos(DragonBall dgb[][3]);
 int dragonBallGet(player* p, DragonBall* dgb, int stage[][60]);
+void printDragonBall(void);

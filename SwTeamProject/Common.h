@@ -4,6 +4,7 @@
 #include "Characters.h"
 #include "DragonBall.h"
 #include "Cloud.h"
+#include "NextStage.h"
 
 #define stage1Y 40
 #define stage1X 60
@@ -22,7 +23,7 @@ void RemoveCursor(void);
 //맵 테두리 그려주기
 void printStage();
 //맵 내부 그리기
-void printCloud(int stage[40][60], DragonBall dgb[]);
+
 int isGameOver(player* p);
 void respawnPlayer(player* p, int stage[][60]);
 void UpdateRecord(player* p);
@@ -37,3 +38,4 @@ int detectColl(int x, int y, int stage[][60]);
 int jumpColl(int x, int y, int stage[][60]);
 int JumpVector(int y);
 int playerJump(player* p, int* jump, int stage[][60]);
+//printCloud 선언하면 오류 생김...

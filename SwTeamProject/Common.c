@@ -75,7 +75,7 @@ void printStage()
 		}
 	}
 }
-//맵 내부 그리기
+
 void printCloud(int stage[40][60], DragonBall dgb[])
 {
 	//맵 그리기 전에 내부 한번 초기화 시켜주기
@@ -112,7 +112,7 @@ void printCloud(int stage[40][60], DragonBall dgb[])
 		curX = dgb[i].x * 2 + OriginX;
 		curY = dgb[i].y + OriginY;
 		SetCurrentCursorPos(curX, curY);
-		printf("●");
+		printDragonBall();
 	}
 }
 
