@@ -1,9 +1,5 @@
 #pragma once
-#include <Windows.h>
-#include <stdio.h>
-
 #include "Common.h"
-#include "characters.h"
 
 
 typedef struct SPECIALCLOUD

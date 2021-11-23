@@ -1,6 +1,4 @@
 #pragma once
-#include "characters.h"
-#include "DragonBall.h"
 #include "Common.h"
 
 typedef struct StageDoor {
