@@ -154,20 +154,26 @@ void initPlayer(player* p)
 	p->balls = 0;
 	p->stageNum = 0;
 	p->targetBall[0] = 2;
-	p->targetBall[1] = 3;
+	p->targetBall[1] = 2;
 	p->targetBall[2] = 3;
 }
 
 void initNPC(NPC* npc, int posX, int posY)
 {
-	npc->homeX = 1;
-	npc->homeY = 1;
+	npc->homeX = posX;
+	npc->homeY = posY;
 	npc->x = npc->homeX;
 	npc->y = npc->homeY;
 	npc->haveBall = 1;
 
 	npc->cnt = 0; //npc 움직임 주기 카운트용 변수
-	npc->npcSpeed = 7; //npc 움직임 주기
+	npc->npcSpeed = 2; //npc 움직임 주기
+
+	npc->dx = 1;
+	npc->dy = 0;
+	npc->directionCnt = 0;
+	npc->directionFlag = 0;
+	npc->detectArea = 100;
 }
 
 void drawPlayer(player* p)

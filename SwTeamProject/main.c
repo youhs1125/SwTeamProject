@@ -17,6 +17,11 @@ int main()
 	DragonBall dgball[3][3];
 	StageDoor stageDoor[3];
 	cloud sCloud[5];
+	NPC n[2];
+	initNPC(&n[0], 10, 10);
+	initNPC(&n[1], 50, 20);
+	
+
 	
 	srand((unsigned int)time(NULL));
 
@@ -46,8 +51,8 @@ int main()
 
 	//아이템 관련
 	int speed1 = 10, speed2 = 30;
-	item item[50];
-	InititemBox(item);
+	/*item item[50];
+	InititemBox(item);*/
 
 	while (1)
 	{
@@ -81,7 +86,7 @@ int main()
 		{
 			//npc 삭제해주고 위치 재설정
 			deleteNpc(&npc, stageArr[p.stageNum]);
-			npc.x = 1; npc.y = 1;
+			/*npc.x = 1; npc.y = 1*/;
 
 			//플레이어 삭제 and 위치 재설정 and 기록변경
 			respawnPlayer(&p, stageArr[p.stageNum]);
@@ -98,31 +103,30 @@ int main()
 		}
 
 		processKeyInput(&p, stageArr[p.stageNum]);
+
+
 		//플레이어 움직인 후 npc이동 시작
 		//추적 알고리즘 시작
-		//addNpcCnt(&npc);
-		//int dis =getDistance(p.x - npc.x, p.y - npc.y);   //캐릭터와 npc사이의 거리
-		//if (dis <= 1) {  //최소 거리 루트2 이하이면 끝내기.
-		//	deleteNpc(&npc, stageArr[p.stageNum]);
-		//	deletePlayer(&p);
-		//	respawnPlayer(&p);
-		//	npc.x = 1; npc.y = 1;
-		//}
-		//if (npc.cnt % npc.npcSpeed == 0){
-		//	deleteNpc(&npc, stageArr[p.stageNum]);
-		//	updateNpcPos(&p, &npc);
-		//	drawNpc(&npc);
-		//}
-		
-
-
-
-
-
+		//2개의 NPC가 플레이어를 특정 거리 이하 일 때 추적
+		for (int i = 0; i < 2; i++) {
+			addNpcCnt(&n[i]);
+			int dis = getDistance(p.x - n[i].x, p.y - n[i].y);   //캐릭터와 npc사이의 거리
+			if (dis <= 1) {  //최소 거리 루트2 이하이면 끝내기.
+				deleteNpc(&n[i], stageArr[p.stageNum]);
+				deletePlayer(&p, stageArr[p.stageNum]);
+				respawnPlayer(&p, stageArr[p.stageNum]);
+			}
+			if (n[i].cnt % n[i].npcSpeed == 0) {
+				deleteNpc(&n[i], stageArr[p.stageNum]);
+				updateNpcPos(&p, &n[i]);
+				drawNpc(&n[i]);
+			}
+		}
+	
 
 		//캐릭터, npc 이후 아이템
-		CreateItem(item, speed1, speed2);
-		Fallitem(item, &p);
+	/*	CreateItem(item, speed1, speed2);
+		Fallitem(item, &p);*/
 	}
 
 	

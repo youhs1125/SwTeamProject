@@ -1,6 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <Windows.h>
+#include "Common.h"
 #include "Characters.h"
 #include "DragonBall.h"
 #include "Cloud.h"
