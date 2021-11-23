@@ -6,9 +6,10 @@ void setStageDoor(StageDoor* std) {
 	std[2].x = 46; std[2].y = 4;
 }
 
-void printStageDoor(StageDoor* std, int stage[][60], int stageNum) {
+void printStageDoor(StageDoor* std, int stage[][60], int stageNum) {		//Ãâ±¸ = 97
 	int posX = std[stageNum].x * 2 + OriginX;
 	int posY = std[stageNum].y + OriginY;
+	stage[std[stageNum].y][std[stageNum].x] *= 97;
 	SetCurrentCursorPos(posX, posY);
 	printf("¡Ú");
 }

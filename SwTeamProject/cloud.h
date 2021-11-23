@@ -8,9 +8,9 @@
 
 typedef struct SPECIALCLOUD
 {
-	int movement;				//구름 움직임
-	int cloudType;				//3 => 점프구름, 5 => 약한 구름, 7 = 깜박 구름, 11 => 지뢰구름
-	int size;					//구름 크기
+	int movement;				//
+	int cloudType;				//3 => 점프, 5 => 깨지는거, 7 = 깜빡이는거, 11 => 함정 
+	int size;					//
 	int x, y;
 	int vis;
 }cloud;
@@ -50,4 +50,3 @@ int collSpecialCloud(cloud* cloudArr, player* p, int stage[][60]);
 
 
 void moveCloud(cloud* cloudArr, int stage[][60]);
-
