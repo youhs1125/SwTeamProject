@@ -11,6 +11,7 @@ typedef struct StageDoor {
 void setStageDoor(StageDoor* std);
 void printStageDoor(StageDoor* std, int stage[][60], int stageNum);
 int checkStageDoor(player* p, StageDoor* std, int stageNum);
+//void gotoNextStage(player* p, DragonBall dgball[][3], StageDoor* std, int stage[][60]);
 //gotoNextStage 선언하면 오류 생김 -> 이유는 모름
 
 
