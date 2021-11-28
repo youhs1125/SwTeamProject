@@ -108,6 +108,10 @@ void printCloud(int stage[40][60], DragonBall dgb[])
 
 	//드래곤볼 그려주기
 	for (int i = 0; i < 3; i++) {				//드래곤볼 => 89
+		
+		if (dgb[i].x > 100)
+			return;
+
 		stage[dgb[i].y][dgb[i].x] *= 89;
 		curX = dgb[i].x * 2 + OriginX;
 		curY = dgb[i].y + OriginY;
@@ -167,13 +171,13 @@ void initNPC(NPC* npc, int posX, int posY)
 	npc->haveBall = 1;
 
 	npc->cnt = 0; //npc 움직임 주기 카운트용 변수
-	npc->npcSpeed = 2; //npc 움직임 주기
+	npc->npcSpeed = 4; //npc 움직임 주기
 
 	npc->dx = 1;
 	npc->dy = 0;
 	npc->directionCnt = 0;
 	npc->directionFlag = 0;
-	npc->detectArea = 100;
+	npc->detectArea = 40;
 }
 
 void drawPlayer(player* p)
