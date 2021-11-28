@@ -6,6 +6,7 @@
 #include "NextStage.h"
 #include "StartScreen.h"
 #include "cloud.h"
+#include "Item.h"
 
 int main()
 {
@@ -20,9 +21,9 @@ int main()
 	NPC n[2];
 	initNPC(&n[0], 10, 10);
 	initNPC(&n[1], 50, 20);
-	
 
-	
+
+
 	srand((unsigned int)time(NULL));
 
 	npc.x = 1, npc.y = 1;     //기본 값
@@ -31,7 +32,7 @@ int main()
 	int jumpFlag = 0;
 	int count = 0;
 
-	
+
 	printStage();
 	initPlayer(&p);
 	setDragonBallPos(dgball);
@@ -50,9 +51,9 @@ int main()
 		drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 
 	//아이템 관련
-	int speed1 = 10, speed2 = 30;
-	/*item item[50];
-	InititemBox(item);*/
+	int speed1 = 30, speed2 = 50;
+	item item[50];
+	InititemBox(speed1, speed2);
 
 	while (1)
 	{
@@ -94,12 +95,13 @@ int main()
 		}
 
 		//드래곤볼 and 스테이지 종료 확인
-		if (dragonBallGet(&p, dgball[p.stageNum],stageArr[p.stageNum]) == 1) //드래곤볼 위치와 플레이어 위치 비교 후 정보 업데이트
+		if (dragonBallGet(&p, dgball[p.stageNum], stageArr[p.stageNum]) == 1) //드래곤볼 위치와 플레이어 위치 비교 후 정보 업데이트
 			UpdateRecord(&p);
 		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //드래곤볼 전부 모으고 and 문 앞에 서 있으면 다음 스테이지로 이동
 			p.stageNum++;
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5);
+			InititemBox(speed1, speed2);
 		}
 
 		processKeyInput(&p, stageArr[p.stageNum]);
@@ -123,17 +125,17 @@ int main()
 				deleteNpc(&n[i], stageArr[p.stageNum]);
 				updateNpcPos(&p, &n[i]);
 				drawNpc(&n[i]);
+				n[i].npcSpeed = 2;
 			}
 			*/
 		}
-	
+
 
 		//캐릭터, npc 이후 아이템
-	/*	CreateItem(item, speed1, speed2);
-		Fallitem(item, &p);*/
+		Fallitem(&p, stageArr[p.stageNum], n);
 	}
 
-	
+
 
 	SetCurrentCursorPos(0, 0);
 
