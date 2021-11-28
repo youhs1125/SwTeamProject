@@ -13,8 +13,8 @@ item it[MAX];
 
 void InititemBox(int speed1, int speed2);
 int Detectitem(player* p, int i, int stage[][60]);
-void Fallitem(player* p, int stage[][60]);
+void Fallitem(player* p, int stage[][60], NPC *npc);
 void showItem(int num);
 void deleteItem(int i, int stage[][60]);
-void func_item(int num, player* p);
+void func_item(int num, player* p, NPC *npc);
 void InitPosition(item* item);

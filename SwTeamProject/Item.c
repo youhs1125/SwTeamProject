@@ -57,14 +57,14 @@ void InitPosition(item* item)
 }
 
 //아이템 떨어짐
-void Fallitem(player* p, int stage[][60])
+void Fallitem(player* p, int stage[][60], NPC *npc)
 {
     for (int i = 0; i < MAX; i++)
     {
         if (Detectitem(p, i, stage) == 1)
         {
             // 아이템 활성화
-            func_item(it[i].itemNum, p, stage);   //itemNum 인덱스에 해당하는 기능 수행.
+            func_item(it[i].itemNum, p, stage, npc);   //itemNum 인덱스에 해당하는 기능 수행.
            // printf("%d", p->life);
         }
 
@@ -112,7 +112,7 @@ void deleteItem(int i, int stage[][60]) {
     recoverCloud(it[i].x, it[i].y, stage);
 }
 
-void func_item(int itemNum, player* p, int stage[][60])
+void func_item(int itemNum, player* p, int stage[][60], NPC *npc)
 {
     if (itemNum == 13) p->life++;   //추가목숨부여
     else if (itemNum == 17) p->life--; //목숨 감점
@@ -122,7 +122,11 @@ void func_item(int itemNum, player* p, int stage[][60])
         p->x = (OriginX + stage1X) / 2; p->y = (OriginY + stage1Y) / 2;
         drawPlayer(p);
     }
-    //else if(itemNum == 23)     //기능 또 뭐 추가???
+    else if (itemNum == 23) {//기능 또 뭐 추가???
+        npc[0].npcSpeed = 100;
+        npc[1].npcSpeed = 100;
+    }
 }
+
 
 
