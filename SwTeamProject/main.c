@@ -6,6 +6,7 @@
 #include "NextStage.h"
 #include "StartScreen.h"
 #include "cloud.h"
+#include "Item.h"
 
 int main()
 {
@@ -20,9 +21,9 @@ int main()
 	NPC n[2];
 	initNPC(&n[0], 10, 10);
 	initNPC(&n[1], 50, 20);
-	
 
-	
+
+
 	srand((unsigned int)time(NULL));
 
 	npc.x = 1, npc.y = 1;     //기본 값
@@ -31,7 +32,7 @@ int main()
 	int jumpFlag = 0;
 	int count = 0;
 
-	
+
 	printStage();
 	initPlayer(&p);
 	setDragonBallPos(dgball);
@@ -50,9 +51,9 @@ int main()
 		drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 
 	//아이템 관련
-	int speed1 = 10, speed2 = 30;
-	/*item item[50];
-	InititemBox(item);*/
+	int speed1 = 30, speed2 = 50;
+	item item[50];
+	InititemBox(speed1, speed2);
 
 	while (1)
 	{
@@ -94,12 +95,13 @@ int main()
 		}
 
 		//드래곤볼 and 스테이지 종료 확인
-		if (dragonBallGet(&p, dgball[p.stageNum],stageArr[p.stageNum]) == 1) //드래곤볼 위치와 플레이어 위치 비교 후 정보 업데이트
+		if (dragonBallGet(&p, dgball[p.stageNum], stageArr[p.stageNum]) == 1) //드래곤볼 위치와 플레이어 위치 비교 후 정보 업데이트
 			UpdateRecord(&p);
 		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //드래곤볼 전부 모으고 and 문 앞에 서 있으면 다음 스테이지로 이동
 			p.stageNum++;
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5);
+			InititemBox(speed1, speed2);
 		}
 
 		processKeyInput(&p, stageArr[p.stageNum]);
@@ -108,7 +110,7 @@ int main()
 		//플레이어 움직인 후 npc이동 시작
 		//추적 알고리즘 시작
 		//2개의 NPC가 플레이어를 특정 거리 이하 일 때 추적
-		for (int i = 0; i < 2; i++) {
+		/*for (int i = 0; i < 2; i++) {
 			addNpcCnt(&n[i]);
 			int dis = getDistance(p.x - n[i].x, p.y - n[i].y);   //캐릭터와 npc사이의 거리
 			if (dis <= 1) {  //최소 거리 루트2 이하이면 끝내기.
@@ -121,15 +123,14 @@ int main()
 				updateNpcPos(&p, &n[i]);
 				drawNpc(&n[i]);
 			}
-		}
-	
+		}*/
+
 
 		//캐릭터, npc 이후 아이템
-	/*	CreateItem(item, speed1, speed2);
-		Fallitem(item, &p);*/
+		Fallitem(&p, stageArr[p.stageNum]);
 	}
 
-	
+
 
 	SetCurrentCursorPos(0, 0);
 
