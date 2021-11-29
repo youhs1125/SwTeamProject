@@ -8,6 +8,8 @@ typedef struct Player
 	int balls;
 	int stageNum;
 	int targetBall[3];
+
+	int spawnPos[3][2]; //3스테이지 (x,y)좌표 - > 3*2 배열
 }player;
 
 typedef struct NPC

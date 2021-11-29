@@ -100,6 +100,10 @@ int main()
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5);
 			InititemBox(speed1, speed2);
+
+			//스테이지 이동 후 초기 위치 설정
+			p.x = p.spawnPos[p.stageNum][0];
+			p.y = p.spawnPos[p.stageNum][1];
 		}
 
 		processKeyInput(&p, stageArr[p.stageNum]);
@@ -108,21 +112,21 @@ int main()
 		//플레이어 움직인 후 npc이동 시작
 		//추적 알고리즘 시작
 		//2개의 NPC가 플레이어를 특정 거리 이하 일 때 추적
-		for (int i = 0; i < 2; i++) {
-			addNpcCnt(&n[i]);
-			int dis = getDistance(p.x - n[i].x, p.y - n[i].y);   //캐릭터와 npc사이의 거리
-			if (dis <= 1) {  //최소 거리 루트2 이하이면 끝내기.
-				deleteNpc(&n[i], stageArr[p.stageNum]);
-				deletePlayer(&p, stageArr[p.stageNum]);
-				respawnPlayer(&p, stageArr[p.stageNum]);
-			}
-			if (n[i].cnt % n[i].npcSpeed == 0) {
-				deleteNpc(&n[i], stageArr[p.stageNum]);
-				updateNpcPos(&p, &n[i]);
-				drawNpc(&n[i]);
-				n[i].npcSpeed = 2;
-			}
-		}
+		//for (int i = 0; i < 2; i++) {
+		//	addNpcCnt(&n[i]);
+		//	int dis = getDistance(p.x - n[i].x, p.y - n[i].y);   //캐릭터와 npc사이의 거리
+		//	if (dis <= 1) {  //최소 거리 루트2 이하이면 끝내기.
+		//		deleteNpc(&n[i], stageArr[p.stageNum]);
+		//		deletePlayer(&p, stageArr[p.stageNum]);
+		//		respawnPlayer(&p, stageArr[p.stageNum]);
+		//	}
+		//	if (n[i].cnt % n[i].npcSpeed == 0) {
+		//		deleteNpc(&n[i], stageArr[p.stageNum]);
+		//		updateNpcPos(&p, &n[i]);
+		//		drawNpc(&n[i]);
+		//		n[i].npcSpeed = 2;
+		//	}
+		//}
 
 
 		//캐릭터, npc 이후 아이템
