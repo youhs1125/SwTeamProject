@@ -22,8 +22,6 @@ int main()
 	initNPC(&n[0], 10, 10);
 	initNPC(&n[1], 50, 20);
 
-
-
 	srand((unsigned int)time(NULL));
 
 	npc.x = 1, npc.y = 1;     //±âº» °ª

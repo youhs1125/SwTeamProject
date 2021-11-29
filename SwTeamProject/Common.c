@@ -136,7 +136,7 @@ void UpdateRecord(player* p)
 	SetCurrentCursorPos(curX, curY++);
 	printf("모은 드래곤 볼 총 개수: %d", p->totalBalls);
 	SetCurrentCursorPos(curX, curY++);
-	printf("이번 스테이지에서 모은 볼 개수: %d", p->balls);
+	printf("이번 스테이지에서 모은 볼 개수: ( %d / %d )", p->balls, p->targetBall[p->stageNum]);
 	SetCurrentCursorPos(curX, curY++);
 	printf("좌우 이동 <- -> 방향키");
 }
