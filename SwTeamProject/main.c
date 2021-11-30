@@ -50,7 +50,7 @@ int main()
 		drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 
 	//아이템 관련
-	int speed1 = 5, speed2 = 20;
+	int speed1 = 1, speed2 = 5;
 	item item[50];
 	InititemBox(speed1, speed2);
 
