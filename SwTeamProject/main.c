@@ -14,17 +14,15 @@ int main()
 	//시작화면 
 	int difficulty = printStartScreen();
 	player p;
-	NPC npc;
 	DragonBall dgball[3][3];
 	StageDoor stageDoor[3];
 	cloud sCloud[5];
-	NPC n[2];
-	initNPC(&n[0], 10, 10);
-	initNPC(&n[1], 50, 20);
+
+	NPC npcArr[3];
+	int npcNum = 1;
 
 	srand((unsigned int)time(NULL));
 
-	npc.x = 1, npc.y = 1;     //기본 값
 	int jump = JUMPHEIGHT;
 	int gameFlag = 1;
 	int jumpFlag = 0;
@@ -33,6 +31,7 @@ int main()
 
 	printStage();
 	initPlayer(&p);
+	initNPC(npcArr, difficulty, p.stageNum, &npcNum);
 	setDragonBallPos(dgball);
 
 	initSpecialCloud(sCloud, 5);
@@ -86,7 +85,7 @@ int main()
 		else if (jumpFlag == -1) //추락한 경우
 		{
 			//npc 삭제해주고 위치 재설정
-			deleteNpc(&npc, stageArr[p.stageNum]);
+			//deleteNpc(&npcArr, stageArr[p.stageNum]);
 			/*npc.x = 1; npc.y = 1*/;
 
 			//플레이어 삭제 and 위치 재설정 and 기록변경
@@ -102,7 +101,7 @@ int main()
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5);
 			InititemBox(speed1, speed2);
-
+			initNPC(npcArr, difficulty, p.stageNum, &npcNum);
 			p.x = p.spawnPos[p.stageNum][0];
 			p.y = p.spawnPos[p.stageNum][1];
 		}
@@ -114,25 +113,25 @@ int main()
 		//추적 알고리즘 시작
 		//2개의 NPC가 플레이어를 특정 거리 이하 일 때 추적
 
-		for (int i = 0; i < 2; i++) {
-			addNpcCnt(&n[i]);
-			int dis = min(getDistance(p.x - n[i].x, p.y - n[i].y), getDistance(p.x - n[i].x, p.y + 1 - n[i].y)); //캐릭터와 npc사이의 거리
-			dis = min(dis, getDistance(p.x - n[i].x, p.y + 2 - n[i].y));
+		for (int i = 0; i < npcNum; i++) {
+			addNpcCnt(&npcArr[i]);
+			int dis = min(getDistance(p.x - npcArr[i].x, p.y - npcArr[i].y), getDistance(p.x - npcArr[i].x, p.y + 1 - npcArr[i].y)); //캐릭터와 npc사이의 거리
+			dis = min(dis, getDistance(p.x - npcArr[i].x, p.y + 2 - npcArr[i].y));
 			if (dis == 0) {  //최소 거리 루트2 이하이면 끝내기.
-				deleteNpc(&n[i], stageArr[p.stageNum]);
+				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
 				deletePlayer(&p, stageArr[p.stageNum]);
 				respawnPlayer(&p, stageArr[p.stageNum]);
 			}
-			if (n[i].cnt % n[i].npcSpeed == 0) {
-				deleteNpc(&n[i], stageArr[p.stageNum]);
-				updateNpcPos(&p, &n[i]);
-				drawNpc(&n[i]);
-				n[i].npcSpeed = 2;
+			if (npcArr[i].cnt % npcArr[i].npcSpeed == 0) {
+				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
+				updateNpcPos(&p, &npcArr[i]);
+				drawNpc(&npcArr[i]);
+				npcArr[i].npcSpeed = 2;
 			}
 		}
 
 		//캐릭터, npc 이후 아이템
-		Fallitem(&p, stageArr[p.stageNum], n, sCloud, 5);
+		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5);
 	}
 
 

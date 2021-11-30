@@ -21,8 +21,8 @@ typedef struct NPC
 
 	int distance[8];   //8가지 방향
 	int minDistance;  //캐릭터와의 최소거리
-	int cnt;
-	int directionCnt;
+	int cnt; //npc while문 안에서 움직이는 주기
+	int directionCnt; //npc 방향 바꾸는 주기
 	int directionFlag;
 	int npcSpeed;
 	int detectArea;

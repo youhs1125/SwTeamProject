@@ -175,24 +175,6 @@ void initPlayer(player* p)
 	p->spawnPos[2][1] = 32;
 }
 
-void initNPC(NPC* npc, int posX, int posY)
-{
-	npc->homeX = posX;
-	npc->homeY = posY;
-	npc->x = npc->homeX;
-	npc->y = npc->homeY;
-	npc->haveBall = 1;
-
-	npc->cnt = 0; //npc 움직임 주기 카운트용 변수
-	npc->npcSpeed = 4; //npc 움직임 주기
-
-	npc->dx = 1;
-	npc->dy = 0;
-	npc->directionCnt = 0;
-	npc->directionFlag = 0;
-	npc->detectArea = 40;
-}
-
 void drawPlayer(player* p)
 {
 	/*if (p->y < 0)

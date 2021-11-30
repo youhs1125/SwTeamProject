@@ -28,7 +28,6 @@ int isGameOver(player* p);
 void respawnPlayer(player* p, int stage[][60]);
 void UpdateRecord(player* p);
 void initPlayer(player* p);
-void initNPC(NPC* npc, int posX, int posY);
 void drawPlayer(player* p);
 void deletePlayer(player* p, int stage[][60]);
 void moveLeft(player* p, int stage[][60]);
