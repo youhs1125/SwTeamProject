@@ -124,14 +124,18 @@ void UpdateRecord(player* p)
 {
 	int curX = 135;
 	int curY = 20;
+	static int maxLife;
 	int i;
 	SetCurrentCursorPos(curX, curY++);
 	printf("현재 스테이지: %d", p->stageNum);
 	SetCurrentCursorPos(curX, curY++);
 	printf("남은 목숨: ");
+
+	maxLife = max(maxLife, p->life);
+
 	for (i = 0; i < p->life; i++)
 		printf("♥");
-	for (i = 0; i < 3 - p->life; i++)
+	for (i = 0; i < maxLife - p->life; i++)
 		printf("  ");
 	SetCurrentCursorPos(curX, curY++);
 	printf("모은 드래곤 볼 총 개수: %d", p->totalBalls);
@@ -261,7 +265,7 @@ int detectColl(int x, int y, int stage[][60])
 {
 	if (y < 0) y = 0;
 
-	if (stage[y][x] != 0 && (stage[y][x] % 11 == 0 || stage[y + 1][x] % 11 == 0 || stage[y + 2][x] % 11 == 0)) //바닥에 추락
+	if (stage[y][x] != 0 && (stage[y][x] % 11 == 0 || stage[y + 1][x] % 11 == 0 || stage[y + 2][x] % 11 == 0)) //바닥에 추락 or 함정구름과 충돌
 		return -1;
 	else if (stage[y][x] == 0 || stage[y + 1][x] == 0 || stage[y + 2][x] == 0) //벽면 충돌
 		return 2;
@@ -331,7 +335,7 @@ int playerJump(player* p, int* jump, int stage[][60])
 		}
 		return 1;
 	}
-	else if (coll == 0 || (coll != 2 && moveY >= 0) || flag > 0)	//일반적인 점프 or 구름에 껴 있는 경우
+	else if ((coll == 0 || (coll != 2 && moveY >= 0) || flag > 0) && coll != -1)	//일반적인 점프 or 구름에 껴 있는 경우
 	{
 		deletePlayer(p, stage);
 		p->y -= moveY;
