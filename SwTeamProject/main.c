@@ -22,11 +22,9 @@ int main()
 	initNPC(&n[0], 10, 10);
 	initNPC(&n[1], 50, 20);
 
-
-
 	srand((unsigned int)time(NULL));
 
-	npc.x = 1, npc.y = 1;     //±âº» °ª
+	npc.x = 1, npc.y = 1;     //ê¸°ë³¸ ê°’
 	int jump = JUMPHEIGHT;
 	int gameFlag = 1;
 	int jumpFlag = 0;
@@ -46,10 +44,10 @@ int main()
 	setStageDoor(stageDoor);
 	printStageDoor(stageDoor, stageArr[p.stageNum], p.stageNum);
 
-	for (int i = 0; i < 5; i++)			//±¸¸§ Ãâ·Â
+	for (int i = 0; i < 5; i++)			//êµ¬ë¦„ ì¶œë ¥
 		drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 
-	//¾ÆÀÌÅÛ °ü·Ã
+	//ì•„ì´í…œ ê´€ë ¨
 	int speed1 = 5, speed2 = 20;
 	item item[50];
 	InititemBox(speed1, speed2);
@@ -72,49 +70,54 @@ int main()
 		}
 
 
-		//ÇÃ·¹ÀÌ¾î ÀÌµ¿
+		//í”Œë ˆì´ì–´ ì´ë™
 
 		jumpFlag = playerJump(&p, &jump, stageArr[p.stageNum]);
 		count++;
 
 
-		if (jumpFlag == 1) //Á¡ÇÁ ¿Ï·á ÈÄ ÀçÁ¡ÇÁ 
+		if (jumpFlag == 1) //ì í”„ ì™„ë£Œ í›„ ìž¬ì í”„ 
 		{
 			jump = collSpecialCloud(sCloud, &p, stageArr[p.stageNum]);
 		}
-		else if (jumpFlag == -1) //Ãß¶ôÇÑ °æ¿ì
+		else if (jumpFlag == -1) //ì¶”ë½í•œ ê²½ìš°
 		{
-			//npc »èÁ¦ÇØÁÖ°í À§Ä¡ Àç¼³Á¤
+			//npc ì‚­ì œí•´ì£¼ê³  ìœ„ì¹˜ ìž¬ì„¤ì •
 			deleteNpc(&npc, stageArr[p.stageNum]);
 			/*npc.x = 1; npc.y = 1*/;
 
-			//ÇÃ·¹ÀÌ¾î »èÁ¦ and À§Ä¡ Àç¼³Á¤ and ±â·Ïº¯°æ
+			//í”Œë ˆì´ì–´ ì‚­ì œ and ìœ„ì¹˜ ìž¬ì„¤ì • and ê¸°ë¡ë³€ê²½
 			respawnPlayer(&p, stageArr[p.stageNum]);
 			UpdateRecord(&p);
 		}
 
-		//µå·¡°ïº¼ and ½ºÅ×ÀÌÁö Á¾·á È®ÀÎ
-		if (dragonBallGet(&p, dgball[p.stageNum], stageArr[p.stageNum]) == 1) //µå·¡°ïº¼ À§Ä¡¿Í ÇÃ·¹ÀÌ¾î À§Ä¡ ºñ±³ ÈÄ Á¤º¸ ¾÷µ¥ÀÌÆ®
+		//ë“œëž˜ê³¤ë³¼ and ìŠ¤í…Œì´ì§€ ì¢…ë£Œ í™•ì¸
+		if (dragonBallGet(&p, dgball[p.stageNum], stageArr[p.stageNum]) == 1) //ë“œëž˜ê³¤ë³¼ ìœ„ì¹˜ì™€ í”Œë ˆì´ì–´ ìœ„ì¹˜ ë¹„êµ í›„ ì •ë³´ ì—…ë°ì´íŠ¸
 			UpdateRecord(&p);
-		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //µå·¡°ïº¼ ÀüºÎ ¸ðÀ¸°í and ¹® ¾Õ¿¡ ¼­ ÀÖÀ¸¸é ´ÙÀ½ ½ºÅ×ÀÌÁö·Î ÀÌµ¿
+		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //ë“œëž˜ê³¤ë³¼ ì „ë¶€ ëª¨ìœ¼ê³  and ë¬¸ ì•žì— ì„œ ìžˆìœ¼ë©´ ë‹¤ìŒ ìŠ¤í…Œì´ì§€ë¡œ ì´ë™
 			p.stageNum++;
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5);
 			InititemBox(speed1, speed2);
+
+			//ìŠ¤í…Œì´ì§€ ì´ë™ í›„ ì´ˆê¸° ìœ„ì¹˜ ì„¤ì •
+			p.x = p.spawnPos[p.stageNum][0];
+			p.y = p.spawnPos[p.stageNum][1];
 		}
 
 		processKeyInput(&p, stageArr[p.stageNum]);
 
 
-		//ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÎ ÈÄ npcÀÌµ¿ ½ÃÀÛ
-		//ÃßÀû ¾Ë°í¸®Áò ½ÃÀÛ
-		//2°³ÀÇ NPC°¡ ÇÃ·¹ÀÌ¾î¸¦ Æ¯Á¤ °Å¸® ÀÌÇÏ ÀÏ ¶§ ÃßÀû
+		//í”Œë ˆì´ì–´ ì›€ì§ì¸ í›„ npcì´ë™ ì‹œìž‘
+		//ì¶”ì  ì•Œê³ ë¦¬ì¦˜ ì‹œìž‘
+		//2ê°œì˜ NPCê°€ í”Œë ˆì´ì–´ë¥¼ íŠ¹ì • ê±°ë¦¬ ì´í•˜ ì¼ ë•Œ ì¶”ì 
+
 		for (int i = 0; i < 2; i++) {
 			addNpcCnt(&n[i]);
-//			int dis = getDistance(p.x - n[i].x, p.y - n[i].y);   //Ä³¸¯ÅÍ¿Í npc»çÀÌÀÇ °Å¸®
+//			int dis = getDistance(p.x - n[i].x, p.y - n[i].y);   //ìºë¦­í„°ì™€ npcì‚¬ì´ì˜ ê±°ë¦¬
 			int dis = min(getDistance(p.x - n[i].x, p.y - n[i].y), getDistance(p.x - n[i].x, p.y + 1 - n[i].y));
 			dis = min(dis, getDistance(p.x - n[i].x, p.y + 2 - n[i].y));
-			if (dis == 0) {  //ÃÖ¼Ò °Å¸® ·çÆ®2 ÀÌÇÏÀÌ¸é ³¡³»±â.
+			if (dis == 0) {  //ìµœì†Œ ê±°ë¦¬ ë£¨íŠ¸2 ì´í•˜ì´ë©´ ëë‚´ê¸°.
 				deleteNpc(&n[i], stageArr[p.stageNum]);
 				deletePlayer(&p, stageArr[p.stageNum]);
 				respawnPlayer(&p, stageArr[p.stageNum]);
@@ -128,7 +131,8 @@ int main()
 		}
 
 
-		//Ä³¸¯ÅÍ, npc ÀÌÈÄ ¾ÆÀÌÅÛ
+
+		//ìºë¦­í„°, npc ì´í›„ ì•„ì´í…œ
 		Fallitem(&p, stageArr[p.stageNum], n, sCloud, 5);
 	}
 

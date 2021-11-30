@@ -36,6 +36,12 @@ void updateNpcPos(player* p, NPC* npc) {
 	else {
 		npc->x += npc->dx;
 		npc->y += npc->dy;
+		
+		if (npc->x >= stage1X - 1)
+			npc->x--;
+		if (npc->y <= 1)
+			npc->y++;
+
 	}
 }
 void addNpcCnt(NPC *npc) {
