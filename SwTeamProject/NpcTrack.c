@@ -52,6 +52,8 @@ void deleteNpc(NPC* npc, int stage[][60]) {
 	int posY = OriginY + npc->y;
 	SetCurrentCursorPos(posX, posY);
 	recoverCloud(npc->x, npc->y, stage);
+	SetCurrentCursorPos(posX, posY+1);
+	recoverCloud(npc->x, npc->y+1, stage);
 }
 
 void drawNpc(NPC* npc) {
@@ -60,7 +62,10 @@ void drawNpc(NPC* npc) {
 	SetCurrentCursorPos(posX, posY);
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);	//보라색
+	SetCurrentCursorPos(posX, posY);
 	printf("●");  //임시 npc
+	SetCurrentCursorPos(posX, posY+1);
+	printf("▼");  //임시 npc
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);	// 흰색}
 }
 

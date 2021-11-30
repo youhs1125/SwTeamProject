@@ -4,10 +4,9 @@
 #define E 101
 #define H 104
 #define Q 113
-void printStartScreen(void);
 #include "StartScreen.h"
 
-void printStartScreen() {
+int printStartScreen() {
 
 	SetCurrentCursorPos(OriginX, OriginY + 2);
 	puts("	¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à");
@@ -45,9 +44,9 @@ void printStartScreen() {
 				key = _getch();
 				switch (key) {
 				case E:
-					return;
+					return E;
 				case H:
-					return;
+					return H;
 				case Q:
 					exit(-1);
 				}

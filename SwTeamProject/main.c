@@ -11,8 +11,8 @@
 int main()
 {
 	initCmd();
-	printStartScreen();
-
+	//시작화면 
+	int difficulty = printStartScreen();
 	player p;
 	NPC npc;
 	DragonBall dgball[3][3];
@@ -130,8 +130,6 @@ int main()
 				n[i].npcSpeed = 2;
 			}
 		}
-
-
 
 		//캐릭터, npc 이후 아이템
 		Fallitem(&p, stageArr[p.stageNum], n, sCloud, 5);
