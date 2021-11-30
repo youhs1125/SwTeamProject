@@ -90,10 +90,11 @@ void deleteSpecialCloud(cloud* cloud, int stage[][60])
 	}
 }
 
-void initSpecialCloud(cloud* cloudArray, int size)
+void initSpecialCloud(cloud* cloudArray, int size, int stage[][60])
 {
-	int i;
+	int i,j;
 	int temp;
+	int flag = 0;
 	for (i = 0; i < size; i++)
 	{
 		temp = rand() % 4;
@@ -106,13 +107,30 @@ void initSpecialCloud(cloud* cloudArray, int size)
 		else if (temp == 3)
 			cloudArray[i].cloudType = 11;		//함정 구름
 
-
 		cloudArray[i].movement = rand() % 5 - 3;		//0 정지, 1 좌우 2 상하 (+- 방향)
 		cloudArray[i].size = rand() % 5 + 3;
 
 		cloudArray[i].x = rand() % (59 - cloudArray[i].size) + 1;
 		cloudArray[i].y = rand() % 37 + 2;
 		cloudArray[i].vis = 1;
+
+		flag = 0;
+		if (cloudArray[i].movement == 0)
+		{
+			while (flag == 0) 
+			{
+				int count = 1;
+				for (j = cloudArray[i].x; j < cloudArray[i].x + cloudArray[i].size; j++)
+				{
+					cloudArray[i].x = rand() % (59 - cloudArray[i].size) + 1;
+					cloudArray[i].y = rand() % 37 + 2;
+					count++;
+				}
+				if (count == cloudArray[i].size)
+					flag = 1;
+			}
+		}
+
 	}
 
 	return;
@@ -134,6 +152,8 @@ void changeCloudType(cloud* cloudArray, int size, int stage[][60])		//initSpecia
 			cloudArray[i].cloudType = 7;		//깜박 구름
 		else if (temp == 3)
 			cloudArray[i].cloudType = 11;		//함정 구름
+		
+		
 		cloudArray[i].movement = rand() % 5 - 3;		//0 정지, 1 좌우 2 상하 (+- 방향)
 
 		cloudArray[i].vis = 1;

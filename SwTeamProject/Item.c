@@ -82,7 +82,6 @@ void Fallitem(player* p, int stage[][60], NPC *npc, cloud* cloudArr, int CloudSi
             if (posY == OriginY + stage1Y - 2)   //최대 세로 거리 임시 지정
             {    //최대 거리까지 갔다면 지워주고 flag check 수정
                 deleteItem(i, stage);
-                it[i].flag = 0;  //다시 화면표시x로 지정
                 InitPosition(&it[i]);
                 continue;
             }
@@ -102,10 +101,14 @@ void Fallitem(player* p, int stage[][60], NPC *npc, cloud* cloudArr, int CloudSi
 void showItem(int num)
 {
     if (num == 13) printf("♥");
-    else if (num == 17) printf("▼");
-    else if (num == 19) printf("♪");
-    else if (num == 23) printf("＠");
-    else if (num == 29) printf("♨");
+    else if (num == 17) {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+        printf("▼");
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+    }
+    else if (num == 19) printf("♂");
+    else if (num == 23) printf("Ø");
+    else if (num == 29) printf("⇔");
 }
 
 void deleteItem(int i, int stage[][60]) {
