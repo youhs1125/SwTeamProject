@@ -118,7 +118,7 @@ void initSpecialCloud(cloud* cloudArray, int size)
 	return;
 }
 
-void changeCloudType(cloud* cloudArray, int size, int stage[][60])
+void changeCloudType(cloud* cloudArray, int size, int stage[][60])		//initSpecialCloud에서 좌표, 크기를 제외한 부분
 {
 	int i;
 	int temp;

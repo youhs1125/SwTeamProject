@@ -37,15 +37,7 @@ int itemNum(int num)
 //아이템과 플레이어 충돌 감지
 int Detectitem(player* p, int i, int stage[][60])
 {
-    /*int pX = OriginX + p->x * 2;
-    int pY = OriginY + p->y;
-    int itemX = OriginX + it[i].x * 2;
-    int itemY = OriginY + it[i].y;
-    if ((pX >= itemX && pX <= itemX) && (pY == itemY || pY + 1 == itemY || pY + 2 == itemY)) {
-        InitPosition(&it[i]);
-        return 1;
-    }*/
-    if ((p->x == it[i].x) && (p->y == it[i].y || p->y + 1 == it[i].y || p->y + 2 == it[i].y)) {
+    if ((p->x == it[i].x) && (p->y == it[i].y || p->y + 1 == it[i].y || p->y + 2 == it[i].y)) { 
         
         return 1;
     }
@@ -53,7 +45,7 @@ int Detectitem(player* p, int i, int stage[][60])
 }
 
 //충돌시 충돌한 아이템의 좌표 초기화 (맵에 그대로 남아있는 것 해결)
-void InitPosition(item* item)
+void InitPosition(item* item)   // 새로운 아이템으로 변환
 {
     int speed1 = 30, speed2 = 50;
    /* item->x = 0;
@@ -132,7 +124,7 @@ void func_item(int itemNum, player* p, int stage[][60], NPC *npc, cloud* CloudAr
         p->life++;   //추가목숨부여
     else if (itemNum % 17 == 0)
     {
-        respawnPlayer(p, stage);
+        respawnPlayer(p, stage);    //이 함수에서 목숨 값 변경함
     }
     else if (itemNum == 19)    //순간이동
     {
@@ -145,7 +137,7 @@ void func_item(int itemNum, player* p, int stage[][60], NPC *npc, cloud* CloudAr
         npc[1].npcSpeed = 100;
     }
     else if (itemNum == 29) {
-        changeCloudType(CloudArr, CloudSize, stage);
+        changeCloudType(CloudArr, CloudSize, stage);    //구름 종류바꿔줌(종류, 이동)
     }
 }
 
