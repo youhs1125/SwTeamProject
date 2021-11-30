@@ -14,7 +14,7 @@
 #define GameY 7
 #define LEFT 75
 #define RIGHT 77
-#define JUMPHEIGHT -7
+#define JUMPHEIGHT -6
 //초기 화면 설정
 void initCmd();
 void SetCurrentCursorPos(int x, int y);

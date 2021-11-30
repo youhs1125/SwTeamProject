@@ -140,7 +140,7 @@ void UpdateRecord(player* p)
 	SetCurrentCursorPos(curX, curY++);
 	printf("모은 드래곤 볼 총 개수: %d", p->totalBalls);
 	SetCurrentCursorPos(curX, curY++);
-	printf("이번 스테이지에서 모은 볼 개수: %d", p->balls);
+	printf("이번 스테이지에서 모은 볼 개수: ( %d / %d )", p->balls, p->targetBall[p->stageNum]);
 	SetCurrentCursorPos(curX, curY++);
 	printf("좌우 이동 <- -> 방향키");
 }
@@ -148,8 +148,8 @@ void UpdateRecord(player* p)
 void respawnPlayer(player* p, int stage[][60])
 {
 	deletePlayer(p, stage);
-	p->x = 56;
-	p->y = 32;
+	p->x = p->spawnPos[p->stageNum][0];
+	p->y = p->spawnPos[p->stageNum][1];
 	p->life--;
 }
 
@@ -164,6 +164,15 @@ void initPlayer(player* p)
 	p->targetBall[0] = 2;
 	p->targetBall[1] = 2;
 	p->targetBall[2] = 3;
+
+	p->spawnPos[0][0] = 56; //x좌표
+	p->spawnPos[0][1] = 32; //y좌표
+
+	p->spawnPos[1][0] = 6;
+	p->spawnPos[1][1] = 30;
+
+	p->spawnPos[2][0] = 38;
+	p->spawnPos[2][1] = 32;
 }
 
 void initNPC(NPC* npc, int posX, int posY)
@@ -265,6 +274,8 @@ int detectColl(int x, int y, int stage[][60])
 	//else if (stage[y][x] == 2 || stage[y + 1][x] == 2 || stage[y + 2][x] == 2) //구름과 겹쳐진 상태
 	//	return 1;
 	else if (stage[y][x] % 89 == 0 || stage[y + 1][x] % 89 == 0 || stage[y + 2][x] % 89 == 0) //드래곤볼 충돌 예외
+		return 0;
+	else if (stage[y][x] % 97 == 0 || stage[y + 1][x] % 97 == 0 || stage[y + 2][x] % 97 == 0) //다음 스테이지 이동시켜주는 포탈 충돌 예외
 		return 0;
 	else
 		return 1;
