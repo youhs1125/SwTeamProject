@@ -165,7 +165,7 @@ void initPlayer(player* p)
 	p->spawnPos[0][1] = 32; //yÁÂÇ¥
 
 	p->spawnPos[1][0] = 6;
-	p->spawnPos[1][1] = 32;
+	p->spawnPos[1][1] = 30;
 
 	p->spawnPos[2][0] = 38;
 	p->spawnPos[2][1] = 32;
