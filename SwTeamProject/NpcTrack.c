@@ -5,43 +5,53 @@ int getDistance(int x, int y) {
 	return x * x + y * y;
 }
 void updateNpcPos(player* p, NPC* npc) {
-
 	if (getArea(npc, p) > npc->detectArea) return; //특정 영역안에 존재할 떄 추적 시작
+	if (npc->moveStyle == 0) { //지그 재그 움직임
+		npc->directionCnt++;
+		if (npc->directionCnt % 4 == 0) { //
+			int tempX = 0, tempY = 0;
+			tempX = p->x - npc->x;
+			tempY = p->y - npc->y;
+			if (tempX > 0)
+				npc->dx = 1;
+			else
+				npc->dx = -1;
 
-	npc->directionCnt++;
-	if (npc->directionCnt % 4 == 0) { //
-		int tempX = 0, tempY = 0;
-		tempX = p->x - npc->x;
-		tempY = p->y - npc->y;
-		if (tempX > 0)
-			npc->dx = 1;
-		else
-			npc->dx = -1;
 
-		
-		if (tempY > 0)
-			npc->dy = 1;
-		else
-			npc->dy = -1;
+			if (tempY > 0)
+				npc->dy = 1;
+			else
+				npc->dy = -1;
 
-		if (npc->directionFlag == 0) {
-			npc->directionFlag = 1;
-			npc->dx = 0;
+			if (npc->directionFlag == 0) {
+				npc->directionFlag = 1;
+				npc->dx = 0;
+			}
+			else {
+				npc->directionFlag = 0;
+				npc->dy = 0;
+			}
 		}
 		else {
-			npc->directionFlag = 0;
-			npc->dy = 0;
+			npc->x += npc->dx;
+			npc->y += npc->dy;
+
+			if (npc->x >= stage1X - 1)
+				npc->x--;
+			if (npc->y <= 1)
+				npc->y++;
 		}
 	}
-	else {
+	else if (npc->moveStyle == 1) {//직선 움직임
+
+		if (npc->x < p->x) npc->dx = 1;
+		else if (npc->x > p->x) npc->dx = -1;
+
+		if (npc->y < p->y) npc->dy = 1;
+		else if (npc->y > p->y) npc->dy = -1;
+
 		npc->x += npc->dx;
 		npc->y += npc->dy;
-		
-		if (npc->x >= stage1X - 1)
-			npc->x--;
-		if (npc->y <= 1)
-			npc->y++;
-
 	}
 }
 void addNpcCnt(NPC *npc) {
@@ -79,6 +89,7 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int *npcNum)
 //npc 난이도 조절을 위해 난이도와 스테이지 넘버 매개변수로 받아오기 
 //npcNum -> 맵에서 돌아다니는 npc 개수
 {
+
 	if (diff == E) {
 		*npcNum = 2;
 		if (stageNum == 0) {
@@ -116,6 +127,7 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int *npcNum)
 		npcArr[i].y = npcArr[i].homeY;
 		npcArr[i].haveBall = 1;
 
+		npcArr[i].moveStyle = 0;
 		npcArr[i].cnt = 0; //npc 움직임 주기 카운트용 변수
 		npcArr[i].npcSpeed = 4; //npc 움직임 주기
 
@@ -125,4 +137,8 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int *npcNum)
 		npcArr[i].directionFlag = 0;
 		npcArr[i].detectArea = 40;
 	}
+
+	//임시로 보여주기 위한 설정
+	npcArr[0].moveStyle = 1;
+	npcArr[0].npcSpeed = 6;
 }

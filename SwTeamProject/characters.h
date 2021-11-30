@@ -18,6 +18,9 @@ typedef struct NPC
 	int dx, dy;
 	int homeX, homeY;
 	int haveBall;
+	int moveStyle; //지그재그로 움직이기 or 일직선으로 움직이기
+	//0 : 지그재그
+	//1 : 직선
 
 	int distance[8];   //8가지 방향
 	int minDistance;  //캐릭터와의 최소거리

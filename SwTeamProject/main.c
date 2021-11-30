@@ -111,8 +111,6 @@ int main()
 
 		//플레이어 움직인 후 npc이동 시작
 		//추적 알고리즘 시작
-		//2개의 NPC가 플레이어를 특정 거리 이하 일 때 추적
-
 		for (int i = 0; i < npcNum; i++) {
 			addNpcCnt(&npcArr[i]);
 			int dis = min(getDistance(p.x - npcArr[i].x, p.y - npcArr[i].y), getDistance(p.x - npcArr[i].x, p.y + 1 - npcArr[i].y)); //캐릭터와 npc사이의 거리
@@ -126,7 +124,6 @@ int main()
 				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
 				updateNpcPos(&p, &npcArr[i]);
 				drawNpc(&npcArr[i]);
-				npcArr[i].npcSpeed = 2;
 			}
 		}
 
