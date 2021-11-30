@@ -37,7 +37,6 @@ int main()
 	initPlayer(&p);
 	setDragonBallPos(dgball);
 
-	initNPC(&npc, 1, 1);
 	initSpecialCloud(sCloud, 5);
 	printCloud(stageArr[p.stageNum], dgball[p.stageNum]);
 	drawPlayer(&p);
@@ -51,7 +50,7 @@ int main()
 		drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 
 	//아이템 관련
-	int speed1 = 30, speed2 = 50;
+	int speed1 = 5, speed2 = 20;
 	item item[50];
 	InititemBox(speed1, speed2);
 
@@ -115,7 +114,6 @@ int main()
 //			int dis = getDistance(p.x - n[i].x, p.y - n[i].y);   //캐릭터와 npc사이의 거리
 			int dis = min(getDistance(p.x - n[i].x, p.y - n[i].y), getDistance(p.x - n[i].x, p.y + 1 - n[i].y));
 			dis = min(dis, getDistance(p.x - n[i].x, p.y + 2 - n[i].y));
-			/*
 			if (dis == 0) {  //최소 거리 루트2 이하이면 끝내기.
 				deleteNpc(&n[i], stageArr[p.stageNum]);
 				deletePlayer(&p, stageArr[p.stageNum]);
@@ -127,12 +125,11 @@ int main()
 				drawNpc(&n[i]);
 				n[i].npcSpeed = 2;
 			}
-			*/
 		}
 
 
 		//캐릭터, npc 이후 아이템
-		Fallitem(&p, stageArr[p.stageNum], n);
+		Fallitem(&p, stageArr[p.stageNum], n, sCloud, 5);
 	}
 
 

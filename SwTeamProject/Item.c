@@ -8,7 +8,7 @@
 #include "NpcTrack.h"
 #include "characters.h"
 
-#define MAX 10      // 아이템 최대 갯수
+#define MAX 5      // 아이템 최대 갯수
 
 //아이템 박스 초기화
 void InititemBox(int speed1, int speed2)
@@ -37,12 +37,16 @@ int itemNum(int num)
 //아이템과 플레이어 충돌 감지
 int Detectitem(player* p, int i, int stage[][60])
 {
-    int pX = OriginX + p->x * 2;
+    /*int pX = OriginX + p->x * 2;
     int pY = OriginY + p->y;
     int itemX = OriginX + it[i].x * 2;
     int itemY = OriginY + it[i].y;
     if ((pX >= itemX && pX <= itemX) && (pY == itemY || pY + 1 == itemY || pY + 2 == itemY)) {
         InitPosition(&it[i]);
+        return 1;
+    }*/
+    if ((p->x == it[i].x) && (p->y == it[i].y || p->y + 1 == it[i].y || p->y + 2 == it[i].y)) {
+        
         return 1;
     }
     else return 0;
@@ -51,20 +55,29 @@ int Detectitem(player* p, int i, int stage[][60])
 //충돌시 충돌한 아이템의 좌표 초기화 (맵에 그대로 남아있는 것 해결)
 void InitPosition(item* item)
 {
-    item->x = 0;
+    int speed1 = 30, speed2 = 50;
+   /* item->x = 0;
     item->y = 0;
-    item->flag = 0;
+    item->flag = 0;*/
+    item->flag = 1;   //초기화 당시 아이템 위치는 보여지면 안됨
+    item->x = rand() % (stage1X - 2) + 1;
+    item->y = 1;
+    item->itemNum = itemNum(rand() % 5);
+    item->life = rand() % 10;   // 대기시간
+    item->speed = rand() % (speed2 - speed1) + speed1;   //개별 스피드 부여
 }
 
 //아이템 떨어짐
-void Fallitem(player* p, int stage[][60], NPC *npc)
+void Fallitem(player* p, int stage[][60], NPC *npc, cloud* cloudArr, int CloudSize)
 {
     for (int i = 0; i < MAX; i++)
     {
         if (Detectitem(p, i, stage) == 1)
         {
             // 아이템 활성화
-            func_item(it[i].itemNum, p, stage, npc);   //itemNum 인덱스에 해당하는 기능 수행.
+            func_item(it[i].itemNum, p, stage, npc, cloudArr, CloudSize);   //itemNum 인덱스에 해당하는 기능 수행
+            InitPosition(&it[i]);
+            UpdateRecord(p);
            // printf("%d", p->life);
         }
 
@@ -81,6 +94,7 @@ void Fallitem(player* p, int stage[][60], NPC *npc)
             {    //최대 거리까지 갔다면 지워주고 flag check 수정
                 deleteItem(i, stage);
                 it[i].flag = 0;  //다시 화면표시x로 지정
+                InitPosition(&it[i]);
                 continue;
             }
 
@@ -98,7 +112,7 @@ void Fallitem(player* p, int stage[][60], NPC *npc)
 
 void showItem(int num)
 {
-    if (num == 13) printf("☎");
+    if (num == 13) printf("♥");
     else if (num == 17) printf("▼");
     else if (num == 19) printf("♪");
     else if (num == 23) printf("＠");
@@ -112,10 +126,14 @@ void deleteItem(int i, int stage[][60]) {
     recoverCloud(it[i].x, it[i].y, stage);
 }
 
-void func_item(int itemNum, player* p, int stage[][60], NPC *npc)
+void func_item(int itemNum, player* p, int stage[][60], NPC *npc, cloud* CloudArr, int CloudSize)
 {
-    if (itemNum == 13) p->life++;   //추가목숨부여
-    else if (itemNum == 17) p->life--; //목숨 감점
+    if (itemNum == 13) 
+        p->life++;   //추가목숨부여
+    else if (itemNum % 17 == 0)
+    {
+        respawnPlayer(p, stage);
+    }
     else if (itemNum == 19)    //순간이동
     {
         deletePlayer(p, stage);
@@ -126,7 +144,11 @@ void func_item(int itemNum, player* p, int stage[][60], NPC *npc)
         npc[0].npcSpeed = 100;
         npc[1].npcSpeed = 100;
     }
+    else if (itemNum == 29) {
+        changeCloudType(CloudArr, CloudSize, stage);
+    }
 }
+
 
 
 
