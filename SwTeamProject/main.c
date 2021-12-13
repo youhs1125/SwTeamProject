@@ -28,13 +28,14 @@ int main()
 	int jumpFlag = 0;
 	int count = 0;
 
+	nextStageEffect();
 
 	printStage();
 	initPlayer(&p);
 	initNPC(npcArr, difficulty, p.stageNum, &npcNum);
 	setDragonBallPos(dgball);
 
-	initSpecialCloud(sCloud, 5);
+	initSpecialCloud(sCloud, 5, dgball[p.stageNum]);
 	printCloud(stageArr[p.stageNum], dgball[p.stageNum]);
 	drawPlayer(&p);
 	UpdateRecord(&p);
@@ -98,8 +99,9 @@ int main()
 			UpdateRecord(&p);
 		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //드래곤볼 전부 모으고 and 문 앞에 서 있으면 다음 스테이지로 이동
 			p.stageNum++;
+			nextStageEffect();
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
-			initSpecialCloud(sCloud, 5);
+			initSpecialCloud(sCloud, 5, dgball[p.stageNum]);
 			InititemBox(speed1, speed2);
 			initNPC(npcArr, difficulty, p.stageNum, &npcNum);
 			p.x = p.spawnPos[p.stageNum][0];
@@ -125,6 +127,10 @@ int main()
 				updateNpcPos(&p, &npcArr[i]);
 				drawNpc(&npcArr[i]);
 			}
+			else {
+				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
+				drawNpc(&npcArr[i]);
+			}
 		}
 
 		//캐릭터, npc 이후 아이템
@@ -136,6 +142,7 @@ int main()
 	SetCurrentCursorPos(0, 0);
 
 	printf("GameOver");
+	getchar();
 
 	return 0;
 }

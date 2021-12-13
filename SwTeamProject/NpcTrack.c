@@ -5,7 +5,17 @@ int getDistance(int x, int y) {
 	return x * x + y * y;
 }
 void updateNpcPos(player* p, NPC* npc) {
-	if (getArea(npc, p) > npc->detectArea) return; //특정 영역안에 존재할 떄 추적 시작
+	if (npc->isMoving == 0)
+	{
+		npc->npcSpeed = 4;
+		npc->detectArea = 40;
+	}
+	if (getArea(npc, p) > npc->detectArea)
+	{
+		npc->isMoving = 0;
+		return; //특정 영역안에 존재할 떄 추적 시작
+	}
+	npc->isMoving = 1;
 	if (npc->moveStyle == 0) { //지그 재그 움직임
 		npc->directionCnt++;
 		if (npc->directionCnt % 4 == 0) { //
@@ -35,7 +45,6 @@ void updateNpcPos(player* p, NPC* npc) {
 		else {
 			npc->x += npc->dx;
 			npc->y += npc->dy;
-
 			if (npc->x >= stage1X - 1)
 				npc->x--;
 			if (npc->y <= 1)
@@ -71,7 +80,10 @@ void drawNpc(NPC* npc) {
 	int posY = OriginY + npc->y;
 	SetCurrentCursorPos(posX, posY);
 
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);	//보라색
+	if (npc->isMoving)
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);	//보라색
+	else
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
 	SetCurrentCursorPos(posX, posY);
 	printf("●");  //임시 npc
 	SetCurrentCursorPos(posX, posY+1);
@@ -136,6 +148,7 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int *npcNum)
 		npcArr[i].directionCnt = 0;
 		npcArr[i].directionFlag = 0;
 		npcArr[i].detectArea = 40;
+		npcArr[i].isMoving = 0;
 	}
 
 	//임시로 보여주기 위한 설정

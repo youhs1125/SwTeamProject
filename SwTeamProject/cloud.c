@@ -90,9 +90,9 @@ void deleteSpecialCloud(cloud* cloud, int stage[][60])
 	}
 }
 
-void initSpecialCloud(cloud* cloudArray, int size, int stage[][60])
+void initSpecialCloud(cloud* cloudArray, int size, DragonBall dgb[])
 {
-	int i,j;
+	int i,j,k;
 	int temp;
 	int flag = 0;
 	for (i = 0; i < size; i++)
@@ -114,21 +114,20 @@ void initSpecialCloud(cloud* cloudArray, int size, int stage[][60])
 		cloudArray[i].y = rand() % 37 + 2;
 		cloudArray[i].vis = 1;
 
-		flag = 0;
 		if (cloudArray[i].movement == 0)
 		{
-			while (flag == 0) 
+			for (j = 0; j < 3; j++)
 			{
-				int count = 1;
-				for (j = cloudArray[i].x; j < cloudArray[i].x + cloudArray[i].size; j++)
+				for (k = 0; k < cloudArray[i].size; k++)
 				{
-					cloudArray[i].x = rand() % (59 - cloudArray[i].size) + 1;
-					cloudArray[i].y = rand() % 37 + 2;
-					count++;
+					if (dgb[j].y == cloudArray[i].y && dgb[j].x == cloudArray[i].x+k)
+					{
+						cloudArray[i].y--;
+						break;
+					}
 				}
-				if (count == cloudArray[i].size)
-					flag = 1;
 			}
+			
 		}
 
 	}
