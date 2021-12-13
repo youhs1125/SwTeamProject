@@ -127,7 +127,7 @@ void UpdateRecord(player* p)
 	static int maxLife;
 	int i;
 	SetCurrentCursorPos(curX, curY++);
-	printf("현재 스테이지: %d", p->stageNum);
+	printf("현재 스테이지: %d", p->stageNum+1);
 	SetCurrentCursorPos(curX, curY++);
 	printf("남은 목숨: ");
 
@@ -171,7 +171,7 @@ void initPlayer(player* p)
 	p->spawnPos[1][0] = 6;
 	p->spawnPos[1][1] = 30;
 
-	p->spawnPos[2][0] = 38;
+	p->spawnPos[2][0] = 56;
 	p->spawnPos[2][1] = 32;
 }
 

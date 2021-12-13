@@ -22,22 +22,15 @@ void setDragonBallPos(DragonBall dgb[][3]) {
 	dgb[1][2].y = 1000;
 	dgb[1][2].get = 0;
 
-	dgb[2][0].x = 45;
-	dgb[2][0].y = 21;
+	dgb[2][0].x = 53;
+	dgb[2][0].y = 15;
 	dgb[2][0].get = 0;
-	dgb[2][1].x = 45;
-	dgb[2][1].y = 21;
+	dgb[2][1].x = 5;
+	dgb[2][1].y = 32;
 	dgb[2][1].get = 0;
-	dgb[2][2].x = 45;
-	dgb[2][2].y = 21;
+	dgb[2][2].x = 3;
+	dgb[2][2].y = 7;
 	dgb[2][2].get = 0;
-	//for (int i = 0; i < 7; i++) {
-	//	//38 * 58
-	//	//임시로 모든 드래곤볼의 위치를 맵상에 표현하게 해놓음
-	//	dgb[i].x = rand() % 58+1;
-	//	dgb[i].y = rand() % 38 + 1;
-	//	dgb[i].get = 0; 
-	//}
 }
 
 

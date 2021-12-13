@@ -31,9 +31,9 @@ int main()
 
 	printStage();
 	initPlayer(&p);
+	p.stageNum = 1;
 	initNPC(npcArr, difficulty, p.stageNum, &npcNum);
 	setDragonBallPos(dgball);
-
 	initSpecialCloud(sCloud, 5);
 	printCloud(stageArr[p.stageNum], dgball[p.stageNum]);
 	drawPlayer(&p);
@@ -97,6 +97,8 @@ int main()
 		if (dragonBallGet(&p, dgball[p.stageNum], stageArr[p.stageNum]) == 1) //드래곤볼 위치와 플레이어 위치 비교 후 정보 업데이트
 			UpdateRecord(&p);
 		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //드래곤볼 전부 모으고 and 문 앞에 서 있으면 다음 스테이지로 이동
+			//마지막 스테이지 통과하면 게임 끝내기
+			if (p.stageNum == 2) return;
 			p.stageNum++;
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5);
@@ -111,7 +113,7 @@ int main()
 
 		//플레이어 움직인 후 npc이동 시작
 		//추적 알고리즘 시작
-		for (int i = 0; i < npcNum; i++) {
+		/*for (int i = 0; i < npcNum; i++) {
 			addNpcCnt(&npcArr[i]);
 			int dis = min(getDistance(p.x - npcArr[i].x, p.y - npcArr[i].y), getDistance(p.x - npcArr[i].x, p.y + 1 - npcArr[i].y)); //캐릭터와 npc사이의 거리
 			dis = min(dis, getDistance(p.x - npcArr[i].x, p.y + 2 - npcArr[i].y));
@@ -125,7 +127,7 @@ int main()
 				updateNpcPos(&p, &npcArr[i]);
 				drawNpc(&npcArr[i]);
 			}
-		}
+		}*/
 
 		//캐릭터, npc 이후 아이템
 		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5);

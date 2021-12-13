@@ -89,36 +89,70 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int *npcNum)
 //npc 난이도 조절을 위해 난이도와 스테이지 넘버 매개변수로 받아오기 
 //npcNum -> 맵에서 돌아다니는 npc 개수
 {
-
+	//
 	if (diff == E) {
-		*npcNum = 2;
 		if (stageNum == 0) {
+			*npcNum = 1;
 			npcArr[0].homeX = 10; npcArr[0].homeY = 10;
-			npcArr[1].homeX = 50; npcArr[1].homeY = 20;
+			//npcArr[1].homeX = 50; npcArr[1].homeY = 20;
+
+			npcArr[0].moveStyle = 0;
+			npcArr[0].npcSpeed = 3;
 		}
 		else if (stageNum == 1) {
+			*npcNum = 2;
 			npcArr[0].homeX = 10; npcArr[0].homeY = 10;
 			npcArr[1].homeX = 50; npcArr[1].homeY = 20;
+
+			npcArr[0].moveStyle = 0;
+			npcArr[0].npcSpeed = 2;
+			npcArr[1].moveStyle = 0;
+			npcArr[1].npcSpeed = 2;
 		}
 		else {
+			*npcNum = 2;
 			npcArr[0].homeX = 10; npcArr[0].homeY = 10;
-			npcArr[1].homeX = 50; npcArr[1].homeY = 20;
+			npcArr[1].homeX = 45; npcArr[1].homeY = 5;
+
+			npcArr[0].moveStyle = 1;
+			npcArr[0].npcSpeed = 3;
+			npcArr[1].moveStyle = 1;
+			npcArr[1].npcSpeed = 3;
 		}
 	}
 
 	if (diff == H) {
-		*npcNum = 2;
 		if (stageNum == 0) {
+			*npcNum = 2;
 			npcArr[0].homeX = 10; npcArr[0].homeY = 10;
 			npcArr[1].homeX = 50; npcArr[1].homeY = 20;
+
+			npcArr[0].moveStyle = 0;
+			npcArr[0].npcSpeed = 3;
+			npcArr[1].moveStyle = 0;
+			npcArr[1].npcSpeed = 3;
 		}
 		else if (stageNum == 1) {
+			*npcNum = 2;
 			npcArr[0].homeX = 10; npcArr[0].homeY = 10;
 			npcArr[1].homeX = 50; npcArr[1].homeY = 20;
+
+			npcArr[0].moveStyle = 1;
+			npcArr[0].npcSpeed = 2;
+			npcArr[1].moveStyle = 1;
+			npcArr[1].npcSpeed = 2;
 		}
 		else {
+			*npcNum = 3;
 			npcArr[0].homeX = 10; npcArr[0].homeY = 10;
 			npcArr[1].homeX = 50; npcArr[1].homeY = 20;
+
+			npcArr[0].moveStyle = 0;
+			npcArr[0].npcSpeed = 2;
+			npcArr[1].moveStyle = 0;
+			npcArr[1].npcSpeed = 2;
+			npcArr[2].moveStyle = 0;
+			npcArr[2].npcSpeed = 2;
 		}
 	}
 
@@ -127,18 +161,18 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int *npcNum)
 		npcArr[i].y = npcArr[i].homeY;
 		npcArr[i].haveBall = 1;
 
-		npcArr[i].moveStyle = 0;
+		//npcArr[i].moveStyle = 0;
 		npcArr[i].cnt = 0; //npc 움직임 주기 카운트용 변수
-		npcArr[i].npcSpeed = 4; //npc 움직임 주기
+		//npcArr[i].npcSpeed = 4; //npc 움직임 주기
 
 		npcArr[i].dx = 1;
 		npcArr[i].dy = 0;
 		npcArr[i].directionCnt = 0;
 		npcArr[i].directionFlag = 0;
-		npcArr[i].detectArea = 40;
+		npcArr[i].detectArea = 50;
 	}
 
 	//임시로 보여주기 위한 설정
-	npcArr[0].moveStyle = 1;
-	npcArr[0].npcSpeed = 6;
+	/*npcArr[0].moveStyle = 1;
+	npcArr[0].npcSpeed = 6;*/
 }
