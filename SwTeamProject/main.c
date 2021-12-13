@@ -48,6 +48,12 @@ int main()
 	for (int i = 0; i < 5; i++)			//구름 출력
 		drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 
+	zone z;
+	InitZone(&z);
+	printZone(&z, p.stageNum);
+	safeZone(&z, p.stageNum, stageArr[p.stageNum]);
+
+
 
 	//아이템 관련
 	int speed1 = 1, speed2 = 5;

@@ -1,6 +1,11 @@
 #include "Common.h"
 #define MAX 50
 
+typedef struct zone {
+	int x[3];
+	int y[3];
+}zone;
+
 typedef struct item {
 	int x, y;
 	int flag;       //0,1로 상태 표시 화면에 표시 or 표시x

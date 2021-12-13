@@ -9,6 +9,66 @@
 #include "characters.h"
 
 #define MAX 5      // 아이템 최대 갯수
+#define safeX 15
+#define safeY 10
+//안전 범위 출력
+
+void InitZone(zone* z)
+{
+    z->x[0] = 1;
+    z->y[0] = 1;
+    z->x[1] = 15;
+    z->y[1] = 15;
+    z->x[2] = 25;
+    z->y[2] = 25;
+}
+
+void printSafe()
+{
+    //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 연한 빨강
+
+    printf("◆");
+}
+
+void safeZone(zone* z, int stageNum, int stage[][60])
+{
+    int i;
+    for (int i = 0; i < safeX; i++)
+    {
+        stage[z->y[stageNum]][z->x[stageNum] + i] *= 37;
+        stage[z->y[stageNum] + safeY][z->x[stageNum] + i] *= 37;
+    }
+    for (int i = 0; i < safeY; i++)
+    {
+        stage[z->y[stageNum] + i][z->x[stageNum]] *= 37;
+        stage[z->y[stageNum] + i][z->x[stageNum] + safeX] *= 37;
+    }
+}
+
+void printZone(zone* z, int stageNum)
+{
+    int i;
+    for (int i = 0; i < safeX; i++)
+    {
+        int posX = OriginX + (z->x[stageNum] + i) * 2;
+        int posY = z->y[stageNum] + OriginY;
+        SetCurrentCursorPos(posX, posY);
+        printf("◇");
+        posY += safeY;
+        SetCurrentCursorPos(posX, posY);
+        printf("◇");
+    }
+    for (int i = 0; i < safeY; i++)
+    {
+        int posX = OriginX + (z->x[stageNum]) * 2;
+        int posY = z->y[stageNum] + OriginY + i;
+        SetCurrentCursorPos(posX, posY);
+        printf("◇");
+        posX = OriginX + (z->x[stageNum] + safeX) * 2;
+        SetCurrentCursorPos(posX, posY);
+        printf("◇");
+    }
+}
 
 //아이템 박스 초기화
 void InititemBox(int speed1, int speed2)
@@ -115,6 +175,8 @@ void deleteItem(int i, int stage[][60]) {
     int posX = OriginX + it[i].x * 2;
     int posY = OriginY + it[i].y;
     SetCurrentCursorPos(posX, posY);
+ //   printf("  ");
+ //   SetCurrentCursorPos(posX, posY);
     recoverCloud(it[i].x, it[i].y, stage);
 }
 
