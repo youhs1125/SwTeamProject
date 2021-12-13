@@ -27,7 +27,7 @@ void printSafe()
 {
     //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 ¿¬ÇÑ »¡°­
 
-    printf("¡ß");
+    printf("¡Þ");
 }
 
 void safeZone(zone* z, int stageNum, int stage[][60])

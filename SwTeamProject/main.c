@@ -113,6 +113,8 @@ int main()
 			initSpecialCloud(sCloud, 5, dgball[p.stageNum]);
 			InititemBox(speed1, speed2);
 			initNPC(npcArr, difficulty, p.stageNum, &npcNum);
+			printZone(&z, p.stageNum);
+			safeZone(&z, p.stageNum, stageArr[p.stageNum]);
 			p.x = p.spawnPos[p.stageNum][0];
 			p.y = p.spawnPos[p.stageNum][1];
 		}

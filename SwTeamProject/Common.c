@@ -267,6 +267,16 @@ int detectColl(int x, int y, int stage[][60])
 		return 0;
 	else if (stage[y][x] % 97 == 0 || stage[y + 1][x] % 97 == 0 || stage[y + 2][x] % 97 == 0) //다음 스테이지 이동시켜주는 포탈 충돌 예외
 		return 0;
+	else if (stage[y][x] % 37 == 0 || stage[y + 1][x] % 37 == 0 || stage[y + 2][x] % 37 == 0)
+	{
+		if (stage[y + 1][x] % 37 == 0 && stage[y][x] != 1 && stage[y][x] % 37 != 0)
+			return 1;
+		else if (stage[y + 2][x] % 37 == 0 && stage[y + 1][x] != 1 && stage[y + 1][x] % 37 != 0)
+			return 1;
+		else if (stage[y][x] / 37 >= 2 || stage[y + 1][x] / 37 >= 2 || stage[y + 1][x] / 37 >= 2)
+			return 1;
+		return 0;
+	}
 	else
 		return 1;
 }
