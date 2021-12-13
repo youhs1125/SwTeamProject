@@ -146,6 +146,7 @@ void printEndScreen() {
 				key = _getch();
 				switch (key) {
 				case ENTER:
+
 					return;
 				}
 			}

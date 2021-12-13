@@ -14,11 +14,20 @@ int main()
 {
 	initCmd();
 	//시작화면 
+	int tmpStageArr[3][40][60];
 
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 40; j++)
+			for (int k = 0; k < 60; k++)
+				tmpStageArr[i][j][k] = stageArr[i][j][k];
 
 	while (1) {
 		system("cls");
 		gameStart();
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 40; j++)
+				for (int k = 0; k < 60; k++)
+					stageArr[i][j][k] = tmpStageArr[i][j][k];
 	}
 
 	return 0;
@@ -153,5 +162,6 @@ void gameStart() {
 		//캐릭터, npc 이후 아이템
 		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5);
 	}
+	system("cls");
 	printEndScreen();
 }
