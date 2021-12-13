@@ -153,6 +153,7 @@
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="DragonBall.h" />
+    <ClInclude Include="EndScreen.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="NextStage.h" />
     <ClInclude Include="StageArr.h" />
