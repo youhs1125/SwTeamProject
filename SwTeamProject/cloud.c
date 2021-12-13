@@ -17,6 +17,8 @@ void recoverCloud(int x, int y, int stage[][60])
 		printPortal();
 	else if (stage[y][x] % 89 == 0)
 		printDragonBall();
+	else if (stage[y][x] % 37 == 0)
+		printSafe();
 	else if (stage[y][x] == 1)
 		printf("  ");
 

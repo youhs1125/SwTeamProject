@@ -8,34 +8,11 @@
 #include "cloud.h"
 #include "Item.h"
 
-void gameStart(void);
-
 int main()
 {
 	initCmd();
 	//시작화면 
-	int tmpStageArr[3][40][60];
-
-	for (int i = 0; i < 3; i++)
-		for (int j = 0; j < 40; j++)
-			for (int k = 0; k < 60; k++)
-				tmpStageArr[i][j][k] = stageArr[i][j][k];
-
-	while (1) {
-		system("cls");
-		gameStart();
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 40; j++)
-				for (int k = 0; k < 60; k++)
-					stageArr[i][j][k] = tmpStageArr[i][j][k];
-	}
-
-	return 0;
-}
-
-void gameStart() {
 	int difficulty = printStartScreen();
-	if (difficulty == Q) return;
 	player p;
 	DragonBall dgball[3][3];
 	StageDoor stageDoor[3];
@@ -55,7 +32,6 @@ void gameStart() {
 
 	printStage();
 	initPlayer(&p);
-	p.stageNum = 2;
 	initNPC(npcArr, difficulty, p.stageNum, &npcNum);
 	setDragonBallPos(dgball);
 
@@ -71,6 +47,12 @@ void gameStart() {
 
 	for (int i = 0; i < 5; i++)			//구름 출력
 		drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
+
+	zone z;
+	InitZone(&z);
+	printZone(&z, p.stageNum);
+	safeZone(&z, p.stageNum, stageArr[p.stageNum]);
+
 
 
 	//아이템 관련
@@ -110,6 +92,10 @@ void gameStart() {
 		}
 		else if (jumpFlag == -1) //추락한 경우
 		{
+			//npc 삭제해주고 위치 재설정
+			//deleteNpc(&npcArr, stageArr[p.stageNum]);
+			/*npc.x = 1; npc.y = 1*/;
+
 			//플레이어 삭제 and 위치 재설정 and 기록변경
 			respawnPlayer(&p, stageArr[p.stageNum]);
 			UpdateRecord(&p);
@@ -120,10 +106,7 @@ void gameStart() {
 			UpdateRecord(&p);
 		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //드래곤볼 전부 모으고 and 문 앞에 서 있으면 다음 스테이지로 이동
 			//마지막 스테이지 통과하면 게임 끝내기
-			if (p.stageNum == 2) {
-				gameClearScreen();
-				return;
-			}
+			if (p.stageNum == 2) return;
 			p.stageNum++;
 			nextStageEffect();
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
@@ -139,7 +122,7 @@ void gameStart() {
 
 		//플레이어 움직인 후 npc이동 시작
 		//추적 알고리즘 시작
-		/*for (int i = 0; i < npcNum; i++) {
+		for (int i = 0; i < npcNum; i++) {
 			addNpcCnt(&npcArr[i]);
 			int dis = min(getDistance(p.x - npcArr[i].x, p.y - npcArr[i].y), getDistance(p.x - npcArr[i].x, p.y + 1 - npcArr[i].y)); //캐릭터와 npc사이의 거리
 			dis = min(dis, getDistance(p.x - npcArr[i].x, p.y + 2 - npcArr[i].y));
@@ -157,11 +140,18 @@ void gameStart() {
 				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
 				drawNpc(&npcArr[i]);
 			}
-		}*/
+		}
 
 		//캐릭터, npc 이후 아이템
 		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5);
 	}
-	system("cls");
-	printEndScreen();
+
+
+
+	SetCurrentCursorPos(0, 0);
+
+	printf("GameOver");
+	getchar();
+
+	return 0;
 }
