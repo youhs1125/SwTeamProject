@@ -15,7 +15,7 @@ void printStageDoor(StageDoor* std, int stage[][60], int stageNum) {		//Ãâ±¸ = 9
 }
 
 int checkStageDoor(player* p, StageDoor* std, int stageNum) {
-	if (p->balls == p->targetBall[p->stageNum] && p->x == std[stageNum].x && p->y + 2 == std[stageNum].y)
+	if (p->balls == p->targetBall[p->stageNum] && p->x == std[stageNum].x && (p->y + 2 == std[stageNum].y || p->y + 1 == std[stageNum].y || p->y == std[stageNum].y))
 		return 1;
 	else
 		return 0;

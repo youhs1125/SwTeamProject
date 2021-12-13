@@ -1,4 +1,4 @@
-﻿#include "Common.h"
+#include "Common.h"
 //초기 화면 설정
 void initCmd()
 {
