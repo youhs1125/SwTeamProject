@@ -1,5 +1,7 @@
 #include "Common.h"
 #define MAX 50
+#define safeX 15
+#define safeY 10
 
 typedef struct zone {
 	int x[3];
@@ -18,8 +20,8 @@ item it[MAX];
 
 void InititemBox(int speed1, int speed2);
 int Detectitem(player* p, int i, int stage[][60]);
-void Fallitem(player* p, int stage[][60], NPC *npc);
+void Fallitem(player* p, int stage[][60], NPC* npc, cloud* cloudArr, int CloudSize, zone* z);
 void showItem(int num);
 void deleteItem(int i, int stage[][60]);
-void func_item(int num, player* p, NPC *npc);
+void func_item(int itemNum, player* p, int stage[][60], NPC* npc, cloud* CloudArr, int CloudSize, zone* z);
 void InitPosition(item* item);

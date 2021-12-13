@@ -115,6 +115,9 @@ int main()
 			initNPC(npcArr, difficulty, p.stageNum, &npcNum);
 			p.x = p.spawnPos[p.stageNum][0];
 			p.y = p.spawnPos[p.stageNum][1];
+
+			printZone(&z, p.stageNum);
+			safeZone(&z, p.stageNum, stageArr[p.stageNum]);
 		}
 
 		processKeyInput(&p, stageArr[p.stageNum]);
@@ -133,7 +136,7 @@ int main()
 			}
 			if (npcArr[i].cnt % npcArr[i].npcSpeed == 0) {
 				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
-				updateNpcPos(&p, &npcArr[i]);
+				updateNpcPos(&z, &p, &npcArr[i]);
 				drawNpc(&npcArr[i]);
 			}
 			else {
@@ -143,7 +146,7 @@ int main()
 		}
 
 		//캐릭터, npc 이후 아이템
-		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5);
+		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5,&z);
 	}
 
 
