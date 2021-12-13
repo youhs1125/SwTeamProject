@@ -117,9 +117,6 @@ int main()
 			safeZone(&z, p.stageNum, stageArr[p.stageNum]);
 			p.x = p.spawnPos[p.stageNum][0];
 			p.y = p.spawnPos[p.stageNum][1];
-
-			printZone(&z, p.stageNum);
-			safeZone(&z, p.stageNum, stageArr[p.stageNum]);
 		}
 
 		processKeyInput(&p, stageArr[p.stageNum]);
