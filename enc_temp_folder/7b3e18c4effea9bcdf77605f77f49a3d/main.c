@@ -17,8 +17,9 @@ int main()
 
 
 	while (1) {
-		system("cls");
 		gameStart();
+		system("cls");
+		printEndScreen();
 	}
 
 	return 0;
@@ -113,7 +114,6 @@ void gameStart() {
 			//마지막 스테이지 통과하면 게임 끝내기
 			if (p.stageNum == 2) {
 				gameClearScreen();
-				return;
 			}
 			p.stageNum++;
 			nextStageEffect();
@@ -153,5 +153,4 @@ void gameStart() {
 		//캐릭터, npc 이후 아이템
 		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5);
 	}
-	printEndScreen();
 }

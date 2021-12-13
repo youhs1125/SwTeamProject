@@ -10,3 +10,4 @@ int printStartScreen(void);
 int getKeyInput(void);
 
 void printEndScreen(void);
+void gameClearScreen(void);

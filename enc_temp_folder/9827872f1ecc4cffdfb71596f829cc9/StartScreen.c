@@ -146,6 +146,7 @@ void printEndScreen() {
 				key = _getch();
 				switch (key) {
 				case ENTER:
+					system("cls");
 					return;
 				}
 			}
@@ -220,7 +221,6 @@ void gameClearScreen(void) {
                 switch (key) {
                 case 13:
                     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-                    
                     return 0;
                 }
             }
