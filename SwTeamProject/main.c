@@ -8,8 +8,30 @@
 #include "cloud.h"
 #include "Item.h"
 
+void gameStart(void);
+
 int main()
 {
+	int tmpStageArr[3][40][60];
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 40; j++)
+			for (int k = 0; k < 60; k++)
+				tmpStageArr[i][j][k] = stageArr[i][j][k];
+	initCmd();
+	while (1) {
+		system("cls");
+		//시작화면 
+		gameStart();
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 40; j++)
+				for (int k = 0; k < 60; k++)
+					stageArr[i][j][k] = tmpStageArr[i][j][k];
+	}
+
+	return 0;
+}
+
+void gameStart(void) {
 	initCmd();
 	//시작화면 
 	int difficulty = printStartScreen();
@@ -106,7 +128,10 @@ int main()
 			UpdateRecord(&p);
 		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //드래곤볼 전부 모으고 and 문 앞에 서 있으면 다음 스테이지로 이동
 			//마지막 스테이지 통과하면 게임 끝내기
-			if (p.stageNum == 2) return;
+			if (p.stageNum == 2) {
+				system('cls');
+				gameClearScreen();
+			}
 			p.stageNum++;
 			nextStageEffect();
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
@@ -145,15 +170,8 @@ int main()
 		}
 
 		//캐릭터, npc 이후 아이템
-		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5,&z);
+		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5, &z);
 	}
-
-
-
-	SetCurrentCursorPos(0, 0);
-
-	printf("GameOver");
-	getchar();
-
-	return 0;
+	system("cls");
+	printEndScreen();
 }
