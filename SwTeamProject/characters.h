@@ -29,5 +29,6 @@ typedef struct NPC
 	int directionFlag;
 	int npcSpeed;
 	int detectArea;
+	int isMoving; //npc 움직임상태
 }NPC;
 

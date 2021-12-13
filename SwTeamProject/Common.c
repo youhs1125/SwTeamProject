@@ -1,5 +1,5 @@
 #include "Common.h"
-//ÃÊ±â È­¸é ¼³Á¤
+//ì´ˆê¸° í™”ë©´ ì„¤ì •
 void initCmd()
 {
 	RemoveCursor();
@@ -35,51 +35,51 @@ int isGameOver(player* p)
 		return 1;
 	return 0;
 }
-//¸Ê Å×µÎ¸® ±×·ÁÁÖ±â
+//ë§µ í…Œë‘ë¦¬ ê·¸ë ¤ì£¼ê¸°
 void printStage()
 {
 	int i;
 
-	//À­,¾Æ·¡ - 58
+	//ìœ—,ì•„ë˜ - 58
 	for (i = 1; i < stage1X - 1; i++)
 	{
 		SetCurrentCursorPos(OriginX + (i * 2), OriginY);
-		printf("¦¡");
+		printf("â”€");
 		SetCurrentCursorPos(OriginX + (i * 2), stage1Y + OriginY - 1);
-		printf("¦¡");
+		printf("â”€");
 	}
 
-	//¿·
+	//ì˜†
 	for (i = 0; i < stage1Y; i++)
 	{
 		if (i == 0)
 		{
 			SetCurrentCursorPos(OriginX, i + OriginY);
-			printf("¦£");
+			printf("â”Œ");
 			SetCurrentCursorPos(OriginX + (stage1X - 1) * 2, i + OriginY);
-			printf("¦¤");
+			printf("â”");
 		}
 		else if (i == stage1Y - 1)
 		{
 			SetCurrentCursorPos(OriginX, i + OriginY);
-			printf("¦¦");
+			printf("â””");
 			SetCurrentCursorPos(OriginX + (stage1X - 1) * 2, i + OriginY);
-			printf("¦¥");
+			printf("â”˜");
 		}
 		else
 		{
 			SetCurrentCursorPos(OriginX, i + OriginY);
-			printf("¦¢");
+			printf("â”‚");
 			SetCurrentCursorPos(OriginX + (stage1X - 1) * 2, i + OriginY);
-			printf("¦¢");
+			printf("â”‚");
 		}
 	}
 }
 
 void printCloud(int stage[40][60], DragonBall dgb[])
 {
-	//¸Ê ±×¸®±â Àü¿¡ ³»ºÎ ÇÑ¹ø ÃÊ±âÈ­ ½ÃÄÑÁÖ±â
-	//´ÙÀ½ ½ºÅ×ÀÌÁö ÀÌµ¿½Ã ÇÊ¿ä
+	//ë§µ ê·¸ë¦¬ê¸° ì „ì— ë‚´ë¶€ í•œë²ˆ ì´ˆê¸°í™” ì‹œì¼œì£¼ê¸°
+	//ë‹¤ìŒ ìŠ¤í…Œì´ì§€ ì´ë™ì‹œ í•„ìš”
 	int i, j;
 	int curX, curY;
 	for (i = 1; i < stage1Y - 1; i++)
@@ -93,7 +93,7 @@ void printCloud(int stage[40][60], DragonBall dgb[])
 		}
 	}
 
-	//±¸¸§ ±×·ÁÁÖ±â
+	//êµ¬ë¦„ ê·¸ë ¤ì£¼ê¸°
 	for (i = 1; i < stage1Y - 1; i++)
 	{
 		for (j = 1; j < stage1X - 1; j++)
@@ -102,12 +102,12 @@ void printCloud(int stage[40][60], DragonBall dgb[])
 			curY = i + OriginY;
 			SetCurrentCursorPos(curX, curY);
 			if (stage[i][j] == 2)
-				printf("¡İ");
+				printf("â—");
 		}
 	}
 
-	//µå·¡°ïº¼ ±×·ÁÁÖ±â
-	for (int i = 0; i < 3; i++) {				//µå·¡°ïº¼ => 89
+	//ë“œë˜ê³¤ë³¼ ê·¸ë ¤ì£¼ê¸°
+	for (int i = 0; i < 3; i++) {				//ë“œë˜ê³¤ë³¼ => 89
 		
 		if (dgb[i].x > 100)
 			return;
@@ -127,22 +127,24 @@ void UpdateRecord(player* p)
 	static int maxLife;
 	int i;
 	SetCurrentCursorPos(curX, curY++);
-	printf("ÇöÀç ½ºÅ×ÀÌÁö: %d", p->stageNum+1);
+
+	printf("í˜„ì¬ ìŠ¤í…Œì´ì§€: %d", p->stageNum + 1);
+
 	SetCurrentCursorPos(curX, curY++);
-	printf("³²Àº ¸ñ¼û: ");
+	printf("ë‚¨ì€ ëª©ìˆ¨: ");
 
 	maxLife = max(maxLife, p->life);
 
 	for (i = 0; i < p->life; i++)
-		printf("¢¾");
+		printf("â™¥");
 	for (i = 0; i < maxLife - p->life; i++)
 		printf("  ");
 	SetCurrentCursorPos(curX, curY++);
-	printf("¸ğÀº µå·¡°ï º¼ ÃÑ °³¼ö: %d", p->totalBalls);
+	printf("ëª¨ì€ ë“œë˜ê³¤ ë³¼ ì´ ê°œìˆ˜: %d", p->totalBalls);
 	SetCurrentCursorPos(curX, curY++);
-	printf("ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ ¸ğÀº º¼ °³¼ö: ( %d / %d )", p->balls, p->targetBall[p->stageNum]);
+	printf("ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ ëª¨ì€ ë³¼ ê°œìˆ˜: ( %d / %d )", p->balls, p->targetBall[p->stageNum]);
 	SetCurrentCursorPos(curX, curY++);
-	printf("ÁÂ¿ì ÀÌµ¿ <- -> ¹æÇâÅ°");
+	printf("ì¢Œìš° ì´ë™ <- -> ë°©í–¥í‚¤");
 }
 
 void respawnPlayer(player* p, int stage[][60])
@@ -165,8 +167,8 @@ void initPlayer(player* p)
 	p->targetBall[1] = 2;
 	p->targetBall[2] = 3;
 
-	p->spawnPos[0][0] = 56; //xÁÂÇ¥
-	p->spawnPos[0][1] = 32; //yÁÂÇ¥
+	p->spawnPos[0][0] = 56; //xì¢Œí‘œ
+	p->spawnPos[0][1] = 32; //yì¢Œí‘œ
 
 	p->spawnPos[1][0] = 6;
 	p->spawnPos[1][1] = 30;
@@ -182,18 +184,18 @@ void drawPlayer(player* p)
 	int posX = OriginX + (p->x * 2);
 	int posY = OriginY + p->y;
 	SetCurrentCursorPos(posX, posY++);
-	printf("¡Ü");
+	printf("â—");
 	SetCurrentCursorPos(posX, posY++);
-	printf("¡á");
+	printf("â– ");
 	SetCurrentCursorPos(posX, posY);
-	printf("¡â");
+	printf("â–³");
 }
 
 void deletePlayer(player* p, int stage[][60])
 {
 	int posX = OriginX + (p->x * 2);
 	int posY = OriginY + p->y;
-	SetCurrentCursorPos(posX, posY++);								//ÇØ´ç ºÎºĞ ´Ù½Ã ¸Ê°ú ºñ±³ÇØ¼­ º¹±¸
+	SetCurrentCursorPos(posX, posY++);								//í•´ë‹¹ ë¶€ë¶„ ë‹¤ì‹œ ë§µê³¼ ë¹„êµí•´ì„œ ë³µêµ¬
 	recoverCloud(p->x, p->y, stage);
 	SetCurrentCursorPos(posX, posY++);
 	recoverCloud(p->x, p->y + 1, stage);
@@ -247,17 +249,17 @@ int detectColl(int x, int y, int stage[][60])
 {
 	if (y < 0) y = 0;
 
-	if (stage[y][x] != 0 && (stage[y][x] % 11 == 0 || stage[y + 1][x] % 11 == 0 || stage[y + 2][x] % 11 == 0)) //¹Ù´Ú¿¡ Ãß¶ô or ÇÔÁ¤±¸¸§°ú Ãæµ¹
+	if (stage[y][x] != 0 && (stage[y][x] % 11 == 0 || stage[y + 1][x] % 11 == 0 || stage[y + 2][x] % 11 == 0)) //ë°”ë‹¥ì— ì¶”ë½ or í•¨ì •êµ¬ë¦„ê³¼ ì¶©ëŒ
 		return -1;
-	else if (stage[y][x] == 0 || stage[y + 1][x] == 0 || stage[y + 2][x] == 0) //º®¸é Ãæµ¹
+	else if (stage[y][x] == 0 || stage[y + 1][x] == 0 || stage[y + 2][x] == 0) //ë²½ë©´ ì¶©ëŒ
 		return 2;
-	else if (stage[y][x] == 1 && stage[y + 1][x] == 1 && stage[y + 2][x] == 1) //¹æÇØ¹° x
+	else if (stage[y][x] == 1 && stage[y + 1][x] == 1 && stage[y + 2][x] == 1) //ë°©í•´ë¬¼ x
 		return 0;
-	//else if (stage[y][x] == 2 || stage[y + 1][x] == 2 || stage[y + 2][x] == 2) //±¸¸§°ú °ãÃÄÁø »óÅÂ
+	//else if (stage[y][x] == 2 || stage[y + 1][x] == 2 || stage[y + 2][x] == 2) //êµ¬ë¦„ê³¼ ê²¹ì³ì§„ ìƒíƒœ
 	//	return 1;
-	else if (stage[y][x] % 89 == 0 || stage[y + 1][x] % 89 == 0 || stage[y + 2][x] % 89 == 0) //µå·¡°ïº¼ Ãæµ¹ ¿¹¿Ü
+	else if (stage[y][x] % 89 == 0 || stage[y + 1][x] % 89 == 0 || stage[y + 2][x] % 89 == 0) //ë“œë˜ê³¤ë³¼ ì¶©ëŒ ì˜ˆì™¸
 		return 0;
-	else if (stage[y][x] % 97 == 0 || stage[y + 1][x] % 97 == 0 || stage[y + 2][x] % 97 == 0) //´ÙÀ½ ½ºÅ×ÀÌÁö ÀÌµ¿½ÃÄÑÁÖ´Â Æ÷Å» Ãæµ¹ ¿¹¿Ü
+	else if (stage[y][x] % 97 == 0 || stage[y + 1][x] % 97 == 0 || stage[y + 2][x] % 97 == 0) //ë‹¤ìŒ ìŠ¤í…Œì´ì§€ ì´ë™ì‹œì¼œì£¼ëŠ” í¬íƒˆ ì¶©ëŒ ì˜ˆì™¸
 		return 0;
 	else
 		return 1;
@@ -265,25 +267,25 @@ int detectColl(int x, int y, int stage[][60])
 
 int jumpColl(int x, int y, int stage[][60])
 {
-	if (stage[y][x] != 1) //¹ßÀÌ ±¸¸§
+	if (stage[y][x] != 1) //ë°œì´ êµ¬ë¦„
 		return 3;
-	if (stage[y + 1][x] != 1) //¸öÀÌ ±¸¸§
+	if (stage[y + 1][x] != 1) //ëª¸ì´ êµ¬ë¦„
 		return 2;
-	if (stage[y + 2][x] != 1) //¸Ó¸®°¡ ±¸¸§
+	if (stage[y + 2][x] != 1) //ë¨¸ë¦¬ê°€ êµ¬ë¦„
 		return 1;
 	return 0;
 }
 
 int JumpVector(int y)
 {
-	//À§ÂÊÀ¸·Î °¥¼ö·Ï yÁÂÇ¥°¡ ÀÛ¾ÆÁö´Ï, ¿Ã¶ó°¡´Â »óÈ²ÀÇ º¤ÅÍ´Â À½¼ö
+	//ìœ„ìª½ìœ¼ë¡œ ê°ˆìˆ˜ë¡ yì¢Œí‘œê°€ ì‘ì•„ì§€ë‹ˆ, ì˜¬ë¼ê°€ëŠ” ìƒí™©ì˜ ë²¡í„°ëŠ” ìŒìˆ˜
 	float temp = -(2.0 / 5.0);
 	return temp * y;
 }
 
 int playerJump(player* p, int* jump, int stage[][60])
 {
-	//Ä³¸¯ÅÍ°¡ ³¢ÀÎ »óÅÂÀÏ ¶§ ³»·Á°¥ ¼ö ÀÖ°Ô ÇØÁÖ´Â º¯¼ö
+	//ìºë¦­í„°ê°€ ë¼ì¸ ìƒíƒœì¼ ë•Œ ë‚´ë ¤ê°ˆ ìˆ˜ ìˆê²Œ í•´ì£¼ëŠ” ë³€ìˆ˜
 	static int flag = 0;
 
 	int moveY = JumpVector(*jump);
@@ -295,7 +297,7 @@ int playerJump(player* p, int* jump, int stage[][60])
 
 	int coll = detectColl(p->x, p->y - moveY, stage);
 
-	//ÃµÀå¿¡ ºÎµúÈ÷´Â °Ü¿ì
+	//ì²œì¥ì— ë¶€ë”ªíˆëŠ” ê²¨ìš°
 	if (coll == 2)
 	{
 		*jump = -(*jump);
@@ -303,29 +305,29 @@ int playerJump(player* p, int* jump, int stage[][60])
 		coll = detectColl(p->x, p->y - moveY, stage);
 	}
 
-	Sleep(50);  //°¢ µ¿ÀÛ¿¡ ´ëÇÑ Áö¿¬
-	if (moveY < 0 && coll == 1 && flag <= 0)		// ±¸¸§ À§¿¡ ¼­ ÀÖ´Â »óÅÂ -> col == 1ÀÎ ÀÌÀ¯´Â ±¸¸§ ¹ØÀ¸·Î ¸öÀÌ ¶³¾îÁö¸é ³©°ÜÀÖ´Â »óÈ²ÀÌ±â ‹š¹®
+	Sleep(50);  //ê° ë™ì‘ì— ëŒ€í•œ ì§€ì—°
+	if (moveY < 0 && coll == 1 && flag <= 0)		// êµ¬ë¦„ ìœ„ì— ì„œ ìˆëŠ” ìƒíƒœ -> col == 1ì¸ ì´ìœ ëŠ” êµ¬ë¦„ ë°‘ìœ¼ë¡œ ëª¸ì´ ë–¨ì–´ì§€ë©´ ë‚‘ê²¨ìˆëŠ” ìƒí™©ì´ê¸° Â‹Âšë¬¸
 	{
 		moveY = -1;
-		int temp = detectColl(p->x, p->y - moveY, stage); //ÇÑÄ­ À§·Î ÀÌµ¿ÇßÀ» °æ¿ì¿¡¼­ detectColl ½ÇÇà
-		if (temp == 0) //±¸¸§ À§¿¡ ¼­ ÀÖ´Â »óÅÂ¶ó¸é
+		int temp = detectColl(p->x, p->y - moveY, stage); //í•œì¹¸ ìœ„ë¡œ ì´ë™í–ˆì„ ê²½ìš°ì—ì„œ detectColl ì‹¤í–‰
+		if (temp == 0) //êµ¬ë¦„ ìœ„ì— ì„œ ìˆëŠ” ìƒíƒœë¼ë©´
 		{
-			//Ä³¸¯ÅÍ ¿Ã·ÁÁÖ±â
+			//ìºë¦­í„° ì˜¬ë ¤ì£¼ê¸°
 			deletePlayer(p, stage);
 			p->y -= moveY;
 			drawPlayer(p);
 		}
 		return 1;
 	}
-	else if ((coll == 0 || (coll != 2 && moveY >= 0) || flag > 0) && coll != -1)	//ÀÏ¹İÀûÀÎ Á¡ÇÁ or ±¸¸§¿¡ ²¸ ÀÖ´Â °æ¿ì
+	else if ((coll == 0 || (coll != 2 && moveY >= 0) || flag > 0) && coll != -1)	//ì¼ë°˜ì ì¸ ì í”„ or êµ¬ë¦„ì— ê»´ ìˆëŠ” ê²½ìš°
 	{
 		deletePlayer(p, stage);
 		p->y -= moveY;
 		drawPlayer(p);
 
-		flag--; //flag °ªÀÌ 0ÀÌÇÏ°¡ µÉ ¶§±îÁö ÀÌ Á¶°Ç¿¡ °¤Èù´Ù. -> flag°ªÀÌ ¾ç¼öÀÎ °ÍÀº ±¸¸§¿¡ ³©°ÜÀÖ´Â »óÅÂ. 
+		flag--; //flag ê°’ì´ 0ì´í•˜ê°€ ë  ë•Œê¹Œì§€ ì´ ì¡°ê±´ì— ê°‡íŒë‹¤. -> flagê°’ì´ ì–‘ìˆ˜ì¸ ê²ƒì€ êµ¬ë¦„ì— ë‚‘ê²¨ìˆëŠ” ìƒíƒœ. 
 
-		if (coll != 0 && moveY == 0) //±¸¸§¿¡ ²¸ ÀÖ´Â »óÈ²
+		if (coll != 0 && moveY == 0) //êµ¬ë¦„ì— ê»´ ìˆëŠ” ìƒí™©
 			flag = jumpColl(p->x, p->y, stage);
 
 		return 0;

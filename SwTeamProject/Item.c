@@ -135,6 +135,8 @@ void func_item(int itemNum, player* p, int stage[][60], NPC *npc, cloud* CloudAr
     else if (itemNum == 23) {//기능 또 뭐 추가???
         npc[0].npcSpeed = 100;
         npc[1].npcSpeed = 100;
+        npc[0].isMoving = 0;
+        npc[1].isMoving = 0;
     }
     else if (itemNum == 29) {
         changeCloudType(CloudArr, CloudSize, stage);    //구름 종류바꿔줌(종류, 이동)

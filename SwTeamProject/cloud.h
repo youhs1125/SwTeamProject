@@ -39,7 +39,7 @@ void drawSpecialCloud(cloud* cloud, int stage[][60]);
 void deleteSpecialCloud(cloud* cloud, int stage[][60]);
 
 
-void initSpecialCloud(cloud* cloudArray, int size);
+//void initSpecialCloud(cloud* cloudArray, int size, DragonBall dgb[]);
 
 
 int collSpecialCloud(cloud* cloudArr, player* p, int stage[][60]);

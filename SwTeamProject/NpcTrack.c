@@ -5,8 +5,18 @@ int getDistance(int x, int y) {
 	return x * x + y * y;
 }
 void updateNpcPos(player* p, NPC* npc) {
-	if (getArea(npc, p) > npc->detectArea) return; //Æ¯Á¤ ¿µ¿ª¾È¿¡ Á¸ÀçÇÒ ‹š ÃßÀû ½ÃÀÛ
-	if (npc->moveStyle == 0) { //Áö±× Àç±× ¿òÁ÷ÀÓ
+	if (npc->isMoving == 0)
+	{
+		npc->npcSpeed = 4;
+		npc->detectArea = 40;
+	}
+	if (getArea(npc, p) > npc->detectArea)
+	{
+		npc->isMoving = 0;
+		return; //íŠ¹ì • ì˜ì—­ì•ˆì— ì¡´ì¬í•  Â‹Âš ì¶”ì  ì‹œì‘
+	}
+	npc->isMoving = 1;
+	if (npc->moveStyle == 0) { //ì§€ê·¸ ì¬ê·¸ ì›€ì§ì„
 		npc->directionCnt++;
 		if (npc->directionCnt % 4 == 0) { //
 			int tempX = 0, tempY = 0;
@@ -35,14 +45,13 @@ void updateNpcPos(player* p, NPC* npc) {
 		else {
 			npc->x += npc->dx;
 			npc->y += npc->dy;
-
 			if (npc->x >= stage1X - 1)
 				npc->x--;
 			if (npc->y <= 1)
 				npc->y++;
 		}
 	}
-	else if (npc->moveStyle == 1) {//Á÷¼± ¿òÁ÷ÀÓ
+	else if (npc->moveStyle == 1) {//ì§ì„  ì›€ì§ì„
 
 		if (npc->x < p->x) npc->dx = 1;
 		else if (npc->x > p->x) npc->dx = -1;
@@ -71,12 +80,15 @@ void drawNpc(NPC* npc) {
 	int posY = OriginY + npc->y;
 	SetCurrentCursorPos(posX, posY);
 
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);	//º¸¶ó»ö
+	if (npc->isMoving)
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);	//ë³´ë¼ìƒ‰
+	else
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
 	SetCurrentCursorPos(posX, posY);
-	printf("¡Ü");  //ÀÓ½Ã npc
+	printf("â—");  //ì„ì‹œ npc
 	SetCurrentCursorPos(posX, posY+1);
-	printf("¡å");  //ÀÓ½Ã npc
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);	// Èò»ö}
+	printf("â–¼");  //ì„ì‹œ npc
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);	// í°ìƒ‰}
 }
 
 int getArea(NPC* npc, player* p) {
@@ -86,8 +98,8 @@ int getArea(NPC* npc, player* p) {
 }
 
 void initNPC(NPC* npcArr, int diff, int stageNum, int *npcNum)
-//npc ³­ÀÌµµ Á¶ÀıÀ» À§ÇØ ³­ÀÌµµ¿Í ½ºÅ×ÀÌÁö ³Ñ¹ö ¸Å°³º¯¼ö·Î ¹Ş¾Æ¿À±â 
-//npcNum -> ¸Ê¿¡¼­ µ¹¾Æ´Ù´Ï´Â npc °³¼ö
+//npc ë‚œì´ë„ ì¡°ì ˆì„ ìœ„í•´ ë‚œì´ë„ì™€ ìŠ¤í…Œì´ì§€ ë„˜ë²„ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ì•„ì˜¤ê¸° 
+//npcNum -> ë§µì—ì„œ ëŒì•„ë‹¤ë‹ˆëŠ” npc ê°œìˆ˜
 {
 	//
 	if (diff == E) {
@@ -162,17 +174,19 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int *npcNum)
 		npcArr[i].haveBall = 1;
 
 		//npcArr[i].moveStyle = 0;
-		npcArr[i].cnt = 0; //npc ¿òÁ÷ÀÓ ÁÖ±â Ä«¿îÆ®¿ë º¯¼ö
-		//npcArr[i].npcSpeed = 4; //npc ¿òÁ÷ÀÓ ÁÖ±â
+		npcArr[i].cnt = 0; //npc ì›€ì§ì„ ì£¼ê¸° ì¹´ìš´íŠ¸ìš© ë³€ìˆ˜
+		//npcArr[i].npcSpeed = 4; //npc ì›€ì§ì„ ì£¼ê¸°
 
 		npcArr[i].dx = 1;
 		npcArr[i].dy = 0;
 		npcArr[i].directionCnt = 0;
 		npcArr[i].directionFlag = 0;
+    
 		npcArr[i].detectArea = 50;
+		npcArr[i].isMoving = 0;
 	}
 
-	//ÀÓ½Ã·Î º¸¿©ÁÖ±â À§ÇÑ ¼³Á¤
+	//ì„ì‹œë¡œ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ì„¤ì •
 	/*npcArr[0].moveStyle = 1;
 	npcArr[0].npcSpeed = 6;*/
 }

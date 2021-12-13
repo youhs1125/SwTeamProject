@@ -38,3 +38,18 @@ void printPortal() {
 	printf("¡Ú");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);		//Èò»ö
 }
+
+void nextStageEffect()
+{
+	int i,j;
+	SetCurrentCursorPos(0, 0);
+	for (j = 0; j < 45; j++)
+	{
+		for (i = 0; i < 80; i++)
+			printf("¡á");
+		Sleep(10);
+		printf("\n");
+	}
+	system("cls");
+	return;
+}
