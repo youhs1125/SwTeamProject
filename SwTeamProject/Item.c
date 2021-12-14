@@ -15,12 +15,12 @@
 
 void InitZone(zone* z)
 {
-    z->x[0] = 3;
+    z->x[0] = 2;
     z->y[0] = 1;
     z->x[1] = 31;
-    z->y[1] = 17;
+    z->y[1] = 23;
     z->x[2] = 16;
-    z->y[2] = 17;
+    z->y[2] = 18;
 }
 
 void printSafe()
@@ -33,38 +33,38 @@ void printSafe()
 void safeZone(zone* z, int stageNum, int stage[][60])
 {
     int i;
-    for (int i = 0; i < safeX; i++)
+    for (int i = 1; i < safeX -1; i++)
     {
         stage[z->y[stageNum]][z->x[stageNum] + i] *= 37;
-        stage[z->y[stageNum] + safeY][z->x[stageNum] + i] *= 37;
+        stage[z->y[stageNum] + safeY - 1][z->x[stageNum] + i] *= 37;
     }
     for (int i = 0; i < safeY; i++)
     {
         stage[z->y[stageNum] + i][z->x[stageNum]] *= 37;
-        stage[z->y[stageNum] + i][z->x[stageNum] + safeX] *= 37;
+        stage[z->y[stageNum] + i][z->x[stageNum] + safeX -1] *= 37;
     }
 }
 
 void printZone(zone* z, int stageNum)
 {
     int i;
-    for (int i = 0; i <= safeX; i++)
+    for (int i = 1; i < safeX - 1; i++)
     {
         int posX = OriginX + (z->x[stageNum] + i) * 2;
         int posY = z->y[stageNum] + OriginY;
         SetCurrentCursorPos(posX, posY);
         printf("◇");
-        posY += safeY;
+        posY += safeY -1;
         SetCurrentCursorPos(posX, posY);
         printf("◇");
     }
-    for (int i = 0; i <= safeY; i++)
+    for (int i = 0; i < safeY; i++)
     {
         int posX = OriginX + (z->x[stageNum]) * 2;
         int posY = z->y[stageNum] + OriginY + i;
         SetCurrentCursorPos(posX, posY);
         printf("◇");
-        posX = OriginX + (z->x[stageNum] + safeX) * 2;
+        posX = OriginX + (z->x[stageNum] + safeX -1) * 2;
         SetCurrentCursorPos(posX, posY);
         printf("◇");
     }
@@ -130,7 +130,7 @@ void Fallitem(player* p, int stage[][60], NPC* npc, cloud* cloudArr, int CloudSi
             // printf("%d", p->life);
         }
 
-        if (it[i].flag == 1 && --it[i].life == 0)   //해당 인덱스에 아이템 있으면 움직임 실행, 현재 아이템 인덱스의 대기시간 턴제로 줄이면서 자신의 순서 기다림
+        if (it[i].flag == 1 && --it[i].life < 0)   //해당 인덱스에 아이템 있으면 움직임 실행, 현재 아이템 인덱스의 대기시간 턴제로 줄이면서 자신의 순서 기다림
         {
             int posX = OriginX + it[i].x * 2;
             int posY = OriginY + it[i].y;

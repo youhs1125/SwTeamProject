@@ -1,4 +1,4 @@
-#include "cloud.h"
+#include "cloud.h"21
 
 
 void recoverCloud(int x, int y, int stage[][60])
@@ -78,13 +78,20 @@ void deleteSpecialCloud(cloud* cloud, int stage[][60])
 	int posX = OriginX + (cloud->x * 2);
 	int posY = OriginY + cloud->y;
 	int i;
+	int flag = 0;
 
-
-	if (stage[cloud->y][cloud->x] > 2)		//그려진 것을 지워야 함 => 1은 허공 => 없는 것을 지우면 X
+	
+	for (i = 0; i < cloud->size; i++)
 	{
-		for (i = 0; i < cloud->size; i++)
+		if (stage[cloud->y][cloud->x + i] != 37 && stage[cloud -> y][cloud->x + i] > 2)
+		{
+			flag = 1;
 			stage[cloud->y][cloud->x + i] /= cloud->cloudType;
+		}
+	}
 
+	if (flag)
+	{
 		SetCurrentCursorPos(posX, posY);
 
 		for (i = 0; i < cloud->size; i++)
@@ -109,7 +116,7 @@ void initSpecialCloud(cloud* cloudArray, int size, DragonBall dgb[])
 		else if (temp == 3)
 			cloudArray[i].cloudType = 11;		//함정 구름
 
-		cloudArray[i].movement = rand() % 5 - 3;		//0 정지, 1 좌우 2 상하 (+- 방향)
+		cloudArray[i].movement = rand() % 5 - 2;		//0 정지, 1 좌우 2 상하 (+- 방향)
 		cloudArray[i].size = rand() % 5 + 3;
 
 		cloudArray[i].x = rand() % (59 - cloudArray[i].size) + 1;
@@ -155,9 +162,10 @@ void changeCloudType(cloud* cloudArray, int size, int stage[][60])		//initSpecia
 			cloudArray[i].cloudType = 11;		//함정 구름
 		
 		
-		cloudArray[i].movement = rand() % 5 - 3;		//0 정지, 1 좌우 2 상하 (+- 방향)
+		cloudArray[i].movement = rand() % 5 - 2;		//0 정지, 1 좌우 2 상하 (+- 방향)
 
 		cloudArray[i].vis = 1;
+		drawSpecialCloud(&cloudArray[i], stage);
 	}
 }
 

@@ -72,8 +72,9 @@ void gameStart(void) {
 
 	zone z;
 	InitZone(&z);
-	printZone(&z, p.stageNum);
 	safeZone(&z, p.stageNum, stageArr[p.stageNum]);
+	printZone(&z, p.stageNum);
+	
 
 
 
@@ -91,13 +92,24 @@ void gameStart(void) {
 		if (count % 5 == 0)
 		{
 			for (int i = 0; i < 5; i++)
+			{
 				deleteSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
+				SetCurrentCursorPos(10, i);
+				printf("    ");
+				SetCurrentCursorPos(10, i);
+				printf("%d\n", stageArr[p.stageNum][sCloud[i].y][sCloud[i].x]);
+			}
 
 			for (int i = 0; i < 5; i++)
 				moveCloud(&sCloud[i], stageArr[p.stageNum]);
-
-			for (int i = 0; i < 5; i++)
+			
+			for (int i = 0; i < 5; i++) {
 				drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
+				SetCurrentCursorPos(0, i);
+				printf("    ");
+				SetCurrentCursorPos(0, i);
+				printf("%d\n", stageArr[p.stageNum][sCloud[i].y][sCloud[i].x]);
+			}
 		}
 
 
@@ -129,27 +141,28 @@ void gameStart(void) {
 		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //드래곤볼 전부 모으고 and 문 앞에 서 있으면 다음 스테이지로 이동
 			//마지막 스테이지 통과하면 게임 끝내기
 			if (p.stageNum == 2) {
-				system('cls');
 				gameClearScreen();
+				return;
 			}
 			p.stageNum++;
 			nextStageEffect();
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5, dgball[p.stageNum]);
+			for (int i = 0; i < 5; i++)			//구름 출력
+				drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 			InititemBox(speed1, speed2);
 			initNPC(npcArr, difficulty, p.stageNum, &npcNum);
+			safeZone(&z, p.stageNum, stageArr[p.stageNum]);
+			printZone(&z, p.stageNum);
 			p.x = p.spawnPos[p.stageNum][0];
 			p.y = p.spawnPos[p.stageNum][1];
-
-			printZone(&z, p.stageNum);
-			safeZone(&z, p.stageNum, stageArr[p.stageNum]);
 		}
 
 		processKeyInput(&p, stageArr[p.stageNum]);
 
 
-		//플레이어 움직인 후 npc이동 시작
-		//추적 알고리즘 시작
+//		플레이어 움직인 후 npc이동 시작
+//		추적 알고리즘 시작
 		for (int i = 0; i < npcNum; i++) {
 			addNpcCnt(&npcArr[i]);
 			int dis = min(getDistance(p.x - npcArr[i].x, p.y - npcArr[i].y), getDistance(p.x - npcArr[i].x, p.y + 1 - npcArr[i].y)); //캐릭터와 npc사이의 거리

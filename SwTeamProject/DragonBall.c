@@ -26,7 +26,7 @@ void setDragonBallPos(DragonBall dgb[][3]) {
 	dgb[2][0].y = 15;
 	dgb[2][0].get = 0;
 	dgb[2][1].x = 5;
-	dgb[2][1].y = 32;
+	dgb[2][1].y = 31;
 	dgb[2][1].get = 0;
 	dgb[2][2].x = 3;
 	dgb[2][2].y = 7;
