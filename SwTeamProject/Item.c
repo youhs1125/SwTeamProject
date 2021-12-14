@@ -130,7 +130,7 @@ void Fallitem(player* p, int stage[][60], NPC* npc, cloud* cloudArr, int CloudSi
             // printf("%d", p->life);
         }
 
-        if (it[i].flag == 1 && --it[i].life < 0)   //해당 인덱스에 아이템 있으면 움직임 실행, 현재 아이템 인덱스의 대기시간 턴제로 줄이면서 자신의 순서 기다림
+        if (it[i].flag == 1 && --it[i].life <= 0)   //해당 인덱스에 아이템 있으면 움직임 실행, 현재 아이템 인덱스의 대기시간 턴제로 줄이면서 자신의 순서 기다림
         {
             int posX = OriginX + it[i].x * 2;
             int posY = OriginY + it[i].y;
