@@ -92,24 +92,13 @@ void gameStart(void) {
 		if (count % 5 == 0)
 		{
 			for (int i = 0; i < 5; i++)
-			{
 				deleteSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
-				SetCurrentCursorPos(10, i);
-				printf("    ");
-				SetCurrentCursorPos(10, i);
-				printf("%d\n", stageArr[p.stageNum][sCloud[i].y][sCloud[i].x]);
-			}
 
 			for (int i = 0; i < 5; i++)
 				moveCloud(&sCloud[i], stageArr[p.stageNum]);
 			
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < 5; i++) 
 				drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
-				SetCurrentCursorPos(0, i);
-				printf("    ");
-				SetCurrentCursorPos(0, i);
-				printf("%d\n", stageArr[p.stageNum][sCloud[i].y][sCloud[i].x]);
-			}
 		}
 
 
