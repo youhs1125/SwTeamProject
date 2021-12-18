@@ -50,10 +50,10 @@ void gameStart(void) {
 	int jumpFlag = 0;
 	int count = 0;
 
-	nextStageEffect();
-
-	printStage();
 	initPlayer(&p);
+	nextStageEffect(p.stageNum);
+	printStage();
+	
 	initNPC(npcArr, difficulty, p.stageNum, &npcNum);
 	setDragonBallPos(dgball);
 
@@ -137,7 +137,7 @@ void gameStart(void) {
 				return;
 			}
 			p.stageNum++;
-			nextStageEffect();
+			nextStageEffect(p.stageNum);
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5, dgball[p.stageNum]);
 			for (int i = 0; i < 5; i++)			//구름 출력
@@ -155,25 +155,25 @@ void gameStart(void) {
 
 //		플레이어 움직인 후 npc이동 시작
 //		추적 알고리즘 시작
-		for (int i = 0; i < npcNum; i++) {
-			addNpcCnt(&npcArr[i]);
-			int dis = min(getDistance(p.x - npcArr[i].x, p.y - npcArr[i].y), getDistance(p.x - npcArr[i].x, p.y + 1 - npcArr[i].y)); //캐릭터와 npc사이의 거리
-			dis = min(dis, getDistance(p.x - npcArr[i].x, p.y + 2 - npcArr[i].y));
-			if (dis == 0) {  //최소 거리 루트2 이하이면 끝내기.
-				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
-				deletePlayer(&p, stageArr[p.stageNum]);
-				respawnPlayer(&p, stageArr[p.stageNum]);
-			}
-			if (npcArr[i].cnt % npcArr[i].npcSpeed == 0) {
-				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
-				updateNpcPos(&z, &p, &npcArr[i]);
-				drawNpc(&npcArr[i]);
-			}
-			else {
-				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
-				drawNpc(&npcArr[i]);
-			}
-		}
+		//for (int i = 0; i < npcNum; i++) {
+		//	addNpcCnt(&npcArr[i]);
+		//	int dis = min(getDistance(p.x - npcArr[i].x, p.y - npcArr[i].y), getDistance(p.x - npcArr[i].x, p.y + 1 - npcArr[i].y)); //캐릭터와 npc사이의 거리
+		//	dis = min(dis, getDistance(p.x - npcArr[i].x, p.y + 2 - npcArr[i].y));
+		//	if (dis == 0) {  //최소 거리 루트2 이하이면 끝내기.
+		//		deleteNpc(&npcArr[i], stageArr[p.stageNum]);
+		//		deletePlayer(&p, stageArr[p.stageNum]);
+		//		respawnPlayer(&p, stageArr[p.stageNum]);
+		//	}
+		//	if (npcArr[i].cnt % npcArr[i].npcSpeed == 0) {
+		//		deleteNpc(&npcArr[i], stageArr[p.stageNum]);
+		//		updateNpcPos(&z, &p, &npcArr[i]);
+		//		drawNpc(&npcArr[i]);
+		//	}
+		//	else {
+		//		deleteNpc(&npcArr[i], stageArr[p.stageNum]);
+		//		drawNpc(&npcArr[i]);
+		//	}
+		//}
 
 		//캐릭터, npc 이후 아이템
 		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5, &z);
