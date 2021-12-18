@@ -276,7 +276,7 @@ void GameExplanation() {
 	printf("　　　　　　　　　爽昔因　　　　　　　　　　原昔採酔税 析雁級\n");
 	printf("　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　\n");
 	printf("　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　\n");
-	printf("　　　　　　　　」 姥硯 」　　　　　　　　　　　　　　　　　　　　　　　　　」 焼戚奴 」　　　　　　　　　　　　　　　　　　　　　　　」 室戚覗銅糎 」\n");
+	printf("　　　　　　　　」 姥硯 」　　　　　　　　　　　　　　　　　　　　　　　　　」 焼戚奴 」　　　　　　　　　　　　　　　　　　　　　　　」 衣域糎 」\n");
 	printf("　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　\n");
 	printf("　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　\n");
 	printf("　　　　　　　　　−−−−−　析鋼旋昔 姥硯戚拭推.　　　　　　　　　　　　　　⊂ 端径聖 廃 牒 条嬢推!　　　　　　　　　　　　　　　　　　±±±±±±±±\n");
@@ -302,7 +302,7 @@ void GameExplanation() {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	printf("−−−−−");
 	SetCurrentCursorPos(18, 40);
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 	printf("−−−−−");
 	SetCurrentCursorPos(18, 42);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
@@ -345,7 +345,7 @@ void GameExplanation() {
 			}
 			if (i < 25) {
 				SetCurrentCursorPos(18, 40);
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 				printf("−−−−−");
 			}
 			else {
