@@ -41,6 +41,7 @@ void printPortal() {
 
 void nextStageEffect(int stageNum)
 {
+    stageNum = stageNum % 3;
 	/*system("cls");
 	for (int j = 0; j < 45; j++) {
 		if(j%2 == 0)
@@ -156,7 +157,7 @@ void nextStageEffect(int stageNum)
                     SetCurrentCursorPos(2 * i, k);
                     printf("бр");
                 }
-                Sleep(1);
+                //Sleep(1);
             }
         else
             for (int i = 99; i >= 0; i--) {
