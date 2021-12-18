@@ -269,9 +269,9 @@ int cloudColl(int x, int y, int size, int stage[][60])
 void printJumpCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3); //3 ¿Á»ö
-	//printf("¡Ý");
+	printf("¡Ý");
 	//printf("¡Ü");
-	printf("¡á");
+	//printf("¡á");
 }
 
 void printWeakCloud()
