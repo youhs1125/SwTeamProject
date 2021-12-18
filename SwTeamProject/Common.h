@@ -6,6 +6,7 @@
 #include "Cloud.h"
 #include "NextStage.h"
 
+
 #define stage1Y 40
 #define stage1X 60
 #define OriginX 5
