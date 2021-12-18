@@ -277,24 +277,24 @@ void printJumpCloud()
 void printWeakCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);		//10 연한 초록
-	//printf("◎");
-	printf("■");
+	printf("◎");
+	//printf("■");
 	//printf("●");
 }
 
 void printBlinkCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);	// 연한 옥색
-	//printf("◎");
-	printf("■");
+	printf("◎");
+	//printf("■");
 	//printf("●");
 }
 
 void printNormalCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-	//printf("◎");
-	printf("■");
+	printf("◎");
+	//printf("■");
 	//printf("●");
 }
 
