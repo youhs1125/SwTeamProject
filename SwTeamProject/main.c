@@ -40,7 +40,8 @@ void gameStart(void) {
 	StageDoor stageDoor[3];
 	cloud sCloud[5];
 
-	NPC npcArr[3];
+	NPC *npcArr;
+	npcArr = (NPC*)malloc(sizeof(NPC) * 3);
 	int npcNum = 1;
 
 	srand((unsigned int)time(NULL));
@@ -123,7 +124,7 @@ void gameStart(void) {
 			/*npc.x = 1; npc.y = 1*/;
 
 			//플레이어 삭제 and 위치 재설정 and 기록변경
-			respawnPlayer(&p, stageArr[p.stageNum]);
+			respawnPlayer(&p, stageArr[p.stageNum],difficulty,&npcArr,&npcNum);
 			UpdateRecord(&p);
 		}
 
@@ -144,6 +145,7 @@ void gameStart(void) {
 				drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 			InititemBox(speed1, speed2);
 			initNPC(npcArr, difficulty, p.stageNum, &npcNum);
+			npcArr = (NPC*)realloc(npcArr, sizeof(NPC) * npcNum);
 			safeZone(&z, p.stageNum, stageArr[p.stageNum]);
 			printZone(&z, p.stageNum);
 			p.x = p.spawnPos[p.stageNum][0];
@@ -162,7 +164,7 @@ void gameStart(void) {
 			if (dis == 0) {  //최소 거리 루트2 이하이면 끝내기.
 				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
 				deletePlayer(&p, stageArr[p.stageNum]);
-				respawnPlayer(&p, stageArr[p.stageNum]);
+				respawnPlayer(&p, stageArr[p.stageNum], difficulty, &npcArr, &npcNum);
 			}
 			if (npcArr[i].cnt % npcArr[i].npcSpeed == 0) {
 				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
@@ -176,7 +178,7 @@ void gameStart(void) {
 		}
 
 		//캐릭터, npc 이후 아이템
-		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5, &z);
+		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5, &z, difficulty, &npcNum);
 	}
 	system("cls");
 	printEndScreen();
