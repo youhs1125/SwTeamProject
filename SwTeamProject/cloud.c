@@ -1,4 +1,4 @@
-#include "cloud.h"21
+#include "cloud.h"
 
 
 void recoverCloud(int x, int y, int stage[][60])
@@ -83,7 +83,7 @@ void deleteSpecialCloud(cloud* cloud, int stage[][60])
 	
 	for (i = 0; i < cloud->size; i++)
 	{
-		if (stage[cloud->y][cloud->x + i] != 37 && stage[cloud -> y][cloud->x + i] > 2)
+		if (stage[cloud->y][cloud->x + i] != 37 && stage[cloud->y][cloud->x + i] != 97 && stage[cloud->y][cloud->x + i] != 89 && stage[cloud -> y][cloud->x + i] > 2)
 		{
 			flag = 1;
 			stage[cloud->y][cloud->x + i] /= cloud->cloudType;
@@ -99,7 +99,7 @@ void deleteSpecialCloud(cloud* cloud, int stage[][60])
 	}
 }
 
-void initSpecialCloud(cloud* cloudArray, int size, DragonBall dgb[])
+void initSpecialCloud(cloud* cloudArray, int size, DragonBall dgb[], player* p)
 {
 	int i,j,k;
 	int temp;
@@ -122,6 +122,11 @@ void initSpecialCloud(cloud* cloudArray, int size, DragonBall dgb[])
 		cloudArray[i].x = rand() % (59 - cloudArray[i].size) + 1;
 		cloudArray[i].y = rand() % 37 + 2;
 		cloudArray[i].vis = 1;
+		if (cloudArray[i].x >= p->spawnPos[p->stageNum][0] && cloudArray[i].x + cloudArray[i].size <= p->spawnPos[p->stageNum][0])
+		{
+			if (cloudArray[i].y <= p->spawnPos[p->stageNum][1] - 1 && cloudArray[i].x >= p->spawnPos[p->stageNum][1] + 8)
+				cloudArray[i].y += 10;
+		}
 
 		if (cloudArray[i].movement == 0)
 		{
@@ -265,23 +270,32 @@ void printJumpCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3); //3 옥색
 	printf("◎");
+	//printf("●");
+	//printf("■");
 }
 
 void printWeakCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);		//10 연한 초록
 	printf("◎");
+	//printf("■");
+	//printf("●");
 }
 
 void printBlinkCloud()
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);	//8 회색
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);	// 연한 옥색
 	printf("◎");
+	//printf("■");
+	//printf("●");
 }
 
 void printNormalCloud()
 {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 	printf("◎");
+	//printf("■");
+	//printf("●");
 }
 
 void printTrapCloud()
