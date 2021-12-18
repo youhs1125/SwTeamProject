@@ -270,32 +270,24 @@ void printJumpCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3); //3 ¿Á»ö
 	printf("¡Ý");
-	//printf("¡Ü");
-	//printf("¡á");
 }
 
 void printWeakCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);		//10 ¿¬ÇÑ ÃÊ·Ï
 	printf("¡Ý");
-	//printf("¡á");
-	//printf("¡Ü");
 }
 
 void printBlinkCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);	// ¿¬ÇÑ ¿Á»ö
 	printf("¡Ý");
-	//printf("¡á");
-	//printf("¡Ü");
 }
 
 void printNormalCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 	printf("¡Ý");
-	//printf("¡á");
-	//printf("¡Ü");
 }
 
 void printTrapCloud()
