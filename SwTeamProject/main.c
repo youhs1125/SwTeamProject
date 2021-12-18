@@ -63,7 +63,7 @@ void gameStart(void) {
 	drawPlayer(&p);
 	UpdateRecord(&p);
 
-	//stageDoor
+
 	setStageDoor(stageDoor);
 	printStageDoor(stageDoor, stageArr[p.stageNum], p.stageNum);
 
@@ -94,10 +94,6 @@ void gameStart(void) {
 			for (int i = 0; i < 5; i++)
 			{
 				deleteSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
-				SetCurrentCursorPos(10, i);
-				printf("    ");
-				SetCurrentCursorPos(10, i);
-				printf("%d\n", stageArr[p.stageNum][sCloud[i].y][sCloud[i].x]);
 			}
 
 			for (int i = 0; i < 5; i++)
@@ -105,10 +101,6 @@ void gameStart(void) {
 			
 			for (int i = 0; i < 5; i++) {
 				drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
-				SetCurrentCursorPos(0, i);
-				printf("    ");
-				SetCurrentCursorPos(0, i);
-				printf("%d\n", stageArr[p.stageNum][sCloud[i].y][sCloud[i].x]);
 			}
 		}
 
