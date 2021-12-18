@@ -22,7 +22,7 @@ void recoverCloud(int x, int y, int stage[][60])
 	else if (stage[y][x] == 1)
 		printf("  ");
 
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		//7 Èò»ö
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		//7 í°ìƒ‰
 }
 
 
@@ -67,7 +67,7 @@ void drawSpecialCloud(cloud* cloud, int stage[][60])
 			printTrapCloud();
 		}
 	}
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		//7 Èò»ö
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);		//7 í°ìƒ‰
 
 
 	return;
@@ -108,15 +108,15 @@ void initSpecialCloud(cloud* cloudArray, int size, DragonBall dgb[])
 	{
 		temp = rand() % 4;
 		if (temp == 0)
-			cloudArray[i].cloudType = 3;		//Á¡ÇÁ ±¸¸§
+			cloudArray[i].cloudType = 3;		//ì í”„ êµ¬ë¦„
 		else if (temp == 1)
-			cloudArray[i].cloudType = 5;		//1È¸¿ë ±¸¸§
+			cloudArray[i].cloudType = 5;		//1íšŒìš© êµ¬ë¦„
 		else if (temp == 2)
-			cloudArray[i].cloudType = 7;		//±ô¹Ú ±¸¸§
+			cloudArray[i].cloudType = 7;		//ê¹œë°• êµ¬ë¦„
 		else if (temp == 3)
-			cloudArray[i].cloudType = 11;		//ÇÔÁ¤ ±¸¸§
+			cloudArray[i].cloudType = 11;		//í•¨ì • êµ¬ë¦„
 
-		cloudArray[i].movement = rand() % 5 - 2;		//0 Á¤Áö, 1 ÁÂ¿ì 2 »óÇÏ (+- ¹æÇâ)
+		cloudArray[i].movement = rand() % 5 - 2;		//0 ì •ì§€, 1 ì¢Œìš° 2 ìƒí•˜ (+- ë°©í–¥)
 		cloudArray[i].size = rand() % 5 + 3;
 
 		cloudArray[i].x = rand() % (59 - cloudArray[i].size) + 1;
@@ -144,7 +144,7 @@ void initSpecialCloud(cloud* cloudArray, int size, DragonBall dgb[])
 	return;
 }
 
-void changeCloudType(cloud* cloudArray, int size, int stage[][60])		//initSpecialCloud¿¡¼­ ÁÂÇ¥, Å©±â¸¦ Á¦¿ÜÇÑ ºÎºĞ
+void changeCloudType(cloud* cloudArray, int size, int stage[][60])		//initSpecialCloudì—ì„œ ì¢Œí‘œ, í¬ê¸°ë¥¼ ì œì™¸í•œ ë¶€ë¶„
 {
 	int i;
 	int temp;
@@ -153,16 +153,16 @@ void changeCloudType(cloud* cloudArray, int size, int stage[][60])		//initSpecia
 		deleteSpecialCloud(&cloudArray[i], stage);
 		temp = rand() % 4;
 		if (temp == 0)
-			cloudArray[i].cloudType = 3;		//Á¡ÇÁ ±¸¸§
+			cloudArray[i].cloudType = 3;		//ì í”„ êµ¬ë¦„
 		else if (temp == 1)
-			cloudArray[i].cloudType = 5;		//1È¸¿ë ±¸¸§
+			cloudArray[i].cloudType = 5;		//1íšŒìš© êµ¬ë¦„
 		else if (temp == 2)
-			cloudArray[i].cloudType = 7;		//±ô¹Ú ±¸¸§
+			cloudArray[i].cloudType = 7;		//ê¹œë°• êµ¬ë¦„
 		else if (temp == 3)
-			cloudArray[i].cloudType = 11;		//ÇÔÁ¤ ±¸¸§
+			cloudArray[i].cloudType = 11;		//í•¨ì • êµ¬ë¦„
 		
 		
-		cloudArray[i].movement = rand() % 5 - 2;		//0 Á¤Áö, 1 ÁÂ¿ì 2 »óÇÏ (+- ¹æÇâ)
+		cloudArray[i].movement = rand() % 5 - 2;		//0 ì •ì§€, 1 ì¢Œìš° 2 ìƒí•˜ (+- ë°©í–¥)
 
 		cloudArray[i].vis = 1;
 		drawSpecialCloud(&cloudArray[i], stage);
@@ -263,29 +263,38 @@ int cloudColl(int x, int y, int size, int stage[][60])
 
 void printJumpCloud()
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3); //3 ¿Á»ö
-	printf("¡İ");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3); //3 ì˜¥ìƒ‰
+	printf("â—");
 	}
 
 void printWeakCloud()
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);		//10 ¿¬ÇÑ ÃÊ·Ï
-	printf("¡İ");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);		//10 ì—°í•œ ì´ˆë¡
+	printf("â—");
 }
 
 void printBlinkCloud()
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);	//8 È¸»ö
-	printf("¡İ");
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);	// ì—°í•œ ì˜¥ìƒ‰
+	//printf("â—");
+	printf("â– ");
+	//printf("â—");
+
 }
 
 void printNormalCloud()
 {
-	printf("¡İ");
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+	//printf("â—");
+	printf("â– ");
+	//printf("â—");
+
 }
 
 void printTrapCloud()
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 ¿¬ÇÑ »¡°­
-	printf("¡ã");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 ì—°í•œ ë¹¨ê°•
+	printf("â–²");
 }
