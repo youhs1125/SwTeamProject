@@ -2,7 +2,7 @@
 
 void setStageDoor(StageDoor* std) {
 	std[0].x = 46; std[0].y = 4;
-	std[1].x = 32; std[1].y = 6;
+	std[1].x = 32; std[1].y = 4;
 	std[2].x = 46; std[2].y = 4;
 }
 
