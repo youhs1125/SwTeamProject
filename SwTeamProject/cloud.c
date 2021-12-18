@@ -279,7 +279,7 @@ void printWeakCloud()
 
 void printBlinkCloud()
 {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);	//8 회색
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);	// 연한 옥색
 	//printf("◎");
 	printf("■");
 	//printf("●");
@@ -287,6 +287,7 @@ void printBlinkCloud()
 
 void printNormalCloud()
 {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 	//printf("◎");
 	printf("■");
 	//printf("●");
