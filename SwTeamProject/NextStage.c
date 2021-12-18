@@ -175,3 +175,4 @@ void nextStageEffect(int stageNum)
     system("cls");
     
 }
+
