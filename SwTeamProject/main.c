@@ -128,7 +128,6 @@ void gameStart(void) {
 			//«√∑π¿ÃæÓ ªË¡¶ and ¿ßƒ° ¿Áº≥¡§ and ±‚∑œ∫Ø∞Ê
 			respawnPlayer(&p, stageArr[p.stageNum],difficulty,&npcArr,&npcNum);
 
-			//?åÎ†à?¥Ïñ¥ ??†ú and ?ÑÏπò ?¨ÏÑ§??and Í∏∞Î°ùÎ≥ÄÍ≤?
 			UpdateRecord(&p);
 		}
 
@@ -149,6 +148,7 @@ void gameStart(void) {
 				drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 			InititemBox(speed1, speed2);
 			initNPC(npcArr, difficulty, p.stageNum, &npcNum);
+			npcArr = (NPC*)realloc(npcArr, sizeof(NPC) * npcNum);
 			safeZone(&z, p.stageNum, stageArr[p.stageNum]);
 			printZone(&z, p.stageNum);
 			p.x = p.spawnPos[p.stageNum][0];
