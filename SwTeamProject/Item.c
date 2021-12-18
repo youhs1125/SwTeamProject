@@ -131,11 +131,7 @@ void func_item(int itemNum, player* p, int stage[][60], NPC* npc, cloud* CloudAr
     if (itemNum == 13)
         p->life++;   //추가목숨부여
     else if (itemNum % 17 == 0)
-    {
-        respawnPlayer(p, stage, difficulty, &npc, npcNum);
-        UpdateRecord(p);
-        //이 함수에서 목숨 값 변경함
-    }
+        respawnPlayer(p, stage, difficulty, &npc, npcNum); //이 함수에서 목숨 값 변경함
     else if (itemNum == 19)    //세이프티존으로 순간이동
     {
         deletePlayer(p, stage);

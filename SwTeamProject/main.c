@@ -13,19 +13,15 @@ void gameStart(void);
 int main()
 {
 	int tmpStageArr[3][40][60];
-	for (int i = 0; i < 3; i++)
-		for (int j = 0; j < 40; j++)
-			for (int k = 0; k < 60; k++)
-				tmpStageArr[i][j][k] = stageArr[i][j][k];
+	memcpy(tmpStageArr, stageArr, sizeof(int) * 3 * 40 * 60);
+
 	initCmd();
 	while (1) {
 		system("cls");
 		//시작화면 
 		gameStart();
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 40; j++)
-				for (int k = 0; k < 60; k++)
-					stageArr[i][j][k] = tmpStageArr[i][j][k];
+		memcpy(stageArr, tmpStageArr, sizeof(int) * 3 * 40 * 60);
+
 	}
 
 	return 0;
@@ -59,7 +55,7 @@ void gameStart(void) {
 	initNPC(npcArr, difficulty, p.stageNum, &npcNum);
 	setDragonBallPos(dgball);
 
-	initSpecialCloud(sCloud, 5, dgball[p.stageNum]);
+	initSpecialCloud(sCloud, 5, dgball[p.stageNum],&p);
 
 	printCloud(stageArr[p.stageNum], dgball[p.stageNum]);
 	drawPlayer(&p);
@@ -143,7 +139,7 @@ void gameStart(void) {
 			p.stageNum++;
 			nextStageEffect(p.stageNum);
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
-			initSpecialCloud(sCloud, 5, dgball[p.stageNum]);
+			initSpecialCloud(sCloud, 5, dgball[p.stageNum],p);
 			for (int i = 0; i < 5; i++)			//구름 출력
 				drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 			InititemBox(speed1, speed2);
