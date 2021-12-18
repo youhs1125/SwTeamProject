@@ -8,15 +8,15 @@
 #include "NpcTrack.h"
 #include "characters.h"
 
-#define MAX 5      // ¾ÆÀÌÅÛ ÃÖ´ë °¹¼ö
+#define MAX 5      // ì•„ì´í…œ ìµœëŒ€ ê°¯ìˆ˜
 
 
-//¾ÆÀÌÅÛ ¹Ú½º ÃÊ±âÈ­
+//ì•„ì´í…œ ë°•ìŠ¤ ì´ˆê¸°í™”
 void InititemBox(int speed1, int speed2)
 {
     for (int i = 0; i < MAX; i++)
     {
-        it[i].flag = 1;   //ÃÊ±âÈ­ ´ç½Ã ¾ÆÀÌÅÛ À§Ä¡´Â º¸¿©Áö¸é ¾ÈµÊ
+        it[i].flag = 1;   //ì´ˆê¸°í™” ë‹¹ì‹œ ì•„ì´í…œ ìœ„ì¹˜ëŠ” ë³´ì—¬ì§€ë©´ ì•ˆë¨
         it[i].x = rand() % (stage1X - 2) + 1;
         for (int j = 0; j < i; j++) {
             while (it[i].x == it[j].x) {
@@ -25,12 +25,12 @@ void InititemBox(int speed1, int speed2)
         }
         it[i].y = 1;
         it[i].itemNum = itemNum(rand() % 5);
-        it[i].life = rand() % 10;   // ´ë±â½Ã°£
-        it[i].speed = rand() % (speed2 - speed1) + speed1;   //°³º° ½ºÇÇµå ºÎ¿©
+        it[i].life = rand() % 10;   // ëŒ€ê¸°ì‹œê°„
+        it[i].speed = rand() % (speed2 - speed1) + speed1;   //ê°œë³„ ìŠ¤í”¼ë“œ ë¶€ì—¬
     }
 }
 
-//¸Å ¹İº¹¹®¸¶´Ù ¾ÆÀÌÅÛ »ı¼º
+//ë§¤ ë°˜ë³µë¬¸ë§ˆë‹¤ ì•„ì´í…œ ìƒì„±
 int itemNum(int num)
 {
     if (num == 0)   return 13;
@@ -40,7 +40,7 @@ int itemNum(int num)
     else if (num == 4) return 29;
 }
 
-//¾ÆÀÌÅÛ°ú ÇÃ·¹ÀÌ¾î Ãæµ¹ °¨Áö
+//ì•„ì´í…œê³¼ í”Œë ˆì´ì–´ ì¶©ëŒ ê°ì§€
 int Detectitem(player* p, int i, int stage[][60])
 {
     if ((p->x == it[i].x) && (p->y == it[i].y || p->y + 1 == it[i].y || p->y + 2 == it[i].y)) {
@@ -50,33 +50,33 @@ int Detectitem(player* p, int i, int stage[][60])
     else return 0;
 }
 
-//Ãæµ¹½Ã Ãæµ¹ÇÑ ¾ÆÀÌÅÛÀÇ ÁÂÇ¥ ÃÊ±âÈ­ (¸Ê¿¡ ±×´ë·Î ³²¾ÆÀÖ´Â °Í ÇØ°á)
-void InitPosition(item* item)   // »õ·Î¿î ¾ÆÀÌÅÛÀ¸·Î º¯È¯
+//ì¶©ëŒì‹œ ì¶©ëŒí•œ ì•„ì´í…œì˜ ì¢Œí‘œ ì´ˆê¸°í™” (ë§µì— ê·¸ëŒ€ë¡œ ë‚¨ì•„ìˆëŠ” ê²ƒ í•´ê²°)
+void InitPosition(item* item)   // ìƒˆë¡œìš´ ì•„ì´í…œìœ¼ë¡œ ë³€í™˜
 {
     int speed1 = 1, speed2 = 5;
-    item->flag = 1;   //ÃÊ±âÈ­ ´ç½Ã ¾ÆÀÌÅÛ À§Ä¡´Â º¸¿©Áö¸é ¾ÈµÊ
+    item->flag = 1;   //ì´ˆê¸°í™” ë‹¹ì‹œ ì•„ì´í…œ ìœ„ì¹˜ëŠ” ë³´ì—¬ì§€ë©´ ì•ˆë¨
     item->x = rand() % (stage1X - 2) + 1;
     item->y = 1;
     item->itemNum = itemNum(rand() % 5);
-    item->life = rand() % 10;   // ´ë±â½Ã°£
-    item->speed = rand() % (speed2 - speed1) + speed1;   //°³º° ½ºÇÇµå ºÎ¿©
+    item->life = rand() % 10;   // ëŒ€ê¸°ì‹œê°„
+    item->speed = rand() % (speed2 - speed1) + speed1;   //ê°œë³„ ìŠ¤í”¼ë“œ ë¶€ì—¬
 }
 
-//¾ÆÀÌÅÛ ¶³¾îÁü
+//ì•„ì´í…œ ë–¨ì–´ì§
 void Fallitem(player* p, int stage[][60], NPC* npc, cloud* cloudArr, int CloudSize, zone* z, int difficulty, int* npcNum)
 {
     for (int i = 0; i < MAX; i++)
     {
         if (Detectitem(p, i, stage) == 1)
         {
-            // ¾ÆÀÌÅÛ È°¼ºÈ­
-            func_item(it[i].itemNum, p, stage, npc, cloudArr, CloudSize, z, difficulty, npcNum);   //itemNum ÀÎµ¦½º¿¡ ÇØ´çÇÏ´Â ±â´É ¼öÇà
+            // ì•„ì´í…œ í™œì„±í™”
+            func_item(it[i].itemNum, p, stage, npc, cloudArr, CloudSize, z, difficulty, npcNum);   //itemNum ì¸ë±ìŠ¤ì— í•´ë‹¹í•˜ëŠ” ê¸°ëŠ¥ ìˆ˜í–‰
             InitPosition(&it[i]);
             UpdateRecord(p);
             // printf("%d", p->life);
         }
 
-        if (it[i].flag == 1 && --it[i].life <= 0)   //ÇØ´ç ÀÎµ¦½º¿¡ ¾ÆÀÌÅÛ ÀÖÀ¸¸é ¿òÁ÷ÀÓ ½ÇÇà, ÇöÀç ¾ÆÀÌÅÛ ÀÎµ¦½ºÀÇ ´ë±â½Ã°£ ÅÏÁ¦·Î ÁÙÀÌ¸é¼­ ÀÚ½ÅÀÇ ¼ø¼­ ±â´Ù¸²
+        if (it[i].flag == 1 && --it[i].life <= 0)   //í•´ë‹¹ ì¸ë±ìŠ¤ì— ì•„ì´í…œ ìˆìœ¼ë©´ ì›€ì§ì„ ì‹¤í–‰, í˜„ì¬ ì•„ì´í…œ ì¸ë±ìŠ¤ì˜ ëŒ€ê¸°ì‹œê°„ í„´ì œë¡œ ì¤„ì´ë©´ì„œ ìì‹ ì˜ ìˆœì„œ ê¸°ë‹¤ë¦¼
         {
             int posX = OriginX + it[i].x * 2;
             int posY = OriginY + it[i].y;
@@ -85,15 +85,15 @@ void Fallitem(player* p, int stage[][60], NPC* npc, cloud* cloudArr, int CloudSi
             int pY = OriginY + p->y;
 
 
-            if (posY == OriginY + stage1Y - 2)   //ÃÖ´ë ¼¼·Î °Å¸® ÀÓ½Ã ÁöÁ¤
-            {    //ÃÖ´ë °Å¸®±îÁö °¬´Ù¸é Áö¿öÁÖ°í flag check ¼öÁ¤
+            if (posY == OriginY + stage1Y - 2)   //ìµœëŒ€ ì„¸ë¡œ ê±°ë¦¬ ì„ì‹œ ì§€ì •
+            {    //ìµœëŒ€ ê±°ë¦¬ê¹Œì§€ ê°”ë‹¤ë©´ ì§€ì›Œì£¼ê³  flag check ìˆ˜ì •
                 deleteItem(i, stage);
                 InitPosition(&it[i]);
                 continue;
             }
 
-            //´ë±â½Ã°£ ³¡³µÀ¸¸é ÀÚ½ÅÀÇ ½ºÇÇµå¸¸Å­ 
-            it[i].life = it[i].speed;    //speed¶ó´Â°Ô °á±¹ ÅÏÁ¦. ÀÛÀ» ¼ö·Ï ¶³¾îÁö´Â ¼Óµµ »¡¶óº¸ÀÓ
+            //ëŒ€ê¸°ì‹œê°„ ëë‚¬ìœ¼ë©´ ìì‹ ì˜ ìŠ¤í”¼ë“œë§Œí¼ 
+            it[i].life = it[i].speed;    //speedë¼ëŠ”ê²Œ ê²°êµ­ í„´ì œ. ì‘ì„ ìˆ˜ë¡ ë–¨ì–´ì§€ëŠ” ì†ë„ ë¹¨ë¼ë³´ì„
 
             deleteItem(i, stage);
             it[i].y++;
@@ -106,15 +106,15 @@ void Fallitem(player* p, int stage[][60], NPC* npc, cloud* cloudArr, int CloudSi
 
 void showItem(int num)
 {
-    if (num == 13) printf("¢¾");
+    if (num == 13) printf("â™¥");
     else if (num == 17) {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
-        printf("¡å");
+        printf("â–¼");
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
     }
-    else if (num == 19) printf("¡Î");
-    else if (num == 23) printf("¨ª");
-    else if (num == 29) printf("¢¢");
+    else if (num == 19) printf("â™‚");
+    else if (num == 23) printf("Ã˜");
+    else if (num == 29) printf("â‡”");
 }
 
 void deleteItem(int i, int stage[][60]) {
@@ -129,10 +129,10 @@ void deleteItem(int i, int stage[][60]) {
 void func_item(int itemNum, player* p, int stage[][60], NPC* npc, cloud* CloudArr, int CloudSize, zone* z, int difficulty, int* npcNum)
 {
     if (itemNum == 13)
-        p->life++;   //Ãß°¡¸ñ¼ûºÎ¿©
+        p->life++;   //ì¶”ê°€ëª©ìˆ¨ë¶€ì—¬
     else if (itemNum % 17 == 0)
-        respawnPlayer(p, stage, difficulty, &npc, npcNum); //ÀÌ ÇÔ¼ö¿¡¼­ ¸ñ¼û °ª º¯°æÇÔ
-    else if (itemNum == 19)    //¼¼ÀÌÇÁÆ¼Á¸À¸·Î ¼ø°£ÀÌµ¿
+        respawnPlayer(p, stage, difficulty, &npc, npcNum); //ì´ í•¨ìˆ˜ì—ì„œ ëª©ìˆ¨ ê°’ ë³€ê²½í•¨
+    else if (itemNum == 19)    //ì„¸ì´í”„í‹°ì¡´ìœ¼ë¡œ ìˆœê°„ì´ë™
     {
         deletePlayer(p, stage);
         //p->x = (OriginX + stage1X) / 2; p->y = (OriginY + stage1Y) / 2;
@@ -140,14 +140,14 @@ void func_item(int itemNum, player* p, int stage[][60], NPC* npc, cloud* CloudAr
         p->y = (z->y[p->stageNum] + z->y[p->stageNum] + safeY) / 2;
         drawPlayer(p);
     }
-    else if (itemNum == 23) {//±â´É ¶Ç ¹¹ Ãß°¡???
+    else if (itemNum == 23) {//ê¸°ëŠ¥ ë˜ ë­ ì¶”ê°€???
         npc[0].npcSpeed = 100;
         npc[1].npcSpeed = 100;
         npc[0].isMoving = 0;
         npc[1].isMoving = 0;
     }
     else if (itemNum == 29) {
-        changeCloudType(CloudArr, CloudSize, stage);    //±¸¸§ Á¾·ù¹Ù²ãÁÜ(Á¾·ù, ÀÌµ¿)
+        changeCloudType(CloudArr, CloudSize, stage);    //êµ¬ë¦„ ì¢…ë¥˜ë°”ê¿”ì¤Œ(ì¢…ë¥˜, ì´ë™)
     }
 }
 
@@ -163,9 +163,9 @@ void InitZone(zone* z)
 
 void printSafe()
 {
-    //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 ¿¬ÇÑ »¡°­
+    //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 ì—°í•œ ë¹¨ê°•
 
-    printf("¡Ş");
+    printf("â—‡");
 }
 
 void safeZone(zone* z, int stageNum, int stage[][60])
@@ -191,20 +191,20 @@ void printZone(zone* z, int stageNum)
         int posX = OriginX + (z->x[stageNum] + i) * 2;
         int posY = z->y[stageNum] + OriginY;
         SetCurrentCursorPos(posX, posY);
-        printf("¡Ş");
+        printf("â—‡");
         posY += safeY - 1;
         SetCurrentCursorPos(posX, posY);
-        printf("¡Ş");
+        printf("â—‡");
     }
     for (int i = 0; i < safeY; i++)
     {
         int posX = OriginX + (z->x[stageNum]) * 2;
         int posY = z->y[stageNum] + OriginY + i;
         SetCurrentCursorPos(posX, posY);
-        printf("¡Ş");
+        printf("â—‡");
         posX = OriginX + (z->x[stageNum] + safeX - 1) * 2;
         SetCurrentCursorPos(posX, posY);
-        printf("¡Ş");
+        printf("â—‡");
     }
 }
 
