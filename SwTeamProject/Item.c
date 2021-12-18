@@ -9,66 +9,7 @@
 #include "characters.h"
 
 #define MAX 5      // 아이템 최대 갯수
-#define safeX 15
-#define safeY 10
-//안전 범위 출력
 
-void InitZone(zone* z)
-{
-    z->x[0] = 2;
-    z->y[0] = 1;
-    z->x[1] = 31;
-    z->y[1] = 23;
-    z->x[2] = 16;
-    z->y[2] = 18;
-}
-
-void printSafe()
-{
-    //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 연한 빨강
-
-    printf("◇");
-}
-
-void safeZone(zone* z, int stageNum, int stage[][60])
-{
-    int i;
-    for (int i = 1; i < safeX -1; i++)
-    {
-        stage[z->y[stageNum]][z->x[stageNum] + i] *= 37;
-        stage[z->y[stageNum] + safeY - 1][z->x[stageNum] + i] *= 37;
-    }
-    for (int i = 0; i < safeY; i++)
-    {
-        stage[z->y[stageNum] + i][z->x[stageNum]] *= 37;
-        stage[z->y[stageNum] + i][z->x[stageNum] + safeX -1] *= 37;
-    }
-}
-
-void printZone(zone* z, int stageNum)
-{
-    int i;
-    for (int i = 1; i < safeX - 1; i++)
-    {
-        int posX = OriginX + (z->x[stageNum] + i) * 2;
-        int posY = z->y[stageNum] + OriginY;
-        SetCurrentCursorPos(posX, posY);
-        printf("◇");
-        posY += safeY -1;
-        SetCurrentCursorPos(posX, posY);
-        printf("◇");
-    }
-    for (int i = 0; i < safeY; i++)
-    {
-        int posX = OriginX + (z->x[stageNum]) * 2;
-        int posY = z->y[stageNum] + OriginY + i;
-        SetCurrentCursorPos(posX, posY);
-        printf("◇");
-        posX = OriginX + (z->x[stageNum] + safeX -1) * 2;
-        SetCurrentCursorPos(posX, posY);
-        printf("◇");
-    }
-}
 
 //아이템 박스 초기화
 void InititemBox(int speed1, int speed2)
@@ -77,6 +18,11 @@ void InititemBox(int speed1, int speed2)
     {
         it[i].flag = 1;   //초기화 당시 아이템 위치는 보여지면 안됨
         it[i].x = rand() % (stage1X - 2) + 1;
+        for (int j = 0; j < i; j++) {
+            while (it[i].x == it[j].x) {
+                it[i].x = rand() % (stage1X - 2) + 1;
+            }
+        }
         it[i].y = 1;
         it[i].itemNum = itemNum(rand() % 5);
         it[i].life = rand() % 10;   // 대기시간

@@ -51,10 +51,10 @@ void gameStart(void) {
 	int jumpFlag = 0;
 	int count = 0;
 
-	nextStageEffect();
-
-	printStage();
 	initPlayer(&p);
+	nextStageEffect(p.stageNum);
+	printStage();
+	
 	initNPC(npcArr, difficulty, p.stageNum, &npcNum);
 	setDragonBallPos(dgball);
 
@@ -138,7 +138,7 @@ void gameStart(void) {
 				return;
 			}
 			p.stageNum++;
-			nextStageEffect();
+			nextStageEffect(p.stageNum);
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5, dgball[p.stageNum]);
 			for (int i = 0; i < 5; i++)			//구름 출력
