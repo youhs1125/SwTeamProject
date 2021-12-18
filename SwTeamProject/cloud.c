@@ -264,32 +264,24 @@ int cloudColl(int x, int y, int size, int stage[][60])
 void printJumpCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3); //3 옥색
-	//printf("◎");
-	//printf("●");
-	printf("■");
-}
+	printf("◎");
+	}
 
 void printWeakCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);		//10 연한 초록
-	//printf("◎");
-	printf("■");
-	//printf("●");
+	printf("◎");
 }
 
 void printBlinkCloud()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 8);	//8 회색
-	//printf("◎");
-	printf("■");
-	//printf("●");
+	printf("◎");
 }
 
 void printNormalCloud()
 {
-	//printf("◎");
-	printf("■");
-	//printf("●");
+	printf("◎");
 }
 
 void printTrapCloud()

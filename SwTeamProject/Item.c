@@ -63,14 +63,14 @@ void InitPosition(item* item)   // 새로운 아이템으로 변환
 }
 
 //아이템 떨어짐
-void Fallitem(player* p, int stage[][60], NPC* npc, cloud* cloudArr, int CloudSize, zone* z)
+void Fallitem(player* p, int stage[][60], NPC* npc, cloud* cloudArr, int CloudSize, zone* z, int difficulty, int* npcNum)
 {
     for (int i = 0; i < MAX; i++)
     {
         if (Detectitem(p, i, stage) == 1)
         {
             // 아이템 활성화
-            func_item(it[i].itemNum, p, stage, npc, cloudArr, CloudSize, z);   //itemNum 인덱스에 해당하는 기능 수행
+            func_item(it[i].itemNum, p, stage, npc, cloudArr, CloudSize, z, difficulty, npcNum);   //itemNum 인덱스에 해당하는 기능 수행
             InitPosition(&it[i]);
             UpdateRecord(p);
             // printf("%d", p->life);
@@ -126,13 +126,15 @@ void deleteItem(int i, int stage[][60]) {
     recoverCloud(it[i].x, it[i].y, stage);
 }
 
-void func_item(int itemNum, player* p, int stage[][60], NPC* npc, cloud* CloudArr, int CloudSize, zone* z)
+void func_item(int itemNum, player* p, int stage[][60], NPC* npc, cloud* CloudArr, int CloudSize, zone* z, int difficulty, int* npcNum)
 {
     if (itemNum == 13)
         p->life++;   //추가목숨부여
     else if (itemNum % 17 == 0)
     {
-        respawnPlayer(p, stage);    //이 함수에서 목숨 값 변경함
+        respawnPlayer(p, stage, difficulty, &npc, npcNum);
+        UpdateRecord(p);
+        //이 함수에서 목숨 값 변경함
     }
     else if (itemNum == 19)    //세이프티존으로 순간이동
     {
@@ -153,6 +155,61 @@ void func_item(int itemNum, player* p, int stage[][60], NPC* npc, cloud* CloudAr
     }
 }
 
+void InitZone(zone* z)
+{
+    z->x[0] = 2;
+    z->y[0] = 1;
+    z->x[1] = 31;
+    z->y[1] = 23;
+    z->x[2] = 16;
+    z->y[2] = 18;
+}
 
+void printSafe()
+{
+    //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 12 연한 빨강
+
+    printf("◇");
+}
+
+void safeZone(zone* z, int stageNum, int stage[][60])
+{
+    int i;
+    for (int i = 1; i < safeX - 1; i++)
+    {
+        stage[z->y[stageNum]][z->x[stageNum] + i] *= 37;
+        stage[z->y[stageNum] + safeY - 1][z->x[stageNum] + i] *= 37;
+    }
+    for (int i = 0; i < safeY; i++)
+    {
+        stage[z->y[stageNum] + i][z->x[stageNum]] *= 37;
+        stage[z->y[stageNum] + i][z->x[stageNum] + safeX - 1] *= 37;
+    }
+}
+
+void printZone(zone* z, int stageNum)
+{
+    int i;
+    for (int i = 1; i < safeX - 1; i++)
+    {
+        int posX = OriginX + (z->x[stageNum] + i) * 2;
+        int posY = z->y[stageNum] + OriginY;
+        SetCurrentCursorPos(posX, posY);
+        printf("◇");
+        posY += safeY - 1;
+        SetCurrentCursorPos(posX, posY);
+        printf("◇");
+    }
+    for (int i = 0; i < safeY; i++)
+    {
+        int posX = OriginX + (z->x[stageNum]) * 2;
+        int posY = z->y[stageNum] + OriginY + i;
+        SetCurrentCursorPos(posX, posY);
+        printf("◇");
+        posX = OriginX + (z->x[stageNum] + safeX - 1) * 2;
+        SetCurrentCursorPos(posX, posY);
+        printf("◇");
+    }
+}
 
 

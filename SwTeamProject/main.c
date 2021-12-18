@@ -20,7 +20,7 @@ int main()
 	initCmd();
 	while (1) {
 		system("cls");
-		//?œì‘?”ë©´ 
+		//½ÃÀÛÈ­¸é 
 		gameStart();
 		for (int i = 0; i < 3; i++)
 			for (int j = 0; j < 40; j++)
@@ -33,16 +33,17 @@ int main()
 
 void gameStart(void) {
 	initCmd();
-	//?œì‘?”ë©´ 
+	//½ÃÀÛÈ­¸é 
 	int difficulty = printStartScreen();
 	player p;
 	DragonBall dgball[3][3];
 	StageDoor stageDoor[3];
 	cloud sCloud[5];
 
-	NPC *npcArr;
-	npcArr = (NPC*)malloc(sizeof(NPC) * 3);
+	NPC* npcArr;
 	int npcNum = 1;
+
+	npcArr = (NPC*)malloc(sizeof(NPC) * 3);
 
 	srand((unsigned int)time(NULL));
 
@@ -68,7 +69,7 @@ void gameStart(void) {
 	setStageDoor(stageDoor);
 	printStageDoor(stageDoor, stageArr[p.stageNum], p.stageNum);
 
-	for (int i = 0; i < 5; i++)			//êµ¬ë¦„ ì¶œë ¥
+	for (int i = 0; i < 5; i++)			//±¸¸§ Ãâ·Â
 		drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 
 	zone z;
@@ -79,7 +80,8 @@ void gameStart(void) {
 
 
 
-	//?„ì´??ê´€??	int speed1 = 1, speed2 = 5;
+	//¾ÆÀÌÅÛ °ü·Ã
+	int speed1 = 1, speed2 = 5;
 
 	item item[50];
 	InititemBox(speed1, speed2);
@@ -106,30 +108,36 @@ void gameStart(void) {
 
 
 
-		//?Œë ˆ?´ì–´ ?´ë™
+		//ÇÃ·¹ÀÌ¾î ÀÌµ¿
 
 		jumpFlag = playerJump(&p, &jump, stageArr[p.stageNum]);
 		count++;
 
 
-		if (jumpFlag == 1) //?í”„ ?„ë£Œ ???¬ì ??
+		if (jumpFlag == 1) //Á¡ÇÁ ¿Ï·á ÈÄ ÀçÁ¡ÇÁ 
 		{
 			jump = collSpecialCloud(sCloud, &p, stageArr[p.stageNum]);
 		}
-		else if (jumpFlag == -1) //ì¶”ë½??ê²½ìš°
+		else if (jumpFlag == -1) //Ãß¶ôÇÑ °æ¿ì
 		{
-			//npc ?? œ?´ì£¼ê³??„ì¹˜ ?¬ì„¤??			//deleteNpc(&npcArr, stageArr[p.stageNum]);
+			//npc »èÁ¦ÇØÁÖ°í À§Ä¡ Àç¼³Á¤
+			//deleteNpc(&npcArr, stageArr[p.stageNum]);
 			/*npc.x = 1; npc.y = 1*/;
 
-			//?Œë ˆ?´ì–´ ?? œ and ?„ì¹˜ ?¬ì„¤??and ê¸°ë¡ë³€ê²?			respawnPlayer(&p, stageArr[p.stageNum]);
+
+			//ÇÃ·¹ÀÌ¾î »èÁ¦ and À§Ä¡ Àç¼³Á¤ and ±â·Ïº¯°æ
+			respawnPlayer(&p, stageArr[p.stageNum],difficulty,&npcArr,&npcNum);
+
+			//?Œë ˆ?´ì–´ ?? œ and ?„ì¹˜ ?¬ì„¤??and ê¸°ë¡ë³€ê²?
 			UpdateRecord(&p);
 		}
-			respawnPlayer(&p, stageArr[p.stageNum],difficulty,&npcArr,&npcNum);
-		//?œë˜ê³¤ë³¼ and ?¤í…Œ?´ì? ì¢…ë£Œ ?•ì¸
-		if (dragonBallGet(&p, dgball[p.stageNum], stageArr[p.stageNum]) == 1) //?œë˜ê³¤ë³¼ ?„ì¹˜?€ ?Œë ˆ?´ì–´ ?„ì¹˜ ë¹„êµ ???•ë³´ ?…ë°?´íŠ¸
+
+		//µå·¡°ïº¼ and ½ºÅ×ÀÌÁö Á¾·á È®ÀÎ
+		if (dragonBallGet(&p, dgball[p.stageNum], stageArr[p.stageNum]) == 1) //µå·¡°ïº¼ À§Ä¡¿Í ÇÃ·¹ÀÌ¾î À§Ä¡ ºñ±³ ÈÄ Á¤º¸ ¾÷µ¥ÀÌÆ®
 			UpdateRecord(&p);
-		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //?œë˜ê³¤ë³¼ ?„ë? ëª¨ìœ¼ê³?and ë¬??ì— ???ˆìœ¼ë©??¤ìŒ ?¤í…Œ?´ì?ë¡??´ë™
-			//ë§ˆì?ë§??¤í…Œ?´ì? ?µê³¼?˜ë©´ ê²Œì„ ?ë‚´ê¸?			if (p.stageNum == 2) {
+		if (checkStageDoor(&p, stageDoor, p.stageNum)) { //µå·¡°ïº¼ ÀüºÎ ¸ğÀ¸°í and ¹® ¾Õ¿¡ ¼­ ÀÖÀ¸¸é ´ÙÀ½ ½ºÅ×ÀÌÁö·Î ÀÌµ¿
+			//¸¶Áö¸· ½ºÅ×ÀÌÁö Åë°úÇÏ¸é °ÔÀÓ ³¡³»±â
+			if (p.stageNum == 2) {
 				gameClearScreen();
 				return;
 			}
@@ -137,7 +145,7 @@ void gameStart(void) {
 			nextStageEffect(p.stageNum);
 			gotoNextStage(&p, dgball, stageDoor, stageArr[p.stageNum]);
 			initSpecialCloud(sCloud, 5, dgball[p.stageNum]);
-			for (int i = 0; i < 5; i++)			//êµ¬ë¦„ ì¶œë ¥
+			for (int i = 0; i < 5; i++)			//±¸¸§ Ãâ·Â
 				drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 			InititemBox(speed1, speed2);
 			initNPC(npcArr, difficulty, p.stageNum, &npcNum);
@@ -145,26 +153,25 @@ void gameStart(void) {
 			printZone(&z, p.stageNum);
 			p.x = p.spawnPos[p.stageNum][0];
 			p.y = p.spawnPos[p.stageNum][1];
-			npcArr = (NPC*)realloc(npcArr, sizeof(NPC) * npcNum);
 		}
 
 		processKeyInput(&p, stageArr[p.stageNum]);
 
 
-//		?Œë ˆ?´ì–´ ?€ì§ì¸ ??npc?´ë™ ?œì‘
-//		ì¶”ì  ?Œê³ ë¦¬ì¦˜ ?œì‘
+//		ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÎ ÈÄ npcÀÌµ¿ ½ÃÀÛ
+//		ÃßÀû ¾Ë°í¸®Áò ½ÃÀÛ
 		for (int i = 0; i < npcNum; i++) {
 			addNpcCnt(&npcArr[i]);
-			int dis = min(getDistance(p.x - npcArr[i].x, p.y - npcArr[i].y), getDistance(p.x - npcArr[i].x, p.y + 1 - npcArr[i].y)); //ìºë¦­?°ì? npc?¬ì´??ê±°ë¦¬
+			int dis = min(getDistance(p.x - npcArr[i].x, p.y - npcArr[i].y), getDistance(p.x - npcArr[i].x, p.y + 1 - npcArr[i].y)); //Ä³¸¯ÅÍ¿Í npc»çÀÌÀÇ °Å¸®
 			dis = min(dis, getDistance(p.x - npcArr[i].x, p.y + 2 - npcArr[i].y));
-			if (dis == 0) {  //ìµœì†Œ ê±°ë¦¬ ë£¨íŠ¸2 ?´í•˜?´ë©´ ?ë‚´ê¸?
+			if (dis == 0) {  //ÃÖ¼Ò °Å¸® ·çÆ®2 ÀÌÇÏÀÌ¸é ³¡³»±â.
 				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
 				deletePlayer(&p, stageArr[p.stageNum]);
-				respawnPlayer(&p, stageArr[p.stageNum]);
+				respawnPlayer(&p, stageArr[p.stageNum],difficulty,&npcArr,&npcNum);
 			}
 			if (npcArr[i].cnt % npcArr[i].npcSpeed == 0) {
 				deleteNpc(&npcArr[i], stageArr[p.stageNum]);
-				respawnPlayer(&p, stageArr[p.stageNum], difficulty, &npcArr, &npcNum);
+				updateNpcPos(&z, &p, &npcArr[i]);
 				drawNpc(&npcArr[i]);
 			}
 			else {
@@ -173,8 +180,10 @@ void gameStart(void) {
 			}
 		}
 
-		//ìºë¦­?? npc ?´í›„ ?„ì´??		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5, &z);
+
+		//Ä³¸¯ÅÍ, npc ÀÌÈÄ ¾ÆÀÌÅÛ
 		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5, &z, difficulty, &npcNum);
+
 	}
 	system("cls");
 	printEndScreen();
