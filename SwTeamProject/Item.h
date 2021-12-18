@@ -3,10 +3,6 @@
 #define safeX 15
 #define safeY 10
 
-typedef struct zone {
-	int x[3];
-	int y[3];
-}zone;
 
 typedef struct item {
 	int x, y;

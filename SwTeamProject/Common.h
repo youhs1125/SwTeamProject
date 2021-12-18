@@ -16,6 +16,15 @@
 #define LEFT 75
 #define RIGHT 77
 #define JUMPHEIGHT -6
+#define safeX 15
+#define safeY 10
+
+typedef struct zone {
+	int x[3];
+	int y[3];
+}zone;
+
+
 //초기 화면 설정
 void initCmd();
 void SetCurrentCursorPos(int x, int y);
@@ -39,3 +48,7 @@ int jumpColl(int x, int y, int stage[][60]);
 int JumpVector(int y);
 int playerJump(player* p, int* jump, int stage[][60]);
 //printCloud 선언하면 오류 생김...
+void InitZone(zone* z);
+void printSafe();
+void safeZone(zone* z, int stageNum, int stage[][60]);
+void printZone(zone* z, int stageNum);
