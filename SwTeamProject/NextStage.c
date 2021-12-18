@@ -41,14 +41,25 @@ void printPortal() {
 
 void nextStageEffect()
 {
-	int i,j;
-	SetCurrentCursorPos(0, 0);
-	for (j = 0; j < 45; j++)
-	{
-		for (i = 0; i < 80; i++)
-			printf("бс");
-		Sleep(10);
-		printf("\n");
+	system("cls");
+	for (int j = 0; j < 45; j++) {
+		if(j%2 == 0)
+			for (int i = 0; i < 100; i++) {
+				for (int k = j; k < j + 9; k++) {
+					SetCurrentCursorPos(2 * i, k);
+					printf("бр");
+				}
+				Sleep(1);
+			}
+		else 
+			for (int i = 99; i >= 0; i--) {
+				for (int k = j; k < j + 9; k++) {
+					SetCurrentCursorPos(2 * i, k);
+					printf("бс");
+				}
+				Sleep(1);
+			}
+		j += 8;
 	}
 	system("cls");
 	return;
