@@ -156,7 +156,6 @@ void nextStageEffect(int stageNum)
                     SetCurrentCursorPos(2 * i, k);
                     printf("бр");
                 }
-                Sleep(1);
             }
         else
             for (int i = 99; i >= 0; i--) {
@@ -164,7 +163,6 @@ void nextStageEffect(int stageNum)
                     SetCurrentCursorPos(2 * i, k);
                     printf("бс");
                 }
-                Sleep(1);
             }
         j += 8;
     }

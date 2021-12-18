@@ -40,7 +40,7 @@ void gameStart(void) {
 	StageDoor stageDoor[3];
 	cloud sCloud[5];
 
-	NPC* npcArr;
+	NPC* npcArr = NULL;
 	int npcNum = 1;
 
 	npcArr = (NPC*)malloc(sizeof(NPC) * 3);
@@ -147,8 +147,9 @@ void gameStart(void) {
 			for (int i = 0; i < 5; i++)			//구름 출력
 				drawSpecialCloud(&sCloud[i], stageArr[p.stageNum]);
 			InititemBox(speed1, speed2);
+			SetCurrentCursorPos(0, 0);
 			initNPC(npcArr, difficulty, p.stageNum, &npcNum);
-			npcArr = (NPC*)realloc(npcArr, sizeof(NPC) * npcNum);
+
 			safeZone(&z, p.stageNum, stageArr[p.stageNum]);
 			printZone(&z, p.stageNum);
 			p.x = p.spawnPos[p.stageNum][0];
@@ -184,6 +185,11 @@ void gameStart(void) {
 		//캐릭터, npc 이후 아이템
 		Fallitem(&p, stageArr[p.stageNum], npcArr, sCloud, 5, &z, difficulty, &npcNum);
 
+	}
+	if (npcArr != NULL)
+	{
+		free(npcArr);
+		npcArr = NULL;
 	}
 	system("cls");
 	printEndScreen();

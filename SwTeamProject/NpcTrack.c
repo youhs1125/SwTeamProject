@@ -126,6 +126,7 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int* npcNum)
 	if (diff == E) {
 		if (stageNum == 0) {
 			*npcNum = 1;
+			npcArr = (NPC*)realloc(npcArr, sizeof(NPC) * (*npcNum));
 			npcArr[0].homeX = 10; npcArr[0].homeY = 13;
 			//npcArr[1].homeX = 50; npcArr[1].homeY = 20;
 
@@ -134,6 +135,7 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int* npcNum)
 		}
 		else if (stageNum == 1) {
 			*npcNum = 2;
+			npcArr = (NPC*)realloc(npcArr, sizeof(NPC) * (*npcNum));
 			npcArr[0].homeX = 10; npcArr[0].homeY = 10;
 			npcArr[1].homeX = 50; npcArr[1].homeY = 20;
 
@@ -144,6 +146,7 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int* npcNum)
 		}
 		else {
 			*npcNum = 2;
+			npcArr = (NPC*)realloc(npcArr, sizeof(NPC) * (*npcNum));
 			npcArr[0].homeX = 10; npcArr[0].homeY = 10;
 			npcArr[1].homeX = 45; npcArr[1].homeY = 5;
 
@@ -157,6 +160,7 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int* npcNum)
 	if (diff == H) {
 		if (stageNum == 0) {
 			*npcNum = 2;
+			npcArr = (NPC*)realloc(npcArr, sizeof(NPC) * (*npcNum));
 			npcArr[0].homeX = 10; npcArr[0].homeY = 13;
 			npcArr[1].homeX = 50; npcArr[1].homeY = 20;
 
@@ -167,6 +171,7 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int* npcNum)
 		}
 		else if (stageNum == 1) {
 			*npcNum = 2;
+			npcArr = (NPC*)realloc(npcArr, sizeof(NPC) * (*npcNum));
 			npcArr[0].homeX = 10; npcArr[0].homeY = 10;
 			npcArr[1].homeX = 50; npcArr[1].homeY = 20;
 
@@ -177,6 +182,7 @@ void initNPC(NPC* npcArr, int diff, int stageNum, int* npcNum)
 		}
 		else {
 			*npcNum = 3;
+			npcArr = (NPC*)realloc(npcArr, sizeof(NPC) * (*npcNum));
 			npcArr[0].homeX = 10; npcArr[0].homeY = 10;
 			npcArr[1].homeX = 50; npcArr[1].homeY = 20;
 			npcArr[2].homeX = 40; npcArr[2].homeY = 35;
