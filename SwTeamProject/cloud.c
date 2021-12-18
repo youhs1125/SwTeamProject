@@ -83,7 +83,7 @@ void deleteSpecialCloud(cloud* cloud, int stage[][60])
 	
 	for (i = 0; i < cloud->size; i++)
 	{
-		if (stage[cloud->y][cloud->x + i] != 37 && stage[cloud -> y][cloud->x + i] > 2)
+		if (stage[cloud->y][cloud->x + i] != 37 && stage[cloud->y][cloud->x + i] != 97 && stage[cloud->y][cloud->x + i] != 89 && stage[cloud -> y][cloud->x + i] > 2)
 		{
 			flag = 1;
 			stage[cloud->y][cloud->x + i] /= cloud->cloudType;
